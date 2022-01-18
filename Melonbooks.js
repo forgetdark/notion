@@ -1,4 +1,5 @@
 javascript:(function(){
+  var url = location.href;
   var cover = $('#main_new a').attr('href');
   var thumbs_list = [];
   var thumbs = document.querySelectorAll('.thumb_detail');
