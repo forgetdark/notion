@@ -13,6 +13,8 @@ javascript:(function(){
     });
     var description = $('.product-detail-comment-item').find('p').text();
     $(info).append('<button type="button" class="btn-copy" data-type="description" data-content="'+description+'">描述</button>');
+    var title = document.querySelector('.product-detail-desc-title');
+    $(info).append('<button type="button" class="btn-copy" data-type="stripe" data-content="'+title+'">タイトル</button>');
     var stripe = document.querySelectorAll('.product-detail-spec-table tr');
     var object = [];
     stripe.forEach(function(item, index) {
