@@ -10,7 +10,7 @@ javascript:(function(){
       var img = $(thumb).find('a').attr('href');
       $('.info').append('<button type="button" class="btn-copy" data-type="thumbs" data-content="'+img+'">縮圖'+(index+1)+'</button>');
     });
-    var description = $('#description').find('p').html();
+    var description = $('#description').find('p').text();
     $('.info').append('<button type="button" class="btn-copy" data-type="description" data-content="'+description+'">描述</button>');
     var stripe = document.querySelectorAll('.odd');
     var object = [];
@@ -31,8 +31,7 @@ javascript:(function(){
       try {
         navigator.clipboard.writeText(copy_msg)
         .then(() => {
-          alert("Text copied to clipboard...");
-          console.log(copy_msg);
+          console.log("Text copied to clipboard...");
         })
         .catch(err => {
           console.log('Something went wrong', err);
