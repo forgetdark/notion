@@ -1,6 +1,6 @@
 javascript:(function(){
   if ($('.btn-copy').length == 0) {
-    $('body').append('<style>.btn-copy {color:#FFF;background:#ff9800;border:0px;padding:3px 5px;margin:5px;}</style>');
+    $('body').append('<style>.btn-copy {cursor:pointer;color:#FFF;background:#ff9800;border:0px;padding:3px 5px;margin:5px;}</style>');
     var info = '.product-detail-infosub-btn-area';
     var url = location.href;
     $(info).append('<button type="button" class="btn-copy" data-type="url" data-content="'+url+'">連結</button>');
@@ -13,7 +13,7 @@ javascript:(function(){
     });
     var description = $('.product-detail-comment-item').find('p').text();
     $(info).append('<button type="button" class="btn-copy" data-type="description" data-content="'+description+'">描述</button>');
-    var title = document.querySelector('.product-detail-desc-title');
+    var title = $('.product-detail-desc-title').find('span').text();
     $(info).append('<button type="button" class="btn-copy" data-type="stripe" data-content="'+title+'">タイトル</button>');
     var stripe = document.querySelectorAll('.product-detail-spec-table tr');
     var object = [];
