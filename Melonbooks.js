@@ -1,18 +1,27 @@
 javascript:(function(){
   if ($('.btn-copy').length == 0) {
-    $('body').append('<style>.btn-copy {color:#FFF;background:#338a41;border:0px;padding:3px 5px;margin:5px;}</style>');
+    $('body').append('<style>.btn-copy {cursor:pointer;color:#FFF;background:#338a41;border:0px;padding:3px 5px;margin:5px;}</style>');
     var info = '.info';
     var url = location.href;
     $(info).append('<button type="button" class="btn-copy" data-type="url" data-content="'+url+'">連結</button>');
-    var cover = $('#main_new a').attr('href');
+    var cover_el = '';
+    if ($('#main_new').length > 0) {
+      cover_el = '#main_new';
+    } else if ($('#special_main').length > 0) {
+      cover_el = '#special_main';
+    }
+    var cover = $(cover_el).find('a').attr('href');
     $(info).append('<button type="button" class="btn-copy" data-type="cover" data-content="'+cover+'">封面</button>');
     var thumbs = document.querySelectorAll('.thumb_detail');
     thumbs.forEach(function (thumb, index) {
       var img = $(thumb).find('a').attr('href');
       $(info).append('<button type="button" class="btn-copy" data-type="thumbs" data-content="'+img+'">縮圖'+(index+1)+'</button>');
     });
-    var description = $('#description').find('p').text();
-    $(info).append('<button type="button" class="btn-copy" data-type="description" data-content="'+description+'">描述</button>');
+    var descriptions = document.querySelectorAll('.richeditor');
+    descriptions.forEach(function(item, index) {
+      var description = $(item).find('p').text();
+      $(info).append('<button type="button" class="btn-copy" data-type="description" data-content="'+description+'">描述'+(index+1)+'</button>');
+    });
     var stripe = document.querySelectorAll('.odd');
     var object = [];
     stripe.forEach(function(item, index) {
