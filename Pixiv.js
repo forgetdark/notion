@@ -2,7 +2,7 @@ javascript:(function(){
   var style = document.createElement('style');
   style.innerHTML = `.tooltiptext {
     visibility: hidden;
-    width: 120px;
+    width: 100px;
     background-color: #555;
     color: #fff;
     text-align: center;
@@ -15,6 +15,7 @@ javascript:(function(){
     margin-left: -60px;
     opacity: 0;
     transition: opacity 0.3s;
+    font-size: 13px;
   }
   .tooltiptext::after {
     content: "";
