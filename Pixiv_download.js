@@ -93,21 +93,35 @@ javascript:(function(){
     },
     'title': '.sc-1u8nu73-3',
     'description': '.sc-eyxzap-1',
-    'content': '.sc-dIvrsQ'
+    'content': '.sc-dIvrsQ',
+    'page': {
+      'main': '.sc-xhhh7v-0',
+      'button': '.sc-xhhh7v-1'
+    }
   };
   try {
-    var text = document.querySelector(elementList.content).innerText;
     var filename = document.querySelector(elementList.title).innerText;
-
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-    document.body.removeChild(element);
+    var text = document.querySelector(elementList.content).innerText;
+    if (document.querySelectorAll(elementList.page.main).length > 0) {
+      var pageList = document.querySelectorAll(elementList.page.button);
+      var selectFlag = 1;
+      pageList.forEach(function (pageEl, index) {
+        if (selectFlag + 1 == index) {
+          pageEl.click();
+          setTimeout(function () {
+            text += '<br>';
+            text += document.querySelector(elementList.content).innerText;
+          }, 5000);
+        }
+      });
+    }
+    var download = document.createElement('a');
+    download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    download.setAttribute('download', filename);
+    download.style.display = 'none';
+    document.body.appendChild(download);
+    download.click();
+    document.body.removeChild(download);
     document.body.removeChild(loader);
     document.body.removeChild(style);
   } catch (error) {
