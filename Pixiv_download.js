@@ -99,41 +99,43 @@ javascript:(function(){
       'button': '.sc-xhhh7v-1'
     }
   };
-  try {
-    var filename = document.querySelector(elementList.title).innerText;
-    if (document.querySelectorAll(elementList.page.main).length > 0) {
-      var textList = [];
-      var pageList = document.querySelectorAll(elementList.page.button);
-      var $nextPage = function (flag) {
-        flag++;
-        if (flag > 1 && flag < pageList.length - 1) {
-          pageList[flag].click();
-        }
-      };
-      pageList.forEach(function (pageEl, index) {
-        setTimeout(function () {
-          if (index == pageList.length - 1) {
-            console.log(textList);
-          } else if (index > 0) {
-            var str = document.querySelector(elementList.content).innerText;
-            textList.push(str);
-          }
-          $nextPage(index);
-        }, 1000 * index);
-      });
-    } else {
-      var text = document.querySelector(elementList.content).innerText;
-      var download = document.createElement('a');
-      download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-      download.setAttribute('download', filename);
-      download.style.display = 'none';
-      document.body.appendChild(download);
+  var $download = function (text) {
+    try {
+      var filename = document.querySelector(elementList.title).innerText;
+      var dlEl = document.createElement('a');
+      dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      dlEl.setAttribute('download', filename);
+      dlEl.style.display = 'none';
+      document.body.appendChild(dlEl);
       download.click();
-      document.body.removeChild(download);
+      document.body.removeChild(dlEl);
       document.body.removeChild(loader);
       document.body.removeChild(style);
+    } catch (error) {
+      console.log('Oops!, unable to download');
     }
-  } catch (error) {
-    console.log('Oops!, unable to download');
+  });
+  if (document.querySelectorAll(elementList.page.main).length > 0) {
+    var textList = [];
+    var pageList = document.querySelectorAll(elementList.page.button);
+    var $nextPage = function (flag) {
+      flag++;
+      if (flag > 1 && flag < pageList.length - 1) {
+        pageList[flag].click();
+      }
+    };
+    pageList.forEach(function (pageEl, index) {
+      setTimeout(function () {
+        if (index == pageList.length - 1) {
+          console.log(textList);
+        } else if (index > 0) {
+          var str = document.querySelector(elementList.content).innerText;
+          textList.push(str);
+        }
+        $nextPage(index);
+      }, 1000 * index);
+    });
+  } else {
+    $download(document.querySelector(elementList.content).innerText);
   }
 })();
