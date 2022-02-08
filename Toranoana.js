@@ -1,18 +1,16 @@
 javascript:(function(){
   if ($('.btn-copy').length == 0) {
     var style = document.createElement('style');
-    style.innerHTML = `
-      .btn-copy {
-        cursor: pointer;
-        color: #FFF;
-        background: #ff9800;
-        border: 0px;
-        border-radius: 6px;
-        padding: 3px 5px;
-        margin: 5px;
-        font-size: 13px;
-      }
-    `;
+    style.innerHTML = `.btn-copy {
+      cursor: pointer;
+      color: #FFF;
+      background: #ff9800;
+      border: 0px;
+      border-radius: 6px;
+      padding: 3px 5px;
+      margin: 5px;
+      font-size: 13px;
+    }`;
     document.body.appendChild(style);
     var info = '.product-detail-infosub-btn-area';
     var url = location.href;
