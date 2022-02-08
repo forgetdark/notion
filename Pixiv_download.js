@@ -133,7 +133,7 @@ javascript:(function(){
           textList.push(str);
         }
         $nextPage(index);
-      }, 1000 * index);
+      }, 3000 * index);
     });
   } else {
     $download(document.querySelector(elementList.content).innerText);
