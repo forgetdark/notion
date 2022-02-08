@@ -15,7 +15,7 @@ javascript:(function(){
     display: block;
     width: 0.5em;
     height: 0.5em;
-    border-radius: 0.5em / 2;
+    border-radius: 50%;
     transform: translate(-50%, -50%);
   }
   .loader:before {
