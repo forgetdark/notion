@@ -38,14 +38,14 @@ javascript:(function(){
     });
     $('.btn-copy').on('click', function (event) {
       var type = $(this).data('type');
-      var copy_msg = '';
+      var copyMsg = '';
       switch(type) {
         default:
-          copy_msg = $(this).data('content');
+          copyMsg = $(this).data('content');
           break;
       };
       try {
-        navigator.clipboard.writeText(copy_msg)
+        navigator.clipboard.writeText(copyMsg)
         .then(() => {
           console.log("Text copied to clipboard...");
         })
