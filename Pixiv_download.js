@@ -99,15 +99,18 @@ javascript:(function(){
       'button': '.sc-xhhh7v-1'
     }
   };
-  var $download = function (filename, text) {
+  var $download = function (text) {
     try {
+      var filename = document.querySelector(elementList.title).innerText;
       var dlEl = document.createElement('a');
       dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
       dlEl.setAttribute('download', filename);
       dlEl.style.display = 'none';
       document.body.appendChild(dlEl);
-      download.click();
+      dlEl.click();
       document.body.removeChild(dlEl);
+      document.body.removeChild(loader);
+      document.body.removeChild(style);
     } catch (error) {
       console.log('Oops!, unable to download');
     };
@@ -133,8 +136,6 @@ javascript:(function(){
       }, 1000 * index);
     });
   } else {
-    $download(document.querySelector(elementList.title).innerText, document.querySelector(elementList.content).innerText);
-    document.body.removeChild(loader);
-    document.body.removeChild(style);
+    $download(document.querySelector(elementList.content).innerText);
   }
 })();
