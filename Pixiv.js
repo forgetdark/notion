@@ -45,58 +45,34 @@ javascript:(function(){
     'description': '.sc-eyxzap-1',
     'content': '.sc-dIvrsQ'
   };
-  try {
-    var copyMsg = location.href;
-    navigator.clipboard.writeText(copyMsg)
-    .then(() => {
-      console.log("Text copied to clipboard...");
-    })
-    .catch(err => {
-      console.log('Something went wrong', err);
-    });
-  } catch (error) {
-    console.log('Oops!, unable to copy');
+  var $copy = function (copyMsg) {
+    try {
+      navigator.clipboard.writeText(copyMsg)
+      .then(() => {
+        console.log("Text copied to clipboard...");
+        document.querySelector('.tooltiptext').classList.add('tooltiptext_hover');
+        setTimeout(function () {
+          document.querySelector('.tooltiptext').classList.remove('tooltiptext_hover');
+        }, 1000);
+      })
+      .catch(err => {
+        console.log('Something went wrong', err);
+      });
+    } catch (error) {
+      console.log('Oops!, unable to copy');
+    }
   }
+  $copy(location.href);
   document.querySelector(elementList.cover.link).setAttribute('href','javascript:void(0);');
   document.querySelector(elementList.cover.link).removeAttribute('target');
   for (const [key, el] of Object.entries(elementList)) {
     if (key == 'cover') {
       document.querySelector(el.link).addEventListener('click', function(event){
-        try {
-          var copyMsg = document.querySelector(el.img).getAttribute('src');
-          navigator.clipboard.writeText(copyMsg)
-          .then(() => {
-            console.log("Text copied to clipboard...");
-            document.querySelector('.tooltiptext').classList.add('tooltiptext_hover');
-            setTimeout(function () {
-              document.querySelector('.tooltiptext').classList.remove('tooltiptext_hover');
-            }, 1000);
-          })
-          .catch(err => {
-            console.log('Something went wrong', err);
-          });
-        } catch (error) {
-          console.log('Oops!, unable to copy');
-        }
+        $copy(document.querySelector(el.img).getAttribute('src'));
       });
     } else {
       document.querySelector(el).addEventListener('click', function(event){
-        try {
-          var copyMsg = document.querySelector(el).innerText;
-          navigator.clipboard.writeText(copyMsg)
-          .then(() => {
-            console.log("Text copied to clipboard...");
-            document.querySelector('.tooltiptext').classList.add('tooltiptext_hover');
-            setTimeout(function () {
-              document.querySelector('.tooltiptext').classList.remove('tooltiptext_hover');
-            }, 1000);
-          })
-          .catch(err => {
-            console.log('Something went wrong', err);
-          });
-        } catch (error) {
-          console.log('Oops!, unable to copy');
-        }
+        $copy(document.querySelector(el).innerText);
       });
     }
   }
