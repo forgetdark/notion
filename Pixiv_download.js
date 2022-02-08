@@ -1,7 +1,14 @@
 javascript:(function(){
   var elementList = {
+    'cover': {
+      'link': '.sc-1u8nu73-18',
+      'img': '.sc-1u8nu73-19'
+    },
     'title': '.sc-1u8nu73-3',
-    'content': '.sc-dIvrsQ'
+    'description': '.sc-eyxzap-1',
+    'content': '.sc-dIvrsQ',
+    'author': '.sc-fujyAs',
+    'date': '.sc-5981ly-0'
   };
   try {
     var text = document.querySelector(elementList.content).innerText;
