@@ -103,17 +103,20 @@ javascript:(function(){
     var filename = document.querySelector(elementList.title).innerText;
     var text = document.querySelector(elementList.content).innerText;
     if (document.querySelectorAll(elementList.page.main).length > 0) {
-      var pageList = document.querySelectorAll(elementList.page.button);
-      var selectFlag = 1;
-      pageList.forEach(function (pageEl, index) {
-        if (selectFlag + 1 == index) {
-          setTimeout(function () {
+      var $saveText = function (text, flag) {
+        var pageList = document.querySelectorAll(elementList.page.button);
+        pageList.forEach(function (pageEl, index) {
+          if (flag + 1 == index) {
             pageEl.click();
-            text += '<br>';
-            text += document.querySelector(elementList.content).innerText;
-          }, 5000);
-        }
-      });
+            setTimeout(function () {
+              text += '<br>';
+              text += document.querySelector(elementList.content).innerText;
+            }, 5000);
+          }
+        });
+        return text;
+      };
+      console.log($saveText(text, 1));
     } else {
       var download = document.createElement('a');
       download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
