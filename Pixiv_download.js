@@ -1,14 +1,15 @@
 javascript:(function(){
+  var id = location.href.split('?id=')[1];
   var elementList = {
+    'author': '.sc-fujyAs',
+    'date': '.sc-5981ly-0',
     'cover': {
       'link': '.sc-1u8nu73-18',
       'img': '.sc-1u8nu73-19'
     },
     'title': '.sc-1u8nu73-3',
     'description': '.sc-eyxzap-1',
-    'content': '.sc-dIvrsQ',
-    'author': '.sc-fujyAs',
-    'date': '.sc-5981ly-0'
+    'content': '.sc-dIvrsQ'
   };
   try {
     var text = document.querySelector(elementList.content).innerText;
