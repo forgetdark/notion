@@ -108,8 +108,6 @@ javascript:(function(){
       document.body.appendChild(dlEl);
       download.click();
       document.body.removeChild(dlEl);
-      document.body.removeChild(loader);
-      document.body.removeChild(style);
     } catch (error) {
       console.log('Oops!, unable to download');
     };
@@ -136,5 +134,7 @@ javascript:(function(){
     });
   } else {
     $download(document.querySelector(elementList.title).innerText, document.querySelector(elementList.content).innerText);
+    document.body.removeChild(loader);
+    document.body.removeChild(style);
   }
 })();
