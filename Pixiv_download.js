@@ -114,7 +114,7 @@ javascript:(function(){
     } catch (error) {
       console.log('Oops!, unable to download');
     };
-  });
+  };
   if (document.querySelectorAll(elementList.page.main).length > 0) {
     var textList = [];
     var pageList = document.querySelectorAll(elementList.page.button);
