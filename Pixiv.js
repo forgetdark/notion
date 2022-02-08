@@ -46,8 +46,8 @@ javascript:(function(){
     'content': '.sc-dIvrsQ'
   };
   try {
-    var copy_msg = location.href;
-    navigator.clipboard.writeText(copy_msg)
+    var copyMsg = location.href;
+    navigator.clipboard.writeText(copyMsg)
     .then(() => {
       console.log("Text copied to clipboard...");
     })
@@ -63,8 +63,8 @@ javascript:(function(){
     if (key == 'cover') {
       document.querySelector(el.link).addEventListener('click', function(event){
         try {
-          var copy_msg = document.querySelector(el.img).getAttribute('src');
-          navigator.clipboard.writeText(copy_msg)
+          var copyMsg = document.querySelector(el.img).getAttribute('src');
+          navigator.clipboard.writeText(copyMsg)
           .then(() => {
             console.log("Text copied to clipboard...");
             document.querySelector('.tooltiptext').classList.add('tooltiptext_hover');
@@ -82,8 +82,8 @@ javascript:(function(){
     } else {
       document.querySelector(el).addEventListener('click', function(event){
         try {
-          var copy_msg = document.querySelector(el).innerText;
-          navigator.clipboard.writeText(copy_msg)
+          var copyMsg = document.querySelector(el).innerText;
+          navigator.clipboard.writeText(copyMsg)
           .then(() => {
             console.log("Text copied to clipboard...");
             document.querySelector('.tooltiptext').classList.add('tooltiptext_hover');
