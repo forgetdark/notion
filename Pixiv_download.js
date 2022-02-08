@@ -111,6 +111,7 @@ javascript:(function(){
 
     element.click();
     document.body.removeChild(element);
+    document.body.removeChild(loader);
   } catch (error) {
     console.log('Oops!, unable to download');
   }
