@@ -1,7 +1,38 @@
 javascript:(function(){
   if ($('.btn-copy').length == 0) {
     var style = document.createElement('style');
-    style.innerHTML = `.btn-copy {
+    style.innerHTML = `.tooltiptext {
+      visibility: hidden;
+      width: 100px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px;
+      position: fixed;
+      z-index: 1;
+      bottom: 5%;
+      left: 5%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 13px;
+    }
+    .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+    .tooltiptext_hover {
+      visibility: visible;
+      opacity: 1;
+    }
+    .btn-copy {
       cursor: pointer;
       color: #FFF;
       background: #18BD67;
@@ -12,6 +43,10 @@ javascript:(function(){
       font-size: 13px;
     }`;
     document.body.appendChild(style);
+    var tooltiptext = document.createElement('div'); 
+    tooltiptext.innerHTML = '複製完成';
+    tooltiptext.classList.add('tooltiptext');
+    document.body.appendChild(tooltiptext);
     var info = '.info';
     var url = location.href;
     $(info).append('<button type="button" class="btn-copy" data-type="url" data-content="'+url+'">連結</button>');
@@ -53,6 +88,10 @@ javascript:(function(){
         navigator.clipboard.writeText(copyMsg)
         .then(() => {
           console.log("Text copied to clipboard...");
+          document.querySelector('.tooltiptext').classList.add('tooltiptext_hover');
+          setTimeout(function () {
+            document.querySelector('.tooltiptext').classList.remove('tooltiptext_hover');
+          }, 1000);
         })
         .catch(err => {
           console.log('Something went wrong', err);
