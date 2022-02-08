@@ -1,11 +1,11 @@
 javascript:(function(){
-  var el_list = {
+  var elementList = {
     'title': '.sc-1u8nu73-3',
     'content': '.sc-dIvrsQ'
   };
   try {
-    var text = document.querySelector(el_list.content).innerText;
-    var filename = document.querySelector(el_list.title).innerText;
+    var text = document.querySelector(elementList.content).innerText;
+    var filename = document.querySelector(elementList.title).innerText;
 
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
