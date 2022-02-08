@@ -99,9 +99,8 @@ javascript:(function(){
       'button': '.sc-xhhh7v-1'
     }
   };
-  var $download = function (text) {
+  var $download = function (filename, text) {
     try {
-      var filename = document.querySelector(elementList.title).innerText;
       var dlEl = document.createElement('a');
       dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
       dlEl.setAttribute('download', filename);
@@ -136,6 +135,6 @@ javascript:(function(){
       }, 1000 * index);
     });
   } else {
-    $download(document.querySelector(elementList.content).innerText);
+    $download(document.querySelector(elementList.title).innerText, document.querySelector(elementList.content).innerText);
   }
 })();
