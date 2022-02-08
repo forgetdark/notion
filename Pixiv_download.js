@@ -1,99 +1,85 @@
 javascript:(function(){
   var style = document.createElement('style');
-  style.innerHTML = `$colors:
-    hsla(337, 84, 48, 0.75)
-    hsla(160, 50, 48, 0.75)
-    hsla(190, 61, 65, 0.75)
-    hsla( 41, 82, 52, 0.75);
-  $size: 2.5em;
-  $thickness: 0.5em;
-
-  $lat: ($size - $thickness) / 2;
-  $offset: $lat - $thickness;
-
-  .loader {
+  style.innerHTML = `.loader {
     position: relative;
-    width: $size;
-    height: $size;
+    width: 2.5em;
+    height: 2.5em;
     transform: rotate(165deg);
-
-    &:before,
-    &:after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      display: block;
-      width: $thickness;
-      height: $thickness;
-      border-radius: $thickness / 2;
-      transform: translate(-50%, -50%);
-    }
-
-    &:before {
-      animation: before 2s infinite;
-    }
-
-    &:after {
-      animation: after 2s infinite;
-    }
+  }
+  .loader:before,
+  .loader:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 0.5em / 2;
+    transform: translate(-50%, -50%);
+  }
+  .loader:before {
+    animation: before 2s infinite;
+  }
+  .loader:after {
+    animation: after 2s infinite;
   }
 
   @keyframes before {
     0% {
-      width: $thickness;
+      width: 0.5em;
       box-shadow:
-        $lat (-$offset) nth($colors, 1),
-        (-$lat) $offset nth($colors, 3);
+        1em -0.5em rgb(255, 238, 170),
+        -1em 0.5em rgb(204, 170, 136);
     }
     35% {
-      width: $size;
+      width: 2.5em;
       box-shadow:
-        0 (-$offset) nth($colors, 1),
-        0   $offset  nth($colors, 3);
+        0 -0.5em rgb(255, 238, 170),
+        0 0.5em rgb(204, 170, 136);
     }
     70% {
-      width: $thickness;
+      width: 0.5em;
       box-shadow:
-        (-$lat) (-$offset) nth($colors, 1),
-        $lat $offset nth($colors, 3);
+        -1em -0.5em rgb(255, 238, 170),
+        1em 0.5em rgb(204, 170, 136);
     }
     100% {
       box-shadow:
-        $lat (-$offset) nth($colors, 1),
-        (-$lat) $offset nth($colors, 3);
+        1em -0.5em rgb(255, 238, 170),
+        -1em 0.5em rgb(204, 170, 136);
     }
   }
 
   @keyframes after {
     0% {
-      height: $thickness;
+      height: 0.5em;
       box-shadow:
-        $offset $lat nth($colors, 2),
-        (-$offset) (-$lat) nth($colors, 4);
+        0.5em 1em rgb(136, 136, 204),
+        -0.5em -1em rgb(255, 136, 187);
     }
     35% {
-      height: $size;
+      height: 2.5em;
       box-shadow:
-          $offset  0 nth($colors, 2),
-        (-$offset) 0 nth($colors, 4);
+        0.5em 0 rgb(136, 136, 204),
+        -0.5em 0 rgb(255, 136, 187);
     }
     70% {
-      height: $thickness;
+      height: 0.5em;
       box-shadow:
-        $offset (-$lat) nth($colors, 2),
-        (-$offset) $lat nth($colors, 4);
+        0.5em -1em rgb(136, 136, 204),
+        -0.5em 1em rgb(255, 136, 187);
     }
     100% {
       box-shadow:
-        $offset $lat nth($colors, 2),
-        (-$offset) (-$lat) nth($colors, 4);
+        0.5em 1em rgb(136, 136, 204),
+        -0.5em -1em rgb(255, 136, 187);
     }
   }
   .loader {
     position: absolute;
-    top: calc(50% - #{$size / 2});
-    left: calc(50% - #{$size / 2});
+    top: calc(50% - 2.5em / 2);
+    left: calc(50% - 2.5em / 2);
   }
   `;
   document.body.appendChild(style);
