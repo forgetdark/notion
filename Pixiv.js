@@ -45,7 +45,7 @@ javascript:(function(){
     'description': '.sc-eyxzap-1',
     'content': '.sc-dIvrsQ'
   };
-  var copy = function (copyMsg) {
+  var $copy = function (copyMsg) {
     try {
       navigator.clipboard.writeText(copyMsg)
       .then(() => {
@@ -61,17 +61,18 @@ javascript:(function(){
     } catch (error) {
       console.log('Oops!, unable to copy');
     }
-  }
+  };
+  $copy(location.href);
   for (const [key, el] of Object.entries(elementList)) {
     if (key == 'cover') {
       document.querySelector(elementList.cover.link).setAttribute('href','javascript:void(0);');
       document.querySelector(elementList.cover.link).removeAttribute('target');
       document.querySelector(el.link).addEventListener('click', function(event){
-        copy(document.querySelector(el.img).getAttribute('src'));
+        $copy(document.querySelector(el.img).getAttribute('src'));
       });
     } else {
       document.querySelector(el).addEventListener('click', function(event){
-        copy(document.querySelector(el).innerText);
+        $copy(document.querySelector(el).innerText);
       });
     }
   }
