@@ -24,7 +24,6 @@ javascript:(function(){
   .loader:after {
     animation: after 2s infinite;
   }
-
   @keyframes before {
     0% {
       width: 0.5em;
@@ -50,7 +49,6 @@ javascript:(function(){
         -1em 0.5em rgb(204, 170, 136);
     }
   }
-
   @keyframes after {
     0% {
       height: 0.5em;
@@ -80,8 +78,7 @@ javascript:(function(){
     position: absolute;
     top: calc(50% - 2.5em / 2);
     left: calc(50% - 2.5em / 2);
-  }
-  `;
+  }`;
   document.body.appendChild(style);
   var loader = document.createElement('div'); 
   loader.classList.add('loader');
