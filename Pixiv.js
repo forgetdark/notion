@@ -36,7 +36,7 @@ javascript:(function(){
   tooltiptext.innerHTML = '複製完成';
   tooltiptext.classList.add('tooltiptext');
   document.body.appendChild(tooltiptext);
-  var el_list = {
+  var elementList = {
     'cover': {
       'link': '.sc-1u8nu73-18',
       'img': '.sc-1u8nu73-19'
@@ -57,9 +57,9 @@ javascript:(function(){
   } catch (error) {
     console.log('Oops!, unable to copy');
   }
-  document.querySelector(el_list.cover.link).setAttribute('href','javascript:void(0);');
-  document.querySelector(el_list.cover.link).removeAttribute('target');
-  for (const [key, el] of Object.entries(el_list)) {
+  document.querySelector(elementList.cover.link).setAttribute('href','javascript:void(0);');
+  document.querySelector(elementList.cover.link).removeAttribute('target');
+  for (const [key, el] of Object.entries(elementList)) {
     if (key == 'cover') {
       document.querySelector(el.link).addEventListener('click', function(event){
         try {
