@@ -10,7 +10,7 @@ javascript:(function(){
     border-radius: 6px;
     position: fixed;
     z-index: 1;
-    bottom: 5%;
+    bottom: 3%;
     left: 5%;
     margin-left: -60px;
     opacity: 0;
