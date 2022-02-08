@@ -129,6 +129,7 @@ javascript:(function(){
         if (index == pageList.length - 1) {
           console.log(textList);
         } else if (index > 0) {
+          window.document.documentElement.scrollTop = 0;
           var str = document.querySelector(elementList.content).innerText;
           textList.push(str);
         }
