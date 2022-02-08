@@ -107,23 +107,24 @@ javascript:(function(){
       var selectFlag = 1;
       pageList.forEach(function (pageEl, index) {
         if (selectFlag + 1 == index) {
-          pageEl.click();
           setTimeout(function () {
+            pageEl.click();
             text += '<br>';
             text += document.querySelector(elementList.content).innerText;
           }, 5000);
         }
       });
+    } else {
+      var download = document.createElement('a');
+      download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      download.setAttribute('download', filename);
+      download.style.display = 'none';
+      document.body.appendChild(download);
+      download.click();
+      document.body.removeChild(download);
+      document.body.removeChild(loader);
+      document.body.removeChild(style);
     }
-    var download = document.createElement('a');
-    download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    download.setAttribute('download', filename);
-    download.style.display = 'none';
-    document.body.appendChild(download);
-    download.click();
-    document.body.removeChild(download);
-    document.body.removeChild(loader);
-    document.body.removeChild(style);
   } catch (error) {
     console.log('Oops!, unable to download');
   }
