@@ -17,13 +17,13 @@ javascript:(function(){
     var info = '.info';
     var url = location.href;
     $(info).append('<button type="button" class="btn-copy" data-type="url" data-content="'+url+'">連結</button>');
-    var cover_el = '';
+    var coverEl = '';
     if ($('#main_new').length > 0) {
-      cover_el = '#main_new';
+      coverEl = '#main_new';
     } else if ($('#special_main').length > 0) {
-      cover_el = '#special_main';
+      coverEl = '#special_main';
     }
-    var cover = $(cover_el).find('a').attr('href');
+    var cover = $(coverEl).find('a').attr('href');
     $(info).append('<button type="button" class="btn-copy" data-type="cover" data-content="'+cover+'">封面</button>');
     var thumbs = document.querySelectorAll('.thumb_detail');
     thumbs.forEach(function (thumb, index) {
@@ -45,14 +45,14 @@ javascript:(function(){
     });
     $('.btn-copy').on('click', function (event) {
       var type = $(this).data('type');
-      var copy_msg = '';
+      var copyMsg = '';
       switch(type) {
         default:
-          copy_msg = $(this).data('content');
+          copyMsg = $(this).data('content');
           break;
       };
       try {
-        navigator.clipboard.writeText(copy_msg)
+        navigator.clipboard.writeText(copyMsg)
         .then(() => {
           console.log("Text copied to clipboard...");
         })
