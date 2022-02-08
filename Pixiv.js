@@ -62,7 +62,6 @@ javascript:(function(){
       console.log('Oops!, unable to copy');
     }
   }
-  copy(location.href);
   for (const [key, el] of Object.entries(elementList)) {
     if (key == 'cover') {
       document.querySelector(elementList.cover.link).setAttribute('href','javascript:void(0);');
