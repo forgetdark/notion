@@ -112,16 +112,16 @@ javascript:(function(){
     else os_type = 'other';
     return os_type;
   };
-  var $download = function (text) {
+  var $downloadTxt = function (text) {
     try {
       text = ($checkOS() == 'Windows') ? text.replace(/(?:\r\n|\r|\n)/g, '\r\n') : text;
-      var dlEl = document.createElement('a');
-      dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-      dlEl.setAttribute('download', $getFileName() + '.txt');
-      dlEl.style.display = 'none';
-      document.body.appendChild(dlEl);
-      dlEl.click();
-      document.body.removeChild(dlEl);
+      var download = document.createElement('a');
+      download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      download.setAttribute('download', $getFileName() + '.txt');
+      download.style.display = 'none';
+      document.body.appendChild(download);
+      download.click();
+      document.body.removeChild(download);
       document.body.removeChild(loader);
       document.body.removeChild(style);
     } catch (error) {
@@ -153,9 +153,9 @@ javascript:(function(){
         text += '<div class="page" data-page="' + (index + 1) + '"></div>';
         text += ($checkOS() == 'Windows') ? '\r\n\r\n\r\n\r\n' : '\n\n\n';
       });
-      $download(text);
+      $downloadTxt(text);
     });
   } else {
-    $download(document.querySelector(elementList.content).innerText);
+    $downloadTxt(document.querySelector(elementList.content).innerText);
   }
 })();
