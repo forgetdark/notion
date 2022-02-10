@@ -96,11 +96,24 @@ javascript:(function(){
     'content': '.sc-dIvrsQ',
     'page': '.sc-xhhh7v-0'
   };
+  var $check_os = function () {
+    var windows = (navigator.userAgent.indexOf("Windows",0) != -1)?1:0;
+    var mac = (navigator.userAgent.indexOf("mac",0) != -1)?1:0;
+    var linux = (navigator.userAgent.indexOf("Linux",0) != -1)?1:0;
+    var unix = (navigator.userAgent.indexOf("X11",0) != -1)?1:0;
+    if (windows) os_type = "MS Windows";
+    else if (mac) os_type = "Apple mac";
+    else if (linux) os_type = "Lunix";
+    else if (unix) os_type = "Unix";
+    return os_type;
+  };
   var $download = function (text) {
     try {
       var filename = document.querySelector(elementList.title).innerText;
+      var text = encodeURIComponent(text);
+      console.log(text);
       var dlEl = document.createElement('a');
-      dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + text);
       dlEl.setAttribute('download', filename + '.txt');
       dlEl.style.display = 'none';
       document.body.appendChild(dlEl);
