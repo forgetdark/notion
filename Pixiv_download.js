@@ -132,7 +132,7 @@ javascript:(function(){
           var str = document.querySelector(elementList.content).innerText;
           textList.push(str);
           pageEl.click();
-        }, 1000);
+        }, 2000);
       }
     } while (flag);
   } else {
