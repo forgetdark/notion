@@ -130,8 +130,11 @@ javascript:(function(){
     };
     $saveText().then(function (startInterval) {
       window.clearInterval(startInterval);
-      console.log(textList);
-      $download('test');
+      var text = '';
+      textList.forEach(function (str, index) {
+          text+=str+'<div class="page" data-page="'+(index+1)+'"></div>';
+      });
+      $download(text);
     });
   } else {
     $download(document.querySelector(elementList.content).innerText);
