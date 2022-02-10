@@ -146,12 +146,12 @@ javascript:(function(){
     };
     $saveText().then(function (startInterval) {
       window.clearInterval(startInterval);
+      var $newline = function () {
+        return ($checkOS() == 'Windows') ? '\r\n\r\n\r\n\r\n' : '\n\n\n';
+      };
       var text = '';
       textList.forEach(function (str, index) {
-        text += str;
-        text += ($checkOS() == 'Windows') ? '\r\n\r\n\r\n\r\n' : '\n\n\n';
-        text += '<div class="page" data-page="' + (index + 1) + '"></div>';
-        text += ($checkOS() == 'Windows') ? '\r\n\r\n\r\n\r\n' : '\n\n\n';
+        text += str + $newline() + '<div class="page" data-page="' + (index + 1) + '"></div>' + $newline();
       });
       $downloadTxt(text);
     });
