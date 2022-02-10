@@ -114,7 +114,7 @@ javascript:(function(){
   };
   if (document.querySelectorAll(elementList.page).length > 0) {
     var textList = [];
-    var saveText = function() {
+    var $saveText = function() {
       return new Promise(function(resolve, reject) {
         var startInterval = setInterval(function(){
           var str = document.querySelector(elementList.content).innerText;
@@ -128,7 +128,7 @@ javascript:(function(){
         }, 1000); 
       });
     };
-    saveText().then(function (startInterval) {
+    $saveText().then(function (startInterval) {
       window.clearInterval(startInterval);
       console.log(textList);
       $download('test');
