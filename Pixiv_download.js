@@ -75,14 +75,14 @@ javascript:(function(){
     }
   }
   .loader {
-    position: absolute;
+    position: fixed;
     top: calc(50% - 2.5em / 2);
     left: calc(50% - 2.5em / 2);
   }`;
   document.body.appendChild(style);
   var loader = document.createElement('div'); 
   loader.classList.add('loader');
-  document.body.appendChild(loader);
+  document.querySelector('.sc-1nr368f-6').appendChild(loader);
   var id = location.href.split('?id=')[1];
   var elementList = {
     'author': '.sc-fujyAs',
