@@ -101,7 +101,7 @@ javascript:(function(){
       var filename = document.querySelector(elementList.title).innerText;
       var dlEl = document.createElement('a');
       dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-      dlEl.setAttribute('download', filename);
+      dlEl.setAttribute('download', filename + '.txt');
       dlEl.style.display = 'none';
       document.body.appendChild(dlEl);
       dlEl.click();
