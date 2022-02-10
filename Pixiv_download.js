@@ -117,25 +117,22 @@ javascript:(function(){
   };
   if (document.querySelectorAll(elementList.page.main).length > 0) {
     var textList = [];
-    var pageList = document.querySelectorAll(elementList.page.button);
-    var $nextPage = function (flag) {
-      flag++;
-      if (flag > 1 && flag < pageList.length - 1) {
-        pageList[flag].click();
+    var flag = true;
+    var index = 0;
+    do {
+      var pageEl = document.querySelector(elementList.page.button).nextSibling;
+      index = parseInt(pageEl.innerText);
+      if (isNaN(index)) {
+        flag = false;
+        console.log(textList);
+        break;
       }
-    };
-    pageList.forEach(function (pageEl, index) {
       setTimeout(function () {
-        if (index == pageList.length - 1) {
-          console.log(textList);
-        } else if (index > 0) {
-          window.document.documentElement.scrollTop = 0;
-          var str = document.querySelector(elementList.content).innerText;
-          textList.push(str);
-        }
-        $nextPage(index);
+        var str = document.querySelector(elementList.content).innerText;
+        textList.push(str);
+        pageEl.click();
       }, 3000 * index);
-    });
+    } while (flag);
   } else {
     $download(document.querySelector(elementList.content).innerText);
   }
