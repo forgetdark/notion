@@ -117,21 +117,22 @@ javascript:(function(){
   };
   if (document.querySelectorAll(elementList.page.main).length > 0) {
     var textList = [];
-    var flag = true;
+    var pageEl = document.querySelector(elementList.page.button);
     var index = 0;
+    var flag = true;
     do {
-      var pageEl = document.querySelector(elementList.page.button).nextSibling;
+      pageEl = pageEl.nextSibling;
       index = parseInt(pageEl.innerText);
       if (isNaN(index)) {
         flag = false;
         console.log(textList);
-        break;
+      } else {
+        setTimeout(function () {
+          var str = document.querySelector(elementList.content).innerText;
+          textList.push(str);
+          pageEl.click();
+        }, 1000);
       }
-      setTimeout(function () {
-        var str = document.querySelector(elementList.content).innerText;
-        textList.push(str);
-        pageEl.click();
-      }, 3000 * index);
     } while (flag);
   } else {
     $download(document.querySelector(elementList.content).innerText);
