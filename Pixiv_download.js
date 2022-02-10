@@ -97,8 +97,9 @@ javascript:(function(){
     'page': '.sc-xhhh7v-0'
   };
   var $getFileName = function () {
-    var filename = document.querySelectorAll(elementList.title).length > 0 ? document.querySelector(elementList.title).innerText : '無題';
-    return filename;
+    var author = document.querySelector(elementList.author).innerText;
+    var title = document.querySelectorAll(elementList.title).length > 0 ? document.querySelector(elementList.title).innerText : '無題';
+    return author + ' - ' + title + ' (' + id + ')';
   };
   var $checkOS = function () {
     var windows = (navigator.userAgent.indexOf('Windows',0) != -1)?1:0;
