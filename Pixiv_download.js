@@ -112,7 +112,7 @@ javascript:(function(){
     try {
       var filename = document.querySelector(elementList.title).innerText;
       if ($check_os == 'Windows') {
-        text = text.replace(/\n/g, /\\r\\n);
+        text = text.replace(/(?:\r\n|\r|\n)/g, '\r\n');
       }
       saveText = encodeURIComponent(text);
       var dlEl = document.createElement('a');
