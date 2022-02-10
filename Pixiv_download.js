@@ -126,6 +126,7 @@ javascript:(function(){
       if (isNaN(index)) {
         flag = false;
         console.log(textList);
+        $download('test');
       } else {
         setTimeout(function () {
           var str = document.querySelector(elementList.content).innerText;
