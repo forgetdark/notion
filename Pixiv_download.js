@@ -114,10 +114,10 @@ javascript:(function(){
       if ($check_os() == 'Windows') {
         text = text.replace(/(?:\r\n|\r|\n)/g, '\r\n');
       }
-      var export_blob = new Blob([encodeURIComponent(text)]);
+      text = encodeURIComponent(text);
       var dlEl = document.createElement('a');
-      dlEl.href = window.URL.createObjectURL(export_blob);
-      dlEl.download = 'test' + '.txt';
+      dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + text);
+      dlEl.setAttribute('download', filename + '.txt');
       dlEl.style.display = 'none';
       document.body.appendChild(dlEl);
       dlEl.click();
