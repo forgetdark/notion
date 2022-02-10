@@ -113,10 +113,11 @@ javascript:(function(){
       var filename = document.querySelector(elementList.title).innerText;
       if ($check_os == 'Windows') {
         text = text.replace(/(?:\r\n|\r|\n)/g, '\r\n');
+      } else {
+        text = encodeURIComponent(text);
       }
-      saveText = encodeURIComponent(text);
       var dlEl = document.createElement('a');
-      dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + saveText);
+      dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + text);
       dlEl.setAttribute('download', filename + '.txt');
       dlEl.style.display = 'none';
       document.body.appendChild(dlEl);
