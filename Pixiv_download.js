@@ -82,7 +82,7 @@ javascript:(function(){
   document.body.appendChild(style);
   var loader = document.createElement('div'); 
   loader.classList.add('loader');
-  document.querySelector('.sc-1nr368f-6').appendChild(loader);
+  document.body.appendChild(loader);
   var id = location.href.split('?id=')[1];
   var elementList = {
     'author': '.sc-fujyAs',
