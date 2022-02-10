@@ -116,9 +116,10 @@ javascript:(function(){
       } else {
         text = encodeURIComponent(text);
       }
+      var export_blob = new Blob([text]);
       var dlEl = document.createElement('a');
-      dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + text);
-      dlEl.setAttribute('download', filename + '.txt');
+      dlEl.href = window.URL.createObjectURL(export_blob);
+      dlEl.download = 'test' + '.txt';
       dlEl.style.display = 'none';
       document.body.appendChild(dlEl);
       dlEl.click();
