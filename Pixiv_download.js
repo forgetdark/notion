@@ -94,10 +94,7 @@ javascript:(function(){
     'title': '.sc-1u8nu73-3',
     'description': '.sc-eyxzap-1',
     'content': '.sc-dIvrsQ',
-    'page': {
-      'main': '.sc-xhhh7v-0',
-      'button': '.sc-xhhh7v-1'
-    }
+    'page': '.sc-xhhh7v-0'
   };
   var $download = function (text) {
     try {
@@ -115,25 +112,27 @@ javascript:(function(){
       console.log('Oops!, unable to download');
     };
   };
-  if (document.querySelectorAll(elementList.page.main).length > 0) {
+  if (document.querySelectorAll(elementList.page).length > 0) {
     var textList = [];
-    var flag = true;
-    var index = 0;
-    var pageEl = document.querySelector(elementList.page.button);
-    do {
-      pageEl = pageEl.nextSibling;
-      index = parseInt(pageEl.innerText);
-      if (isNaN(index)) {
-        flag = false;
-        break;
-      } else {
-        setTimeout(function () {
-          pageEl.click();
+    var savePage = function() {
+      return new Promise(function(resolve, reject) {
+        var startInterval = setInterval(function(){
           var str = document.querySelector(elementList.content).innerText;
           textList.push(str);
-        }, 1000);
-      }
-    } while (flag);
+          var nextPageEl = document.querySelector(elementList.page).lastChild;
+          if (nextPageEl.disabled) {
+            resolve(startInterval);
+          } else {
+            nextPageEl.click();
+          }
+        }, 1000); 
+      });
+    };
+    savePage().then(function (startInterval) {
+      window.clearInterval(startInterval);
+      console.log(textList);
+      $download('test');
+    });
   } else {
     $download(document.querySelector(elementList.content).innerText);
   }
