@@ -96,7 +96,11 @@ javascript:(function(){
     'content': '.sc-dIvrsQ',
     'page': '.sc-xhhh7v-0'
   };
-  var $check_os = function () {
+  var $getFileName = function () {
+    var filename = document.querySelectorAll(elementList.title).length > 0 ? document.querySelector(elementList.title).innerText : '無題';
+    return filename;
+  };
+  var $checkOS = function () {
     var windows = (navigator.userAgent.indexOf('Windows',0) != -1)?1:0;
     var mac = (navigator.userAgent.indexOf('mac',0) != -1)?1:0;
     var linux = (navigator.userAgent.indexOf('Linux',0) != -1)?1:0;
@@ -110,11 +114,10 @@ javascript:(function(){
   };
   var $download = function (text) {
     try {
-      var filename = document.querySelector(elementList.title).innerText;
-      text = ($check_os() == 'Windows') ? text.replace(/(?:\r\n|\r|\n)/g, '\r\n') : text;
+      text = ($checkOS() == 'Windows') ? text.replace(/(?:\r\n|\r|\n)/g, '\r\n') : text;
       var dlEl = document.createElement('a');
       dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-      dlEl.setAttribute('download', filename + '.txt');
+      dlEl.setAttribute('download', $getFileName() + '.txt');
       dlEl.style.display = 'none';
       document.body.appendChild(dlEl);
       dlEl.click();
@@ -146,9 +149,9 @@ javascript:(function(){
       var text = '';
       textList.forEach(function (str, index) {
         text += str;
-        text += ($check_os() == 'Windows') ? '\r\n' : '';
+        text += ($checkOS() == 'Windows') ? '\r\n\r\n\r\n\r\n' : '\n\n\n';
         text += '<div class="page" data-page="' + (index + 1) + '"></div>';
-        text += ($check_os() == 'Windows') ? '\r\n' : '';
+        text += ($checkOS() == 'Windows') ? '\r\n\r\n\r\n\r\n' : '\n\n\n';
       });
       $download(text);
     });
