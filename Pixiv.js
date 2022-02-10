@@ -71,9 +71,11 @@ javascript:(function(){
         $copy(document.querySelector(el.img).getAttribute('src'));
       });
     } else {
-      document.querySelector(el).addEventListener('click', function(event){
-        $copy(document.querySelector(el).innerText);
-      });
+      if (document.querySelectorAll(el).length > 0) {
+        document.querySelector(el).addEventListener('click', function(event){
+          $copy(document.querySelector(el).innerText);
+        });
+      }
     }
   }
 })();
