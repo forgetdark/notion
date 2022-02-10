@@ -111,12 +111,9 @@ javascript:(function(){
   var $download = function (text) {
     try {
       var filename = document.querySelector(elementList.title).innerText;
-      if ($check_os() == 'Windows') {
-        text = text.replace(/(?:\r\n|\r|\n)/g, '\r\n');
-      }
-      text = encodeURIComponent(text);
+      text = ($check_os() == 'Windows') ? text.replace(/(?:\r\n|\r|\n)/g, '\r\n') : text;
       var dlEl = document.createElement('a');
-      dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + text);
+      dlEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
       dlEl.setAttribute('download', filename + '.txt');
       dlEl.style.display = 'none';
       document.body.appendChild(dlEl);
@@ -148,7 +145,10 @@ javascript:(function(){
       window.clearInterval(startInterval);
       var text = '';
       textList.forEach(function (str, index) {
-          text += str + '<div class="page" data-page="'+(index+1)+'"></div>';
+        text += str;
+        text += ($check_os() == 'Windows') ? '\r\n' : '';
+        text += '<div class="page" data-page="' + (index + 1) + '"></div>';
+        text += ($check_os() == 'Windows') ? '\r\n' : '';
       });
       $download(text);
     });
