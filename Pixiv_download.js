@@ -111,12 +111,10 @@ javascript:(function(){
   var $download = function (text) {
     try {
       var filename = document.querySelector(elementList.title).innerText;
-      if ($check_os == 'Windows') {
+      if ($check_os() == 'Windows') {
         text = text.replace(/(?:\r\n|\r|\n)/g, '\r\n');
-      } else {
-        text = encodeURIComponent(text);
       }
-      var export_blob = new Blob([text]);
+      var export_blob = new Blob([encodeURIComponent(text)]);
       var dlEl = document.createElement('a');
       dlEl.href = window.URL.createObjectURL(export_blob);
       dlEl.download = 'test' + '.txt';
