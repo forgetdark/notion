@@ -121,19 +121,19 @@ javascript:(function(){
     var index = 0;
     var flag = true;
     do {
-      pageEl = pageEl.nextSibling;
-      index = parseInt(pageEl.innerText);
-      if (isNaN(index)) {
-        flag = false;
-        console.log(textList);
-        $download('test');
-      } else {
-        setTimeout(function () {
+      setTimeout(function () {
+        pageEl = pageEl.nextSibling;
+        index = parseInt(pageEl.innerText);
+        if (isNaN(index)) {
+          flag = false;
+          console.log(textList);
+          $download('t');
+        } else {
           var str = document.querySelector(elementList.content).innerText;
           textList.push(str);
           pageEl.click();
-        }, 10000);
-      }
+        }
+      }, 2000);
     } while (flag);
   } else {
     $download(document.querySelector(elementList.content).innerText);
