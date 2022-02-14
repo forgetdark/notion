@@ -1,7 +1,8 @@
 javascript:(function(){
-  if ($('.btn-copy').length == 0) {
-    var style = document.createElement('style');
-    style.innerHTML = `.tooltiptext {
+  var $tooptip = (function() {
+    var tooptipStyle = document.createElement('style');
+    tooptipStyle.id = 'tooltip-style';
+    tooptipStyle.innerHTML = `.tooltip-model {
       visibility: hidden;
       width: 100px;
       background-color: #555;
@@ -10,15 +11,13 @@ javascript:(function(){
       padding: 5px 0;
       border-radius: 6px;
       position: fixed;
-      z-index: 1;
+      z-index: 99999999;
+      left: 1%;
       bottom: 3%;
-      left: 5%;
-      margin-left: -60px;
-      opacity: 0;
       transition: opacity 0.3s;
       font-size: 13px;
     }
-    .tooltiptext::after {
+    .tooltip-model:after {
       content: "";
       position: absolute;
       top: 100%;
@@ -27,26 +26,23 @@ javascript:(function(){
       border-width: 5px;
       border-style: solid;
       border-color: #555 transparent transparent transparent;
-    }
-    .tooltiptext_hover {
-      visibility: visible;
-      opacity: 1;
-    }
-    .btn-copy {
-      cursor: pointer;
-      color: #FFF;
-      background: #18BD67;
-      border: 0px;
-      border-radius: 6px;
-      padding: 3px 5px;
-      margin: 5px;
-      font-size: 13px;
     }`;
-    document.body.appendChild(style);
-    var tooltiptext = document.createElement('div'); 
-    tooltiptext.innerHTML = '複製完成';
-    tooltiptext.classList.add('tooltiptext');
-    document.body.appendChild(tooltiptext);
+    var tooltipModel = document.createElement('div');
+    tooltipModel.innerHTML = '複製成功';
+    tooltipModel.classList.add('tooltip-model');
+    return {
+      show: function () {
+        document.body.appendChild(tooptipStyle);
+        document.body.appendChild(tooltipModel);
+        document.querySelector('.tooltip-model').style.visibility = 'visible';
+      },
+      hide: function () {
+        document.getElementById('tooltip-style').remove();
+        document.querySelector('.tooltip-model').remove();
+      }
+    };
+  })();
+  if ($('.btn-copy').length == 0) {
     var info = '.info';
     var url = location.href;
     $(info).append('<button type="button" class="btn-copy" data-type="url" data-content="'+url+'">連結</button>');
@@ -88,9 +84,9 @@ javascript:(function(){
         navigator.clipboard.writeText(copyMsg)
         .then(() => {
           console.log("Text copied to clipboard...");
-          document.querySelector('.tooltiptext').classList.add('tooltiptext_hover');
+          $tooptip.show();
           setTimeout(function () {
-            document.querySelector('.tooltiptext').classList.remove('tooltiptext_hover');
+            $tooptip.hide();
           }, 1000);
         })
         .catch(err => {
