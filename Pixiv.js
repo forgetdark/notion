@@ -105,12 +105,12 @@ javascript:(function(){
       document.querySelector(elementList.cover.link).setAttribute('href','javascript:void(0);');
       document.querySelector(elementList.cover.link).removeAttribute('target');
       document.querySelector(el.link).addEventListener('click', function(event) {
-        $copy(document.querySelector(el.img).getAttribute('src'), document.querySelector(elementList.cover.link));
+        $copy(document.querySelector(el.img).getAttribute('src'));
       });
     } else {
       if (document.querySelectorAll(el).length > 0) {
         document.querySelector(el).addEventListener('click', function(event) {
-          $copy(document.querySelector(el).innerText, this);
+          $copy(document.querySelector(el).innerText);
         });
       }
     }
