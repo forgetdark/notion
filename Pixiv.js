@@ -83,12 +83,12 @@ javascript:(function(){
     'description': '.sc-eyxzap-1',
     'content': '.sc-dIvrsQ'
   };
-  var $copy = function (copyMsg) {
+  var $copy = function (copyMsg, copyEl) {
     try {
       navigator.clipboard.writeText(copyMsg)
       .then(() => {
         console.log("Text copied to clipboard...");
-        $tooptip.show('複製成功');
+        $tooptip.show('複製成功', copyEl);
         setTimeout(function () {
           $tooptip.hide();
         }, 1000);
@@ -104,13 +104,13 @@ javascript:(function(){
     if (key == 'cover') {
       document.querySelector(elementList.cover.link).setAttribute('href','javascript:void(0);');
       document.querySelector(elementList.cover.link).removeAttribute('target');
-      document.querySelector(el.link).addEventListener('click', function(event){
-        $copy(document.querySelector(el.img).getAttribute('src'));
+      document.querySelector(el.link).addEventListener('click', function(event) {
+        $copy(document.querySelector(el.img).getAttribute('src'), document.querySelector(elementList.cover.link));
       });
     } else {
       if (document.querySelectorAll(el).length > 0) {
-        document.querySelector(el).addEventListener('click', function(event){
-          $copy(document.querySelector(el).innerText);
+        document.querySelector(el).addEventListener('click', function(event) {
+          $copy(document.querySelector(el).innerText, this);
         });
       }
     }
