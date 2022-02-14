@@ -3,21 +3,22 @@ javascript:(function(){
     var tooptipStyle = document.createElement('style');
     tooptipStyle.id = 'tooltip-style';
     tooptipStyle.innerHTML = `.tooltip-model {
+      opacity: 0;
+      transition: opacity .5s;
       visibility: hidden;
+      position: relative;
+    }
+    .tooltip-model span {
       width: 100px;
       background-color: #555;
       color: #fff;
       text-align: center;
       padding: 5px 0;
       border-radius: 6px;
-      position: fixed;
       z-index: 99999999;
-      left: 1%;
-      bottom: 3%;
-      transition: opacity 0.3s;
       font-size: 13px;
     }
-    .tooltip-model:after {
+    .tooltip-model span:after {
       content: "";
       position: absolute;
       top: 100%;
@@ -27,18 +28,48 @@ javascript:(function(){
       border-style: solid;
       border-color: #555 transparent transparent transparent;
     }`;
+
     var tooltipModel = document.createElement('div');
-    tooltipModel.innerHTML = '複製成功';
     tooltipModel.classList.add('tooltip-model');
+
     return {
-      show: function () {
+      show: function (text, targetName, position) {
         document.body.appendChild(tooptipStyle);
-        document.body.appendChild(tooltipModel);
-        document.querySelector('.tooltip-model').style.visibility = 'visible';
+        if (typeof targetName === 'undefined') {
+          tooltipModel.innerHTML = '<span style="position: fixed; left: 1%; bottom: 1%;">' + text + '</span>';
+          document.body.appendChild(tooltipModel);
+        } else {
+          var target = targetName;
+          if (typeof targetName === 'string' || targetName instanceof String) {
+            target = document.getElementById(targetName.replace('#', ''));
+          }
+
+          position = typeof position !== 'undefined' ? position : [null, -30];
+          if (position[0] === null) {
+            position[0] = 'calc(' + (target.offsetWidth * 0.5) + 'px - 50px)';
+          } else {
+            position[0] += 'px';
+          }
+          tooltipModel.innerHTML = '<span style="position: absolute; left:' + position[0] + '; top:' + position[1] + 'px;">' + text + '</span>';
+
+          if (target.firstChild !== null) {
+            target.insertBefore(tooltipModel, target.firstChild);
+          } else {
+            target.appendChild(tooltipModel);
+          }
+        }
+        setTimeout(function () {
+          document.querySelector('.tooltip-model').style.visibility = 'visible';
+          document.querySelector('.tooltip-model').style.opacity = 1;
+        }, 1);
       },
       hide: function () {
-        document.getElementById('tooltip-style').remove();
-        document.querySelector('.tooltip-model').remove();
+        document.querySelector('.tooltip-model').style.opacity = 0;
+        setTimeout(function () {
+          document.querySelector('.tooltip-model').style.visibility = 'hidden';
+          document.getElementById('tooltip-style').remove();
+          document.querySelector('.tooltip-model').remove();
+        }, 500);
       }
     };
   })();
@@ -56,7 +87,7 @@ javascript:(function(){
       navigator.clipboard.writeText(copyMsg)
       .then(() => {
         console.log("Text copied to clipboard...");
-        $tooptip.show();
+        $tooptip.show('複製成功');
         setTimeout(function () {
           $tooptip.hide();
         }, 1000);
