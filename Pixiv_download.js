@@ -164,14 +164,12 @@ javascript:(function(){
     var $saveText = function() {
       return new Promise(function(resolve, reject) {
         var startInterval = setInterval(function(){
-          var $chapter = function () {
-            if (document.querySelectorAll(elementList.chapter).length == 0) {
-              return '';
-            }
-            var chapterText = '<h2>' + document.querySelectorAll(elementList.chapter).innerText + '</h2>';
-            return chapterText + ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
-          };
-          var str = $chapter + document.querySelector(elementList.content).innerText;
+          var chapter = '';
+          if (document.querySelectorAll(elementList.chapter).length > 0) {
+            chapter = '<h2>' + document.querySelector(elementList.chapter).innerText + '</h2>';
+            chapter += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
+          }
+          var str = chapter + document.querySelector(elementList.content).innerText;
           textList.push(str);
           var nextPageEl = document.querySelector(elementList.page).lastChild;
           if (nextPageEl.disabled) {
