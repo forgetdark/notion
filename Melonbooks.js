@@ -43,6 +43,18 @@ javascript:(function(){
     };
   })();
   if ($('.btn-copy').length == 0) {
+    var style = document.createElement('style');
+    style.innerHTML = `.btn-copy {
+      cursor: pointer;
+      color: #FFF;
+      background: #18BD67;
+      border: 0px;
+      border-radius: 6px;
+      padding: 3px 5px;
+      margin: 5px;
+      font-size: 13px;
+    }`;
+    document.body.appendChild(style);
     var info = '.info';
     var url = location.href;
     $(info).append('<button type="button" class="btn-copy" data-type="url" data-content="'+url+'">連結</button>');
