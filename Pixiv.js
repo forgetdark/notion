@@ -79,6 +79,7 @@ javascript:(function(){
       'img': '.sc-1u8nu73-19'
     },
     'title': '.sc-1u8nu73-3',
+    'chapter': '.sc-jrsJWt',
     'description': '.sc-eyxzap-1',
     'content': '.sc-dIvrsQ'
   };
