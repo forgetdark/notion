@@ -122,6 +122,7 @@ javascript:(function(){
     },
     'title': '.sc-1u8nu73-3',
     'description': '.sc-eyxzap-1',
+    'chapter': '.sc-jrsJWt',
     'content': '.sc-dIvrsQ',
     'page': '.sc-xhhh7v-0'
   };
@@ -163,7 +164,14 @@ javascript:(function(){
     var $saveText = function() {
       return new Promise(function(resolve, reject) {
         var startInterval = setInterval(function(){
-          var str = document.querySelector(elementList.content).innerText;
+          var $chapter = function () {
+            if (document.querySelectorAll(elementList.chapter).length == 0) {
+              return '';
+            }
+            var chapterText = '<h2>' + document.querySelectorAll(elementList.chapter).innerText + '</h2>';
+            return chapterText + ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
+          };
+          var str = $chapter + document.querySelector(elementList.content).innerText;
           textList.push(str);
           var nextPageEl = document.querySelector(elementList.page).lastChild;
           if (nextPageEl.disabled) {
@@ -177,7 +185,7 @@ javascript:(function(){
     $saveText().then(function (startInterval) {
       window.clearInterval(startInterval);
       var $newline = function () {
-        return ($checkOS() == 'Windows') ? '\r\n\r\n\r\n\r\n' : '\n\n\n';
+        return $checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n';
       };
       var text = '';
       textList.forEach(function (str, index) {
