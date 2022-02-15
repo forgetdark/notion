@@ -177,7 +177,7 @@ javascript:(function(){
           } else {
             nextPageEl.click();
           }
-        }, 1000); 
+        }, 1000);
       });
     };
     $saveText().then(function (startInterval) {
