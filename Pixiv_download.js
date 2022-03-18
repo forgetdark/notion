@@ -172,7 +172,7 @@ javascript:(function(){
           var str = chapter;
           var contents = document.querySelectorAll(elementList.content);
           [].forEach.call(contents, function(e) {
-            str += this.innerText;
+            str += e.innerText;
             str += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
             textList.push(str);
           });
