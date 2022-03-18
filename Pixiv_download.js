@@ -172,11 +172,9 @@ javascript:(function(){
           var str = chapter;
           var contents = document.querySelectorAll(elementList.content);
           [].forEach.call(contents, function(e) {
-            e.addEventListener('click', function(event) {
-              str += this.innerText;
-              str += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
-              textList.push(str);
-            });
+            str += this.innerText;
+            str += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
+            textList.push(str);
           });
           var nextPageEl = document.querySelector(elementList.page).lastChild;
           if (nextPageEl.disabled) {
