@@ -169,13 +169,13 @@ javascript:(function(){
             chapter = '<h2>' + document.querySelector(elementList.chapter).innerText + '</h2>';
             chapter += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
           }
-          var str = chapter;
+          var content = chapter;
           var contents = document.querySelectorAll(elementList.content);
           [].forEach.call(contents, function(e) {
-            str += e.innerText;
-            str += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
+            content += e.innerText;
+            content += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
           });
-          textList.push(str);
+          textList.push(content);
           var nextPageEl = document.querySelector(elementList.page).lastChild;
           if (nextPageEl.disabled) {
             resolve(startInterval);
