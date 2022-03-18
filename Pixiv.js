@@ -107,6 +107,11 @@ javascript:(function(){
       document.querySelector(el.link).addEventListener('click', function(event) {
         $copy(document.querySelector(el.img).getAttribute('src'));
       });
+    } else if (key == 'content') {
+      var contents = document.querySelectorAll(el);
+      [].forEach.call(contents, function(e) {
+        $copy(document.querySelector(e).innerText);
+      });
     } else {
       if (document.querySelectorAll(el).length > 0) {
         document.querySelector(el).addEventListener('click', function(event) {
