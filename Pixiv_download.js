@@ -169,8 +169,15 @@ javascript:(function(){
             chapter = '<h2>' + document.querySelector(elementList.chapter).innerText + '</h2>';
             chapter += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
           }
-          var str = chapter + document.querySelector(elementList.content).innerText;
-          textList.push(str);
+          var str = chapter;
+          var contents = document.querySelectorAll(elementList.content);
+          [].forEach.call(contents, function(e) {
+            e.addEventListener('click', function(event) {
+              str += this.innerText;
+              str += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
+              textList.push(str);
+            });
+          });
           var nextPageEl = document.querySelector(elementList.page).lastChild;
           if (nextPageEl.disabled) {
             resolve(startInterval);
