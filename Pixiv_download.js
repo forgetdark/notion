@@ -172,8 +172,7 @@ javascript:(function(){
           var content = chapter;
           var contents = document.querySelectorAll(elementList.content);
           [].forEach.call(contents, function(e) {
-            content += e.innerText;
-            content += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
+            content += e.innerText + ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
           });
           textList.push(content);
           var nextPageEl = document.querySelector(elementList.page).lastChild;
@@ -197,6 +196,11 @@ javascript:(function(){
       $downloadTxt(text);
     });
   } else {
-    $downloadTxt(document.querySelector(elementList.content).innerText);
+    var content = '';
+    var contents = document.querySelectorAll(elementList.content);
+    [].forEach.call(contents, function(e) {
+      content += e.innerText + ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
+    });
+    $downloadTxt(content);
   }
 })();
