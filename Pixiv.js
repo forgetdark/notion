@@ -110,7 +110,9 @@ javascript:(function(){
     } else if (key == 'content') {
       var contents = document.querySelectorAll(el);
       [].forEach.call(contents, function(e) {
-        $copy(document.querySelector(e).innerText);
+        e.addEventListener('click', function(event) {
+          $copy(this.innerText);
+        });
       });
     } else {
       if (document.querySelectorAll(el).length > 0) {
