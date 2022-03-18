@@ -174,8 +174,8 @@ javascript:(function(){
           [].forEach.call(contents, function(e) {
             str += e.innerText;
             str += ($checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n');
-            textList.push(str);
           });
+          textList.push(str);
           var nextPageEl = document.querySelector(elementList.page).lastChild;
           if (nextPageEl.disabled) {
             resolve(startInterval);
