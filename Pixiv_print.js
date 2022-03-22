@@ -23,6 +23,7 @@ javascript:(function(){
     }
   };
   var $getFileName = function () {
+    var id = location.href.split('?id=')[1];
     var author = document.querySelector('.jIsznR').title;
     var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
     return author + ' - ' + title + ' (' + id + ')';
@@ -143,6 +144,7 @@ javascript:(function(){
   var $printTxt = function (text) {
     try {
       $loader.hide();
+      $copyTextOfElement($getFileName());
       var newWin = window.open('', 'print window');
       newWin.document.open();
       newWin.document.write(`<html>
@@ -165,7 +167,6 @@ javascript:(function(){
     };
   };
   $loader.show();
-  $copyTextOfElement($getFileName());
   if (document.querySelectorAll('.kYtoqc').length > 0) {
     var textList = [];
     var $saveText = function() {
