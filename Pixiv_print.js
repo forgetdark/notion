@@ -23,8 +23,8 @@ javascript:(function(){
     }
   };
   var $getFileName = function () {
-    var author = document.querySelector(elementList.author).innerText;
-    var title = document.querySelectorAll(elementList.title).length > 0 ? document.querySelector(elementList.title).innerText : '無題';
+    var author = document.querySelector('.jIsznR').title;
+    var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
     return author + ' - ' + title + ' (' + id + ')';
   };
   var $loader = (function () {
