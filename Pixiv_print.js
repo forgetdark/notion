@@ -150,6 +150,7 @@ javascript:(function(){
         <head>
         <style>
         @media print {
+          body { font-family: "YuGothic", "Hiragino Kaku Gothic Pro", "Meiryo", "Source Han Sans", "Source Han Sans JP", "Noto Sans CJK JP", "Avenir Next", Avenir, "Source Sans", "Noto Sans", "Roboto", "Verdana", "Pingfang TC", "Pingfang HK", "Hiragino Sans CNS", "Lantinghei TC", "Source Han Sans TW", "Source Han Sans HK", "Noto Sans CJK TC", "Microsoft JhengHei", "Pingfang SC", "Hiragino Sans GB", "Lantinghei SC", "Source Han Sans CN", "Noto Sans CJK SC", "Microsoft Yahei", "DengXian", "Apple SD Gothic Neo", "Source Han Sans K", "Source Han Sans KR", "Noto Sans CJK KR", "Malgun Gothic", sans-serif; }
           .lmxMCy { width: 136px; height: 191px; object-fit: cover; object-position: center center; }
           .iLHffi, .dpDffd, #gtm-var-novel-theme-color, #gtm-var-novel-writing-mode{ display: none; }
           .caAbSV { font-size: 1em; color: #CCC; text-decoration: none; }
