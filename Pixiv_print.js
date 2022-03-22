@@ -196,15 +196,17 @@ javascript:(function(){
       textList.forEach(function (str, index) {
         text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
       });
-      text += '<hr><div style="text-align: center;"><a href="'+location.href+'">'+location.href+'</a></div>';
+      var url = location.href.split('#')[0];
+      text += '<hr><div style="text-align: center;"><a href="'+url+'" style="color: blue;">'+url+'</a></div>';
       $printTxt(text);
     });
   } else {
+    var url = location.href;
     var content = '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
     content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
     content+= '<hr style="clear: both;">';
     content+= document.querySelector('.ihJaMk').innerHTML;
-    content+= '<hr><div style="text-align: center;"><a href="'+location.href+'">'+location.href+'</a></div>';
+    content+= '<hr><div style="text-align: center;"><a href="'+url+'" style="color: blue;">'+url+'</a></div>';
     $printTxt(content);
   }
 })();
