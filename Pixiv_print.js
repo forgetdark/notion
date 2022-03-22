@@ -112,12 +112,31 @@ javascript:(function(){
       }
     };
   })();
-  var $getFileName = function () {
-    var author = document.querySelector('.jIsznR').title;
-    var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
-    var id = location.href.split('?id=')[1];
-    return author + ' - ' + title + ' (' + id + ')';
+  var $copy = function () {
+    var copy = document.createElement('button');
+    copy.classList.add('copy-btn');
+    copy.addEventListener('click', function (e) {
+      try {
+        var author = document.querySelector('.jIsznR').title;
+        var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
+        var id = location.href.split('?id=')[1];
+        var copyText = author + ' - ' + title + ' (' + id + ')';
+        navigator.clipboard.writeText(copyText)
+        .then(() => {
+          console.log("Text copied to clipboard...");
+        })
+        .catch(err => {
+          console.log('Something went wrong', err);
+        });
+      } catch (error) {
+        console.log('Oops!, unable to copy');
+      }
+    });
+    document.body.appendChild(copy);
+    copy.click();
+    document.body.removeChild(copy);
   };
+  $copy($getFileName());
   var $printTxt = function (text) {
     try {
       $loader.hide();
