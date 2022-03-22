@@ -167,6 +167,9 @@ javascript:(function(){
     };
   };
   $loader.show();
+  if (document.querySelectorAll('.exhRUC').length > 0) {
+    document.querySelector('.exhRUC').click();
+  }
   $copyTextOfElement($getFileName());
   if (document.querySelectorAll('.kYtoqc').length > 0) {
     var textList = [];
