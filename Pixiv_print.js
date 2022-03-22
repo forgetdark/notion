@@ -112,10 +112,16 @@ javascript:(function(){
       }
     };
   })();
+  var $getFileName = function () {
+    var author = document.querySelector('.jIsznR').title;
+    var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
+    var id = location.href.split('?id=')[1];
+    return author + ' - ' + title + ' (' + id + ')';
+  };
   var $printTxt = function (text) {
     try {
       $loader.hide();
-      var newWin = window.open('','print window');
+      var newWin = window.open('', 'print window');
       newWin.document.open();
       newWin.document.write(`<html>
         <head>
@@ -163,8 +169,9 @@ javascript:(function(){
       window.clearInterval(startInterval);
       var text = '';
       textList.forEach(function (str, index) {
-        text += str + '<p style="page-break-after: always;"></p>';
+        text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
       });
+      text += '<hr><div style="text-align: center;"><a href="'+location.href+'">'+location.href+'</a></div>';
       $printTxt(text);
     });
   } else {
@@ -172,6 +179,7 @@ javascript:(function(){
     content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
     content+= '<hr style="clear: both;">';
     content+= document.querySelector('.ihJaMk').innerHTML;
+    content+= '<hr><div style="text-align: center;"><a href="'+location.href+'">'+location.href+'</a></div>';
     $printTxt(content);
   }
 })();
