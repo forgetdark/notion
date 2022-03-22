@@ -1,6 +1,6 @@
 javascript:(function(){
   var $copyTextOfElement = function (copyText) {
-    if (!navigator.clipboard) {
+    /*if (!navigator.clipboard) {*/
       var el = document.createElement("textarea");
       el.value = copyText;
       el.style.display="none";
@@ -12,7 +12,7 @@ javascript:(function(){
       document.execCommand('copy');
 
       document.body.removeChild(el);
-    } else {
+    /*} else {
       let resolve = () => { 
         console.log('Text copied to clipboard...'); 
       };
@@ -20,7 +20,7 @@ javascript:(function(){
         console.error('Something went wrong:' + err.toString() ); 
       };
       navigator.clipboard.writeText(copyText).then(resolve, reject);
-    }
+    }*/
   };
   var $getFileName = function () {
     var id = location.href.split('?id=')[1];
