@@ -197,7 +197,7 @@ javascript:(function(){
         text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
       });
       var url = location.href.split('#')[0];
-      text += '<hr><div style="text-align: center;"><a href="'+url+'" style="color: blue;">'+url+'</a></div>';
+      text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
       $printTxt(text);
     });
   } else {
@@ -206,7 +206,7 @@ javascript:(function(){
     content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
     content+= '<hr style="clear: both;">';
     content+= document.querySelector('.ihJaMk').innerHTML;
-    content+= '<hr><div style="text-align: center;"><a href="'+url+'" style="color: blue;">'+url+'</a></div>';
+    content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
     $printTxt(content);
   }
 })();
