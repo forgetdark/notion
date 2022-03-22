@@ -16,13 +16,14 @@ javascript:(function(){
     } else {
       let resolve = () => { 
         console.log('Text copied to clipboard...'); 
-      }
+      };
       let reject = (err) => { 
         console.error('Something went wrong:' + err.toString() ); 
-      }
+      };
       navigator.clipboard.writeText(copyText).then(resolve, reject);
     }
   };
+
   var author = document.querySelector('.jIsznR').title;
   var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
   var id = location.href.split('?id=')[1];
