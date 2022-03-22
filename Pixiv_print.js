@@ -143,7 +143,6 @@ javascript:(function(){
   var $printTxt = function (text) {
     try {
       $loader.hide();
-      $copyTextOfElement($getFileName());
       var newWin = window.open('', 'print window');
       newWin.document.open();
       newWin.document.write(`<html>
@@ -166,6 +165,7 @@ javascript:(function(){
     };
   };
   $loader.show();
+  $copyTextOfElement($getFileName());
   if (document.querySelectorAll('.kYtoqc').length > 0) {
     var textList = [];
     var $saveText = function() {
