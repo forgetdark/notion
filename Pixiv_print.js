@@ -12,6 +12,7 @@ javascript:(function(){
       document.execCommand('copy');
 
       document.body.removeChild(el);
+      console.log('Clipped.');
     };
     if (!navigator.clipboard) {
       copyEl(copyText);
@@ -19,9 +20,9 @@ javascript:(function(){
       let resolve = () => { 
         console.log('Text copied to clipboard...'); 
       };
-      let reject = (err) => { 
-        console.error('Something went wrong:' + err.toString() ); 
+      let reject = (err) => {
         copyEl(copyText);
+        console.error('Something went wrong:' + err.toString() ); 
       };
       navigator.clipboard.writeText(copyText).then(resolve, reject);
     }
