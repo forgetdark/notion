@@ -150,10 +150,10 @@ javascript:(function(){
         <head>
         <style>
         @media print {
-            .lmxMCy { width: 136px; height: 191px; object-fit: cover; object-position: center center; }
-            .iLHffi, .dpDffd, #gtm-var-novel-theme-color, #gtm-var-novel-writing-mode{ display: none; }
-            .caAbSV { font-size: 0.5em; color: #CCC; text-decoration: none; }
-            .iwisNA { text-align: center; }
+          .lmxMCy { width: 136px; height: 191px; object-fit: cover; object-position: center center; }
+          .iLHffi, .dpDffd, #gtm-var-novel-theme-color, #gtm-var-novel-writing-mode{ display: none; }
+          .caAbSV { font-size: 1em; color: #CCC; text-decoration: none; }
+          .iwisNA { text-align: center; }
         }
         </style>
         </head>
