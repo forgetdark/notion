@@ -155,6 +155,7 @@ javascript:(function(){
           .iLHffi, .dpDffd, #gtm-var-novel-theme-color, #gtm-var-novel-writing-mode{ display: none; }
           .caAbSV { font-size: 1em; color: #CCC; text-decoration: none; }
           .iwisNA { text-align: center; }
+          .bbNZID a { text-decoration: none; color: rgb(61, 118, 153); }
         }
         </style>
         </head>
