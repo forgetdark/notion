@@ -146,16 +146,12 @@ javascript:(function(){
     function copyEl(text) {
       var el = document.createElement("textarea");
       el.value = text;
-      el.style.display="none";
-
       document.body.appendChild(el);
       el.focus();
       el.select();
-
       document.execCommand('copy');
-
       document.body.removeChild(el);
-      console.log('Clipped.');
+      console.log('Text copied to clipboard...');
     };
     if (!navigator.clipboard) {
       copyEl(copyText);
@@ -165,7 +161,6 @@ javascript:(function(){
       };
       let reject = (err) => {
         copyEl(copyText);
-        console.error('Something went wrong:' + err.toString() ); 
       };
       navigator.clipboard.writeText(copyText).then(resolve, reject);
     }
