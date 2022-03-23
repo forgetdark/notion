@@ -185,7 +185,7 @@ javascript:(function(){
               content+= '<hr style="clear: both;">';
             }
             var nowPage = document.querySelector('[role="presentation"].active').innerText;
-            content+= '<div style="text-align: center; margin-bottom: 4.2em;">'+nowPage+'</div>';
+            content+= '<div style="text-align: center; margin-bottom: 2.4em;">'+nowPage+'</div>';
             content+= document.querySelectorAll('.honbun')[parseInt(nowPage) - 1].innerHTML;
             textList.push(content);
             var nextPageEl = document.querySelector('[role="presentation"].active').nextElementSibling;
@@ -216,7 +216,7 @@ javascript:(function(){
       document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
       `<div>`+document.querySelector('.text-muted').innerText+`</div>
       </div>`;
-      content+= '<hr style="clear: both;"><div style="text-align: center; margin-bottom: 4.2em;">1</div>';
+      content+= '<hr style="clear: both;"><div style="text-align: center; margin-bottom: 2.4em;">1</div>';
       content+= document.querySelector('.honbun').innerHTML;
       content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
       $printTxt(content);
