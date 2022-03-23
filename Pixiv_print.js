@@ -1,4 +1,35 @@
 javascript:(function(){
+  var $copyTextOfElement = function (copyText) {
+    function copyEl(text) {
+      var el = document.createElement("textarea");
+      el.value = text;
+      document.body.appendChild(el);
+      el.focus();
+      el.select();
+      var copyStatus = document.execCommand('copy');
+      var msg = copyStatus ? 'copied' : 'failed';
+      document.body.removeChild(el);
+      console.log('Text ' + msg + ' to clipboard...');
+    };
+    if (!navigator.clipboard) {
+      copyEl(copyText);
+    } else {
+      let resolve = () => { 
+        console.log('Text copied to clipboard...'); 
+      };
+      let reject = (err) => {
+        copyEl(copyText);
+      };
+      navigator.clipboard.writeText(copyText).then(resolve, reject);
+    }
+  };
+  var $getFileName = function () {
+    var id = location.href.split('?id=')[1];
+    var author = document.querySelector('.jIsznR').title;
+    var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
+    return author + ' - ' + title + ' (' + id + ')';
+  };
+  $copyTextOfElement($getFileName());
   var $loader = (function () {
     var loaderStyle = document.createElement('style');
     loaderStyle.id = 'loader-style';
@@ -138,80 +169,51 @@ javascript:(function(){
       console.log('Oops!, unable to print');
     };
   };
-  $loader.show();
-  if (document.querySelectorAll('.exhRUC').length > 0) {
-    document.querySelector('.exhRUC').click();
-  }
-  var $copyTextOfElement = function (copyText) {
-    function copyEl(text) {
-      var el = document.createElement("textarea");
-      el.value = text;
-      document.body.appendChild(el);
-      el.focus();
-      el.select();
-      var copyStatus = document.execCommand('copy');
-      var msg = copyStatus ? 'copied' : 'failed';
-      document.body.removeChild(el);
-      console.log('Text ' + msg + ' to clipboard...');
-    };
-    if (!navigator.clipboard) {
-      copyEl(copyText);
-    } else {
-      let resolve = () => { 
-        console.log('Text copied to clipboard...'); 
-      };
-      let reject = (err) => {
-        copyEl(copyText);
-      };
-      navigator.clipboard.writeText(copyText).then(resolve, reject);
+  setTimeout(function () {
+    $loader.show();
+    if (document.querySelectorAll('.exhRUC').length > 0) {
+      document.querySelector('.exhRUC').click();
     }
-  };
-  var $getFileName = function () {
-    var id = location.href.split('?id=')[1];
-    var author = document.querySelector('.jIsznR').title;
-    var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
-    return author + ' - ' + title + ' (' + id + ')';
-  };
-  $copyTextOfElement($getFileName());
-  if (document.querySelectorAll('.kYtoqc').length > 0) {
-    var textList = [];
-    var $saveText = function() {
-      return new Promise(function(resolve, reject) {
-        var startInterval = setInterval(function(){
-          var content = '';
-          if (textList.length == 0) {
-            content+= '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
-            content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
-            content+= '<hr style="clear: both;">';
-          }
-          content+= document.querySelector('.ihJaMk').innerHTML;
-          textList.push(content);
-          var nextPageEl = document.querySelector('.kYtoqc').lastChild;
-          if (nextPageEl.disabled) {
-            resolve(startInterval);
-          } else {
-            nextPageEl.click();
-          }
-        }, 1000);
+    if (document.querySelectorAll('.kYtoqc').length > 0) {
+      var textList = [];
+      var $saveText = function() {
+        return new Promise(function(resolve, reject) {
+          var startInterval = setInterval(function(){
+            var content = '';
+            if (textList.length == 0) {
+              content+= '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
+              content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
+              content+= '<hr style="clear: both;">';
+            }
+            content+= document.querySelector('.ihJaMk').innerHTML;
+            textList.push(content);
+            var nextPageEl = document.querySelector('.kYtoqc').lastChild;
+            if (nextPageEl.disabled) {
+              resolve(startInterval);
+            } else {
+              nextPageEl.click();
+            }
+          }, 1000);
+        });
+      };
+      $saveText().then(function (startInterval) {
+        window.clearInterval(startInterval);
+        var text = '';
+        textList.forEach(function (str, index) {
+          text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
+        });
+        var url = location.href.split('#')[0];
+        text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
+        $printTxt(text);
       });
-    };
-    $saveText().then(function (startInterval) {
-      window.clearInterval(startInterval);
-      var text = '';
-      textList.forEach(function (str, index) {
-        text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
-      });
-      var url = location.href.split('#')[0];
-      text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
-      $printTxt(text);
-    });
-  } else {
-    var url = location.href;
-    var content = '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
-    content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
-    content+= '<hr style="clear: both;">';
-    content+= document.querySelector('.ihJaMk').innerHTML;
-    content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
-    $printTxt(content);
-  }
+    } else {
+      var url = location.href;
+      var content = '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
+      content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
+      content+= '<hr style="clear: both;">';
+      content+= document.querySelector('.ihJaMk').innerHTML;
+      content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
+      $printTxt(content);
+    }
+  }, 100);
 })();
