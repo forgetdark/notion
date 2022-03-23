@@ -1,38 +1,4 @@
 javascript:(function(){
-  var $copyTextOfElement = function (copyText) {
-    function copyEl(text) {
-      var el = document.createElement("textarea");
-      el.value = text;
-      el.style.display="none";
-
-      document.body.appendChild(el);
-      el.focus();
-      el.select();
-
-      document.execCommand('copy');
-
-      document.body.removeChild(el);
-      console.log('Clipped.');
-    };
-    if (!navigator.clipboard) {
-      copyEl(copyText);
-    } else {
-      let resolve = () => { 
-        console.log('Text copied to clipboard...'); 
-      };
-      let reject = (err) => {
-        copyEl(copyText);
-        console.error('Something went wrong:' + err.toString() ); 
-      };
-      navigator.clipboard.writeText(copyText).then(resolve, reject);
-    }
-  };
-  var $getFileName = function () {
-    var id = location.href.split('?id=')[1];
-    var author = document.querySelector('.jIsznR').title;
-    var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
-    return author + ' - ' + title + ' (' + id + ')';
-  };
   var $loader = (function () {
     var loaderStyle = document.createElement('style');
     loaderStyle.id = 'loader-style';
@@ -176,6 +142,40 @@ javascript:(function(){
   if (document.querySelectorAll('.exhRUC').length > 0) {
     document.querySelector('.exhRUC').click();
   }
+  var $copyTextOfElement = function (copyText) {
+    function copyEl(text) {
+      var el = document.createElement("textarea");
+      el.value = text;
+      el.style.display="none";
+
+      document.body.appendChild(el);
+      el.focus();
+      el.select();
+
+      document.execCommand('copy');
+
+      document.body.removeChild(el);
+      console.log('Clipped.');
+    };
+    if (!navigator.clipboard) {
+      copyEl(copyText);
+    } else {
+      let resolve = () => { 
+        console.log('Text copied to clipboard...'); 
+      };
+      let reject = (err) => {
+        copyEl(copyText);
+        console.error('Something went wrong:' + err.toString() ); 
+      };
+      navigator.clipboard.writeText(copyText).then(resolve, reject);
+    }
+  };
+  var $getFileName = function () {
+    var id = location.href.split('?id=')[1];
+    var author = document.querySelector('.jIsznR').title;
+    var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
+    return author + ' - ' + title + ' (' + id + ')';
+  };
   $copyTextOfElement($getFileName());
   if (document.querySelectorAll('.kYtoqc').length > 0) {
     var textList = [];
