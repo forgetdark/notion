@@ -170,10 +170,12 @@ javascript:(function(){
   setTimeout(function () {
     $loader.show();
     if (document.querySelectorAll('.pagination').length > 0) {
-      var textList = [];
       var $saveText = function() {
         return new Promise(function(resolve, reject) {
-          var startInterval = setInterval(function(){
+          var textList = [];
+          var contents = document.querySelectorAll('.honbun');
+          [].forEach.call(contents, function(e, i) {
+            var nowPage = i + 1;
             var content = '';
             if (textList.length == 0) {
               content+= '<div style="float: right;">' + document.querySelector('[name="userprof"]').nextElementSibling.innerHTML + '</div>';
@@ -184,21 +186,14 @@ javascript:(function(){
               </div>`;
               content+= '<hr style="clear: both;">';
             }
-            var nowPage = document.querySelector('[role="presentation"].active').innerText;
             content+= '<div style="text-align: center; margin-bottom: 1em;">'+nowPage+'</div>';
-            content+= document.querySelectorAll('.honbun')[parseInt(nowPage) - 1].innerHTML;
+            content+= e.innerHTML;
             textList.push(content);
-            var nextPageEl = document.querySelector('[role="presentation"].active').nextElementSibling;
-            if(nextPageEl === null) {
-              resolve(startInterval);
-            } else {
-              nextPageEl.childNodes[0].click();
-            }
-          }, 1000);
+          });
+          resolve(textList);
         });
       };
-      $saveText().then(function (startInterval) {
-        window.clearInterval(startInterval);
+      $saveText().then(function (textList) {
         var text = '';
         textList.forEach(function (str, index) {
           text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
