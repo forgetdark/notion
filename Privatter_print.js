@@ -24,10 +24,10 @@ javascript:(function(){
     }
   };
   var $getFileName = function () {
-    var id = location.href.split('?id=')[1];
-    var author = document.querySelector('.jIsznR').title;
-    var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
-    return author + ' - ' + title + ' (' + id + ')';
+    var id = location.href.split('/p/')[1];
+    var author = document.querySelector('[name="userprof"]').nextElementSibling.childNodes[3].childNodes[3].innerText;
+    var title = document.querySelectorAll('.lead').length > 0 ? document.querySelector('.lead').innerText : '無題';
+    return author + ' - ' + title + ' (p' + id + ')';
   };
   $copyTextOfElement($getFileName());
   var $loader = (function () {
@@ -153,11 +153,9 @@ javascript:(function(){
         <style>
         @media print {
           body { font-family: "YuGothic", "Hiragino Kaku Gothic Pro", "Meiryo", "Source Han Sans", "Source Han Sans JP", "Noto Sans CJK JP", "Avenir Next", Avenir, "Source Sans", "Noto Sans", "Roboto", "Verdana", "Pingfang TC", "Pingfang HK", "Hiragino Sans CNS", "Lantinghei TC", "Source Han Sans TW", "Source Han Sans HK", "Noto Sans CJK TC", "Microsoft JhengHei", "Pingfang SC", "Hiragino Sans GB", "Lantinghei SC", "Source Han Sans CN", "Noto Sans CJK SC", "Microsoft Yahei", "DengXian", "Apple SD Gothic Neo", "Source Han Sans K", "Source Han Sans KR", "Noto Sans CJK KR", "Malgun Gothic", sans-serif; }
-          .lmxMCy { width: 136px; height: 191px; object-fit: cover; object-position: center center; }
-          .iLHffi, .dpDffd, #gtm-var-novel-theme-color, #gtm-var-novel-writing-mode{ display: none; }
-          .caAbSV { font-size: 1em; color: #CCC; text-decoration: none; }
-          .iwisNA { text-align: center; }
-          .bbNZID a { text-decoration: none; color: rgb(61, 118, 153); }
+          .panel-heading, .panel-body div { display: none; }
+		  .panel-body b { font-weight: inherit; }
+          a { text-decoration: none; color: rgb(61, 118, 153); }
         }
         </style>
         </head>
@@ -171,27 +169,29 @@ javascript:(function(){
   };
   setTimeout(function () {
     $loader.show();
-    if (document.querySelectorAll('.exhRUC').length > 0) {
-      document.querySelector('.exhRUC').click();
-    }
-    if (document.querySelectorAll('.kYtoqc').length > 0) {
+    if (document.querySelectorAll('.pagination').length > 0) {
       var textList = [];
       var $saveText = function() {
         return new Promise(function(resolve, reject) {
           var startInterval = setInterval(function(){
             var content = '';
             if (textList.length == 0) {
-              content+= '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
-              content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
+              content+= '<div style="float: right;">' + document.querySelector('[name="userprof"]').nextElementSibling.innerHTML + '</div>';
+              content+= `<div style="float: left;">
+                <h1>`+document.querySelector('.lead').innerText+`</h1>`+
+                document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
+                `<div>`+document.querySelector('.text-muted').innerText+`</div>
+              </div>`;
               content+= '<hr style="clear: both;">';
             }
-            content+= document.querySelector('.ihJaMk').innerHTML;
+            content+= '<div style="text-align: center;">'+document.querySelector('[role="presentation"].active').innerText+'</div>';
+            content+= document.querySelector('.honbun').innerHTML;
             textList.push(content);
-            var nextPageEl = document.querySelector('.kYtoqc').lastChild;
-            if (nextPageEl.disabled) {
+            var nextPageEl = document.querySelector('[role="presentation"].active').nextElementSibling;
+            if(nextPageEl === null) {
               resolve(startInterval);
             } else {
-              nextPageEl.click();
+              nextPageEl.childNodes[0].click();
             }
           }, 1000);
         });
@@ -202,16 +202,21 @@ javascript:(function(){
         textList.forEach(function (str, index) {
           text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
         });
-        var url = location.href.split('#')[0];
+        var url = location.href;
         text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
         $printTxt(text);
       });
     } else {
       var url = location.href;
-      var content = '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
-      content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
-      content+= '<hr style="clear: both;">';
-      content+= document.querySelector('.ihJaMk').innerHTML;
+      var content = '';
+      content+= '<div style="float: right;">' + document.querySelector('[name="userprof"]').nextElementSibling.innerHTML + '</div>';
+      content+= `<div style="float: left;">
+      <h1>`+document.querySelector('.lead').innerText+`</h1>`+
+      document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
+      `<div>`+document.querySelector('.text-muted').innerText+`</div>
+      </div>`;
+      content+= '<hr style="clear: both;"><div style="text-align: center;">1</div>';
+      content+= document.querySelector('.honbun').innerHTML;
       content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
       $printTxt(content);
     }
