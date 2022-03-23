@@ -180,9 +180,9 @@ javascript:(function(){
             if (textList.length == 0) {
               content+= '<div style="float: right;">' + document.querySelector('[name="userprof"]').nextElementSibling.innerHTML + '</div>';
               content+= `<div style="float: left;">
-                <h1>`+document.querySelector('.lead').innerText+`</h1>`+
-                document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
-                `<div>`+document.querySelector('.text-muted').innerText+`</div>
+              <h1>`+document.querySelector('.lead').innerText+`</h1>`+
+              document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
+              `<div>` + document.querySelector('.fa-clock').parentElement.innerText + `</div>
               </div>`;
               content+= '<hr style="clear: both;">';
             }
@@ -209,7 +209,7 @@ javascript:(function(){
       content+= `<div style="float: left;">
       <h1>`+document.querySelector('.lead').innerText+`</h1>`+
       document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
-      `<div>`+document.querySelector('.text-muted').innerText+`</div>
+      `<div>` + document.querySelector('.fa-clock').parentElement.innerText + `</div>
       </div>`;
       content+= '<hr style="clear: both;"><div style="text-align: center; margin-bottom: 1em;">1</div>';
       content+= document.querySelector('.honbun').innerHTML;
