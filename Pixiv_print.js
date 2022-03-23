@@ -149,9 +149,10 @@ javascript:(function(){
       document.body.appendChild(el);
       el.focus();
       el.select();
-      document.execCommand('copy');
+      var copyStatus = document.execCommand('copy');
+      var msg = copyStatus ? 'copied' : 'failed';
       document.body.removeChild(el);
-      console.log('Text copied to clipboard...');
+      console.log('Text ' + msg + ' to clipboard...');
     };
     if (!navigator.clipboard) {
       copyEl(copyText);
