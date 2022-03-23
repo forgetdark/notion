@@ -184,8 +184,9 @@ javascript:(function(){
               </div>`;
               content+= '<hr style="clear: both;">';
             }
-            content+= '<div style="text-align: center;">'+document.querySelector('[role="presentation"].active').innerText+'</div>';
-            content+= document.querySelector('.honbun').innerHTML;
+            var nowPage = document.querySelector('[role="presentation"].active').innerText;
+            content+= '<div style="text-align: center;">'+nowPage+'</div>';
+            content+= document.querySelectorAll('.honbun')[parseInt(nowPage) - 1].innerHTML;
             textList.push(content);
             var nextPageEl = document.querySelector('[role="presentation"].active').nextElementSibling;
             if(nextPageEl === null) {
