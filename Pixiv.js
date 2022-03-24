@@ -78,6 +78,7 @@ javascript:(function(){
       'link': '.sc-1u8nu73-18',
       'img': '.sc-1u8nu73-19'
     },
+    'series': '.sc-1u8nu73-15',
     'title': '.sc-1u8nu73-3',
     'chapter': '.sc-jrsJWt',
     'description': '.sc-eyxzap-1',
