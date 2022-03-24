@@ -212,7 +212,8 @@ javascript:(function(){
       var content = '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
       content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
       content+= '<hr style="clear: both;">';
-      content+= document.querySelector('.ihJaMk').innerHTML;
+      content+= document.querySelectorAll('.ihJaMk').length > 0 ? document.querySelector('.ihJaMk').innerHTML : '';
+      content+= document.querySelectorAll('.gOTnwN').length > 0 ? document.querySelector('.gOTnwN').innerHTML : '';
       content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
       $printTxt(content);
     }
