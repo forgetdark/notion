@@ -120,6 +120,7 @@ javascript:(function(){
       'link': '.sc-1u8nu73-18',
       'img': '.sc-1u8nu73-19'
     },
+    'series': '.sc-1u8nu73-15',
     'title': '.sc-1u8nu73-3',
     'description': '.sc-eyxzap-1',
     'chapter': '.sc-jrsJWt',
@@ -128,8 +129,9 @@ javascript:(function(){
   };
   var $getFileName = function () {
     var author = document.querySelector(elementList.author).innerText;
+    var series = document.querySelectorAll(elementList.series).length > 0 ? document.querySelector(elementList.series).innerText + ' ' : '';
     var title = document.querySelectorAll(elementList.title).length > 0 ? document.querySelector(elementList.title).innerText : '無題';
-    return author + ' - ' + title + ' (' + id + ')';
+    return author + ' - ' + series + title + ' (' + id + ')';
   };
   var $checkOS = function () {
     var windows = (navigator.userAgent.indexOf('Windows',0) != -1)?1:0;
