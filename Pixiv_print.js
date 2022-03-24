@@ -26,8 +26,9 @@ javascript:(function(){
   var $getFileName = function () {
     var id = location.href.split('?id=')[1];
     var author = document.querySelector('.jIsznR').title;
+    var series = document.querySelectorAll('.caAbSV').length > 0 ? document.querySelector('.caAbSV').innerText + ' ' : '';
     var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
-    return author + ' - ' + title + ' (' + id + ')';
+    return author + ' - ' + series + title + ' (' + id + ')';
   };
   $copyTextOfElement($getFileName());
   var $loader = (function () {
