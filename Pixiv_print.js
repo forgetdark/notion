@@ -186,7 +186,8 @@ javascript:(function(){
               content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
               content+= '<hr style="clear: both;">';
             }
-            content+= document.querySelector('.ihJaMk').innerHTML;
+            content+= document.querySelectorAll('.ihJaMk').length > 0 ? document.querySelector('.ihJaMk').innerHTML : '';
+            content+= document.querySelectorAll('.gOTnwN').length > 0 ? document.querySelector('.gOTnwN').innerHTML : '';
             textList.push(content);
             var nextPageEl = document.querySelector('.kYtoqc').lastChild;
             if (nextPageEl.disabled) {
