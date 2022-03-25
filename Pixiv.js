@@ -107,7 +107,7 @@ javascript:(function(){
     } else {
       let resolve = () => { 
         console.log('Text copied to clipboard...');
-        $tooptip.show('複製成功', copyEl);
+        $tooptip.show('複製成功');
         setTimeout(function () {
           $tooptip.hide();
         }, 1000);
@@ -139,7 +139,7 @@ javascript:(function(){
     } else {
       if (document.querySelectorAll(el).length > 0) {
         document.querySelector(el).addEventListener('click', function(event) {
-          $copyTextOfElement(document.querySelector(el).innerText);
+          $copyTextOfElement(this.innerText);
         });
       }
     }
