@@ -84,21 +84,37 @@ javascript:(function(){
     'description': '.sc-eyxzap-1',
     'content': ['.sc-dIvrsQ', '.sc-fXgAZx']
   };
-  var $copy = function (copyMsg, copyEl) {
-    try {
-      navigator.clipboard.writeText(copyMsg)
-      .then(() => {
-        console.log("Text copied to clipboard...");
+  var $copyTextOfElement = function (copyText) {
+    function copyEl(text) {
+      var el = document.createElement("textarea");
+      el.value = text;
+      document.body.appendChild(el);
+      el.focus();
+      el.select();
+      var copyStatus = document.execCommand('copy');
+      var msg = copyStatus ? 'copied' : 'failed';
+      var transMsg = copyStatus ? '複製成功' : '複製失敗';
+      document.body.removeChild(el);
+      console.log('Text ' + msg + ' to clipboard...');
+      $tooptip.show(transMsg);
+      setTimeout(function () {
+        $tooptip.hide();
+      }, 1000);
+    };
+    if (!navigator.clipboard) {
+      copyEl(copyText);
+    } else {
+      let resolve = () => { 
+        console.log('Text copied to clipboard...');
         $tooptip.show('複製成功', copyEl);
         setTimeout(function () {
           $tooptip.hide();
         }, 1000);
-      })
-      .catch(err => {
-        console.log('Something went wrong', err);
-      });
-    } catch (error) {
-      console.log('Oops!, unable to copy');
+      };
+      let reject = (err) => {
+        copyEl(copyText);
+      };
+      navigator.clipboard.writeText(copyText).then(resolve, reject);
     }
   };
   for (const [key, el] of Object.entries(elementList)) {
@@ -106,7 +122,7 @@ javascript:(function(){
       document.querySelector(elementList.cover.link).setAttribute('href','javascript:void(0);');
       document.querySelector(elementList.cover.link).removeAttribute('target');
       document.querySelector(el.link).addEventListener('click', function(event) {
-        $copy(document.querySelector(el.img).getAttribute('src'));
+        $copyTextOfElement(document.querySelector(el.img).getAttribute('src'));
       });
     } else if (key == 'content') {
       el.forEach (function (e) {
@@ -114,7 +130,7 @@ javascript:(function(){
         if (contents.length > 0) {
           [].forEach.call(contents, function(element) {
             element.addEventListener('click', function(event) {
-              $copy(this.innerText);
+              $copyTextOfElement(this.innerText);
             });
           });
         }
@@ -122,7 +138,7 @@ javascript:(function(){
     } else {
       if (document.querySelectorAll(el).length > 0) {
         document.querySelector(el).addEventListener('click', function(event) {
-          $copy(document.querySelector(el).innerText);
+          $copyTextOfElement(document.querySelector(el).innerText);
         });
       }
     }
