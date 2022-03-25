@@ -124,7 +124,7 @@ javascript:(function(){
     'title': '.sc-1u8nu73-3',
     'description': '.sc-eyxzap-1',
     'chapter': '.sc-jrsJWt',
-    'content': '.'+document.querySelector('#gtm-novel-work-scroll-begin-reading').nextElementSibling.classList[0],
+    'content': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.classList[0],
     'page': '.sc-xhhh7v-0'
   };
   var $getFileName = function () {
