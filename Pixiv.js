@@ -52,12 +52,11 @@ javascript:(function(){
           }
           tooltipModel.innerHTML = '<span style="position: absolute; left:' + position[0] + '; top:' + position[1] + 'px;">' + text + '</span>';
 
-          /*if (target.firstChild !== null) {
+          if (target.firstChild !== null) {
             target.insertBefore(tooltipModel, target.firstChild);
           } else {
             target.appendChild(tooltipModel);
-          }*/
-          target.appendChild(tooltipModel);
+          }
         }
         setTimeout(function () {
           document.querySelector('.tooltip-model').style.visibility = 'visible';
