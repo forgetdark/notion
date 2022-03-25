@@ -82,7 +82,7 @@ javascript:(function(){
     'title': '.sc-1u8nu73-3',
     'chapter': '.sc-jrsJWt',
     'description': '.sc-eyxzap-1',
-    'content': '.sc-dIvrsQ'
+    'content': ['.sc-dIvrsQ', '.sc-fXgAZx']
   };
   var $copy = function (copyMsg, copyEl) {
     try {
@@ -109,11 +109,15 @@ javascript:(function(){
         $copy(document.querySelector(el.img).getAttribute('src'));
       });
     } else if (key == 'content') {
-      var contents = document.querySelectorAll(el);
-      [].forEach.call(contents, function(e) {
-        e.addEventListener('click', function(event) {
-          $copy(this.innerText);
-        });
+      el.forEach (function (e) {
+        var contents = document.querySelectorAll(e);
+        if (contents.length > 0) {
+          [].forEach.call(contents, function(element) {
+            element.addEventListener('click', function(event) {
+              $copy(this.innerText);
+            });
+          });
+        }
       });
     } else {
       if (document.querySelectorAll(el).length > 0) {
