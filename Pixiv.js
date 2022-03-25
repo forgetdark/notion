@@ -82,7 +82,7 @@ javascript:(function(){
     'title': '.sc-1u8nu73-3',
     'chapter': '.sc-jrsJWt',
     'description': '.sc-eyxzap-1',
-    'content': ['.sc-dIvrsQ', '.sc-fXgAZx']
+    'content': ['.sc-dIvrsQ', document.querySelector('#gtm-novel-work-scroll-begin-reading').nextElementSibling.classList[0]]
   };
   var $copyTextOfElement = function (copyText) {
     function copyEl(text) {
