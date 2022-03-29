@@ -73,18 +73,6 @@ javascript:(function(){
       }
     };
   })();
-  var elementList = {
-    'cover': {
-      'link': '.sc-1u8nu73-18',
-      'img': '.sc-1u8nu73-19'
-    },
-    'series': '.sc-1u8nu73-15',
-    'title': '.sc-1u8nu73-3',
-    'chapter': ['.sc-jrsJWt', '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.previousElementSibling.classList[0]],
-    'description': '.sc-eyxzap-1',
-    'content': ['.sc-dIvrsQ', '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.classList[0]],
-    'pages': '.sc-xhhh7v-1'
-  };
   var $copyTextOfElement = function (copyText) {
     function copyEl(text) {
       var el = document.createElement("textarea");
@@ -118,69 +106,99 @@ javascript:(function(){
       navigator.clipboard.writeText(copyText).then(resolve, reject);
     }
   };
-  for (const [key, el] of Object.entries(elementList)) {
-    if (key == 'cover') {
-      document.querySelector(elementList.cover.link).setAttribute('href','javascript:void(0);');
-      document.querySelector(elementList.cover.link).removeAttribute('target');
-      document.querySelector(el.link).addEventListener('click', function(event) {
-        $copyTextOfElement(document.querySelector(el.img).getAttribute('src'));
-      });
-    } else if (key == 'chapter' || key == 'content') {
-      el.forEach (function (e) {
-        var contents = document.querySelectorAll(e);
-        if (contents.length > 0) {
-          [].forEach.call(contents, function(element) {
-            element.addEventListener('click', function(event) {
-              $copyTextOfElement(this.innerText);
+  if (location.href.indexOf('series') < 0) {
+    var elementList = {
+      'cover': {
+        'link': '.sc-1u8nu73-18',
+        'img': '.sc-1u8nu73-19'
+      },
+      'series': '.sc-1u8nu73-15',
+      'title': '.sc-1u8nu73-3',
+      'chapter': ['.sc-jrsJWt', '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.previousElementSibling.classList[0]],
+      'description': '.sc-eyxzap-1',
+      'content': ['.sc-dIvrsQ', '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.classList[0]],
+      'pages': '.sc-xhhh7v-1'
+    };
+    for (const [key, el] of Object.entries(elementList)) {
+      if (key == 'cover') {
+        document.querySelector(elementList.cover.link).setAttribute('href','javascript:void(0);');
+        document.querySelector(elementList.cover.link).removeAttribute('target');
+        document.querySelector(el.link).addEventListener('click', function(event) {
+          $copyTextOfElement(document.querySelector(el.img).getAttribute('src'));
+        });
+      } else if (key == 'chapter' || key == 'content') {
+        el.forEach (function (e) {
+          var contents = document.querySelectorAll(e);
+          if (contents.length > 0) {
+            [].forEach.call(contents, function(element) {
+              element.addEventListener('click', function(event) {
+                $copyTextOfElement(this.innerText);
+              });
+            });
+          }
+        });
+      } else if (key == 'pages') {
+        var pages = document.querySelectorAll(el);
+        if (pages.length > 0) {
+          [].forEach.call(pages, function(page) {
+            page.addEventListener('click', function(event) {
+              setTimeout(function () {
+                for (const [index, e] of Object.entries(elementList.chapter)) {
+                  var chapters = document.querySelectorAll(e);
+                  if (chapters.length > 0) {
+                    [].forEach.call(chapters, function(element) {
+                      element.addEventListener('click', function(event) {
+                        $copyTextOfElement(this.innerText);
+                      });
+                    });
+                  }
+                }
+                for (const [index, e] of Object.entries(elementList.content)) {
+                  var contents = document.querySelectorAll(e);
+                  if (contents.length > 0) {
+                    [].forEach.call(contents, function(element) {
+                      element.addEventListener('click', function(event) {
+                        $copyTextOfElement(this.innerText);
+                      });
+                    });
+                  }
+                }
+              }, 100);
             });
           });
+          $tooptip.show('有分頁');
+          setTimeout(function () {
+            $tooptip.hide();
+          }, 1000);
+        } else {
+          $tooptip.show('無分頁');
+          setTimeout(function () {
+            $tooptip.hide();
+          }, 1000);
         }
-      });
-    } else if (key == 'pages') {
-      var pages = document.querySelectorAll(el);
-      if (pages.length > 0) {
-        [].forEach.call(pages, function(page) {
-          page.addEventListener('click', function(event) {
-            setTimeout(function () {
-              for (const [index, e] of Object.entries(elementList.chapter)) {
-                var chapters = document.querySelectorAll(e);
-                if (chapters.length > 0) {
-                  [].forEach.call(chapters, function(element) {
-                    element.addEventListener('click', function(event) {
-                      $copyTextOfElement(this.innerText);
-                    });
-                  });
-                }
-              }
-              for (const [index, e] of Object.entries(elementList.content)) {
-                var contents = document.querySelectorAll(e);
-                if (contents.length > 0) {
-                  [].forEach.call(contents, function(element) {
-                    element.addEventListener('click', function(event) {
-                      $copyTextOfElement(this.innerText);
-                    });
-                  });
-                }
-              }
-            }, 100);
-          });
-        });
-        $tooptip.show('有分頁');
-        setTimeout(function () {
-          $tooptip.hide();
-        }, 1000);
       } else {
-        $tooptip.show('無分頁');
-        setTimeout(function () {
-          $tooptip.hide();
-        }, 1000);
+        if (document.querySelectorAll(el).length > 0) {
+          document.querySelector(el).addEventListener('click', function(event) {
+            $copyTextOfElement(this.innerText);
+          });
+        }
       }
-    } else {
+    }
+  } else {
+    var elementList = {
+      'series': '.sc-vk2fvc-2',
+      'description': '.sc-eyxzap-1'
+    };
+    for (const [key, el] of Object.entries(elementList)) {
       if (document.querySelectorAll(el).length > 0) {
         document.querySelector(el).addEventListener('click', function(event) {
           $copyTextOfElement(this.innerText);
         });
       }
     }
+    $tooptip.show('準備就緒');
+    setTimeout(function () {
+      $tooptip.hide();
+    }, 1000);
   }
 })();
