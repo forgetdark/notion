@@ -136,46 +136,42 @@ javascript:(function(){
           });
         }
       });
-    } else if (key != 'pages') {
+    } else if (key == 'pages') {
+      var pages = document.querySelectorAll(el);
+      if (pages.length > 0) {
+        [].forEach.call(pages, function(page) {
+          page.addEventListener('click', function(event) {
+            setTimeout(function () {
+              for (const [index, e] of Object.entries(elementList.content)) {
+                var contents = document.querySelectorAll(e);
+                if (contents.length > 0) {
+                  [].forEach.call(contents, function(element) {
+                    element.addEventListener('click', function(event) {
+                      console.log('test');
+                      $copyTextOfElement(this.innerText);
+                    });
+                  });
+                }
+              }
+            }, 100);
+          });
+        });
+        $tooptip.show('有分頁');
+        setTimeout(function () {
+          $tooptip.hide();
+        }, 1000);
+      } else {
+        $tooptip.show('無分頁');
+        setTimeout(function () {
+          $tooptip.hide();
+        }, 1000);
+      }
+    } else {
       if (document.querySelectorAll(el).length > 0) {
         document.querySelector(el).addEventListener('click', function(event) {
           $copyTextOfElement(this.innerText);
         });
       }
     }
-  }
-  var pages = document.querySelectorAll(elementList.pages);
-  if (pages.length > 0) {
-    [].forEach.call(pages, function(element) {
-      element.addEventListener('click', function(event) {
-        for (const [key, el] of Object.entries(elementList)) {
-          if (key == 'content') {
-            el.forEach (function (e) {
-              var contents = document.querySelectorAll(e);
-              if (contents.length > 0) {
-                [].forEach.call(contents, function(element) {
-                  element.addEventListener('click', function(event) {
-                    $copyTextOfElement(this.innerText);
-                  });
-                });
-              }
-            });
-          }
-        }
-        $tooptip.show('切換分頁');
-        setTimeout(function () {
-          $tooptip.hide();
-        }, 100);
-      });
-    });
-    $tooptip.show('有分頁');
-    setTimeout(function () {
-      $tooptip.hide();
-    }, 1000);
-  } else {
-    $tooptip.show('無分頁');
-    setTimeout(function () {
-      $tooptip.hide();
-    }, 1000);
   }
 })();
