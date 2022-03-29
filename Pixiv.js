@@ -36,7 +36,7 @@ javascript:(function(){
       show: function (text, targetName, position) {
         document.body.appendChild(tooptipStyle);
         if (typeof targetName === 'undefined') {
-          tooltipModel.innerHTML = '<span style="position: fixed; right: 1%; top: 1%;">' + text + '</span>';
+          tooltipModel.innerHTML = '<span style="position: fixed; left: 1%; top: 1%;">' + text + '</span>';
           document.body.appendChild(tooltipModel);
         } else {
           var target = targetName;
