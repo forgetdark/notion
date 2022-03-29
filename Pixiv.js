@@ -162,6 +162,10 @@ javascript:(function(){
             });
           }
         }
+        $tooptip.show('切換分頁');
+        setTimeout(function () {
+          $tooptip.hide();
+        }, 100);
       });
     });
     $tooptip.show('有分頁');
