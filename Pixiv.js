@@ -164,5 +164,14 @@ javascript:(function(){
         }
       });
     });
+    $tooptip.show('有分頁');
+    setTimeout(function () {
+      $tooptip.hide();
+    }, 1000);
+  } else {
+    $tooptip.show('無分頁');
+    setTimeout(function () {
+      $tooptip.hide();
+    }, 1000);
   }
 })();
