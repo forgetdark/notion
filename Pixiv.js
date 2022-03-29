@@ -82,7 +82,8 @@ javascript:(function(){
     'title': '.sc-1u8nu73-3',
     'chapter': '.sc-jrsJWt',
     'description': '.sc-eyxzap-1',
-    'content': ['.sc-dIvrsQ', '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.classList[0]]
+    'content': ['.sc-dIvrsQ', '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.classList[0]],
+    'pages': '.sc-xhhh7v-1'
   };
   var $copyTextOfElement = function (copyText) {
     function copyEl(text) {
@@ -135,12 +136,33 @@ javascript:(function(){
           });
         }
       });
-    } else {
+    } else if (key != 'pages') {
       if (document.querySelectorAll(el).length > 0) {
         document.querySelector(el).addEventListener('click', function(event) {
           $copyTextOfElement(this.innerText);
         });
       }
     }
+  }
+  var pages = document.querySelectorAll(elementList.pages);
+  if (pages.length > 0) {
+    [].forEach.call(pages, function(element) {
+      element.addEventListener('click', function(event) {
+        for (const [key, el] of Object.entries(elementList)) {
+          if (key == 'content') {
+            el.forEach (function (e) {
+              var contents = document.querySelectorAll(e);
+              if (contents.length > 0) {
+                [].forEach.call(contents, function(element) {
+                  element.addEventListener('click', function(event) {
+                    $copyTextOfElement(this.innerText);
+                  });
+                });
+              }
+            });
+          }
+        }
+      });
+    });
   }
 })();
