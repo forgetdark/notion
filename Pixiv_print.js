@@ -31,6 +31,7 @@ javascript:(function(){
     return author + ' - ' + series + title + ' (' + id + ')';
   };
   $copyTextOfElement($getFileName());
+
   var $loader = (function () {
     var loaderStyle = document.createElement('style');
     loaderStyle.id = 'loader-style';
@@ -144,6 +145,7 @@ javascript:(function(){
       }
     };
   })();
+
   var $printTxt = function (text) {
     try {
       $loader.hide();
@@ -170,53 +172,52 @@ javascript:(function(){
       console.log('Oops!, unable to print');
     };
   };
-  setTimeout(function () {
-    $loader.show();
-    if (document.querySelectorAll('.exhRUC').length > 0) {
-      document.querySelector('.exhRUC').click();
-    }
-    if (document.querySelectorAll('.kYtoqc').length > 0) {
-      var textList = [];
-      var $saveText = function() {
-        return new Promise(function(resolve, reject) {
-          var startInterval = setInterval(function(){
-            var content = '';
-            if (textList.length == 0) {
-              content+= '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
-              content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
-              content+= '<hr style="clear: both;">';
-            }
-            content+= document.querySelectorAll('.ihJaMk').length > 0 ? document.querySelector('.ihJaMk').innerHTML : '';
-            content+= document.querySelectorAll('.gOTnwN').length > 0 ? document.querySelector('.gOTnwN').innerHTML : '';
-            textList.push(content);
-            var nextPageEl = document.querySelector('.kYtoqc').lastChild;
-            if (nextPageEl.disabled) {
-              resolve(startInterval);
-            } else {
-              nextPageEl.click();
-            }
-          }, 1000);
-        });
-      };
-      $saveText().then(function (startInterval) {
-        window.clearInterval(startInterval);
-        var text = '';
-        textList.forEach(function (str, index) {
-          text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
-        });
-        var url = location.href.split('#')[0];
-        text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
-        $printTxt(text);
-      });
-    } else {
-      var url = location.href;
-      var content = '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
+  var $getContent = function (isCover) {
+    var content = '';
+    if (isCover) {
+      content+= '<div style="float: right;">' + document.querySelector('.jIsznR').title + '</div>';
       content+= '<div style="float: left; margin-bottom: 5px;">' + document.querySelector('.gcrJTU').innerHTML + '</div>';
       content+= '<hr style="clear: both;">';
-      content+= document.querySelectorAll('.ihJaMk').length > 0 ? document.querySelector('.ihJaMk').innerHTML : '';
-      content+= document.querySelectorAll('.gOTnwN').length > 0 ? document.querySelector('.gOTnwN').innerHTML : '';
-      content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
-      $printTxt(content);
     }
-  }, 500);
+    content+= document.querySelectorAll('.ihJaMk').length > 0 ? document.querySelector('.ihJaMk').innerHTML : '';
+    content+= document.querySelectorAll('.gOTnwN').length > 0 ? document.querySelector('.gOTnwN').innerHTML : '';
+    return content;
+  };
+
+  $loader.show();
+  if (document.querySelectorAll('.exhRUC').length > 0) {
+    document.querySelector('.exhRUC').click();
+  }
+  if (document.querySelectorAll('.kYtoqc').length > 0) {
+    var textList = [];
+    var $saveText = function() {
+      return new Promise(function(resolve, reject) {
+        var startInterval = setInterval(function(){
+          var content = $getContent(textList.length == 0);
+          textList.push(content);
+          var nextPageEl = document.querySelector('.kYtoqc').lastChild;
+          if (nextPageEl.disabled) {
+            resolve(startInterval);
+          } else {
+            nextPageEl.click();
+          }
+        }, 1000);
+      });
+    };
+    $saveText().then(function (startInterval) {
+      window.clearInterval(startInterval);
+      var text = '';
+      textList.forEach(function (str, index) {
+        text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
+      });
+      var url = location.href.split('#')[0];
+      text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
+      $printTxt(text);
+    });
+  } else {
+    var url = location.href;
+    var content = $getContent(true);
+    content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
+    $printTxt(content);
+  }
 })();
