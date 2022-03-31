@@ -30,6 +30,7 @@ javascript:(function(){
     return author + ' - ' + title + ' (p' + id + ')';
   };
   $copyTextOfElement($getFileName());
+
   var $loader = (function () {
     var loaderStyle = document.createElement('style');
     loaderStyle.id = 'loader-style';
@@ -143,6 +144,7 @@ javascript:(function(){
       }
     };
   })();
+
   var $printTxt = function (text) {
     try {
       $loader.hide();
@@ -167,54 +169,51 @@ javascript:(function(){
       console.log('Oops!, unable to print');
     };
   };
-  setTimeout(function () {
-    $loader.show();
-    if (document.querySelectorAll('.pagination').length > 0) {
-      var $saveText = function() {
-        return new Promise(function(resolve, reject) {
-          var textList = [];
-          var contents = document.querySelectorAll('.honbun');
-          [].forEach.call(contents, function(e, i) {
-            var nowPage = i + 1;
-            var content = '';
-            if (textList.length == 0) {
-              content+= '<div style="float: right;">' + document.querySelector('[name="userprof"]').nextElementSibling.innerHTML + '</div>';
-              content+= `<div style="float: left;">
-              <h1>`+document.querySelector('.lead').innerText+`</h1>`+
-              document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
-              `<div>` + document.querySelector('.fa-clock').parentElement.innerText + `</div>
-              </div>`;
-              content+= '<hr style="clear: both;">';
-            }
-            content+= '<div style="text-align: center; margin-bottom: 1em;">'+nowPage+'</div>';
-            content+= e.innerHTML;
-            textList.push(content);
-          });
-          resolve(textList);
-        });
-      };
-      $saveText().then(function (textList) {
-        var text = '';
-        textList.forEach(function (str, index) {
-          text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
-        });
-        var url = location.href;
-        text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
-        $printTxt(text);
-      });
-    } else {
-      var url = location.href;
-      var content = '';
+  var $getContent = function (isCover) {
+    var content = '';
+    if (isCover) {
       content+= '<div style="float: right;">' + document.querySelector('[name="userprof"]').nextElementSibling.innerHTML + '</div>';
       content+= `<div style="float: left;">
       <h1>`+document.querySelector('.lead').innerText+`</h1>`+
       document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
       `<div>` + document.querySelector('.fa-clock').parentElement.innerText + `</div>
       </div>`;
-      content+= '<hr style="clear: both;"><div style="text-align: center; margin-bottom: 1em;">1</div>';
-      content+= document.querySelector('.honbun').innerHTML;
-      content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
-      $printTxt(content);
+      content+= '<hr style="clear: both;">';
     }
-  }, 100);
+    return content;
+  };
+
+  $loader.show();
+  if (document.querySelectorAll('.pagination').length > 0) {
+    var $saveText = function() {
+      return new Promise(function(resolve, reject) {
+        var textList = [];
+        var contents = document.querySelectorAll('.honbun');
+        [].forEach.call(contents, function(e, i) {
+          var nowPage = i + 1;
+          var content = $getContent(textList.length == 0);
+          content+= '<div style="text-align: center; margin-bottom: 1em;">'+nowPage+'</div>';
+          content+= e.innerHTML;
+          textList.push(content);
+        });
+        resolve(textList);
+      });
+    };
+    $saveText().then(function (textList) {
+      var text = '';
+      textList.forEach(function (str, index) {
+        text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
+      });
+      var url = location.href;
+      text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
+      $printTxt(text);
+    });
+  } else {
+    var url = location.href;
+    var content = $getContent(true);
+    content+= '<div style="text-align: center; margin-bottom: 1em;">1</div>';
+    content+= document.querySelector('.honbun').innerHTML;
+    content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
+    $printTxt(content);
+  }
 })();
