@@ -112,7 +112,7 @@ javascript:(function(){
     'author': '#trace_btn1',
     'publisher': '#trace_btn2',
     'content': '.content',
-    'more': '.more'
+    'more': '.more.on'
   };
   for (const [key, el] of Object.entries(elementList)) {
     if (key == 'cover') {
