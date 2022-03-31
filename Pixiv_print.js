@@ -30,7 +30,6 @@ javascript:(function(){
     var title = document.querySelectorAll('.lfwBiP').length > 0 ? document.querySelector('.lfwBiP').innerText : '無題';
     return author + ' - ' + series + title + ' (' + id + ')';
   };
-  $copyTextOfElement($getFileName());
 
   var $loader = (function () {
     var loaderStyle = document.createElement('style');
@@ -185,6 +184,7 @@ javascript:(function(){
   };
 
   $loader.show();
+  $copyTextOfElement($getFileName());
   if (document.querySelectorAll('.exhRUC').length > 0) {
     document.querySelector('.exhRUC').click();
   }
