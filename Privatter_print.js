@@ -29,7 +29,6 @@ javascript:(function(){
     var title = document.querySelectorAll('.lead').length > 0 ? document.querySelector('.lead').innerText : '無題';
     return author + ' - ' + title + ' (p' + id + ')';
   };
-  $copyTextOfElement($getFileName());
 
   var $loader = (function () {
     var loaderStyle = document.createElement('style');
@@ -184,6 +183,7 @@ javascript:(function(){
   };
 
   $loader.show();
+  $copyTextOfElement($getFileName());
   if (document.querySelectorAll('.pagination').length > 0) {
     var $saveText = function() {
       return new Promise(function(resolve, reject) {
