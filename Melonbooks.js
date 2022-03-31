@@ -73,6 +73,41 @@ javascript:(function(){
       }
     };
   })();
+
+  var $copyTextOfElement = function (copyText) {
+    function copyEl(text) {
+      var el = document.createElement("textarea");
+      el.value = text;
+      document.body.appendChild(el);
+      el.focus();
+      el.select();
+      var copyStatus = document.execCommand('copy');
+      var msg = copyStatus ? 'copied' : 'failed';
+      var transMsg = copyStatus ? '複製成功' : '複製失敗';
+      document.body.removeChild(el);
+      console.log('Text ' + msg + ' to clipboard...');
+      $tooptip.show(transMsg);
+      setTimeout(function () {
+        $tooptip.hide();
+      }, 1000);
+    };
+    if (!navigator.clipboard) {
+      copyEl(copyText);
+    } else {
+      let resolve = () => { 
+        console.log('Text copied to clipboard...');
+        $tooptip.show('複製成功');
+        setTimeout(function () {
+          $tooptip.hide();
+        }, 1000);
+      };
+      let reject = (err) => {
+        copyEl(copyText);
+      };
+      navigator.clipboard.writeText(copyText).then(resolve, reject);
+    }
+  };
+
   if ($('.btn-copy').length == 0) {
     var style = document.createElement('style');
     style.innerHTML = `.btn-copy {
@@ -86,9 +121,11 @@ javascript:(function(){
       font-size: 13px;
     }`;
     document.body.appendChild(style);
+
     var info = '.info';
     var url = location.href;
     $(info).append('<button type="button" class="btn-copy" data-type="url" data-content="'+url+'">連結</button>');
+
     var coverEl = '';
     if ($('#main_new').length > 0) {
       coverEl = '#main_new';
@@ -97,16 +134,19 @@ javascript:(function(){
     }
     var cover = $(coverEl).find('a').attr('href');
     $(info).append('<button type="button" class="btn-copy" data-type="cover" data-content="'+cover+'">封面</button>');
+
     var thumbs = document.querySelectorAll('.thumb_detail');
     thumbs.forEach(function (thumb, index) {
       var img = $(thumb).find('a').attr('href');
       $(info).append('<button type="button" class="btn-copy" data-type="thumbs" data-content="'+img+'">縮圖'+(index+1)+'</button>');
     });
+
     var descriptions = document.querySelectorAll('.richeditor');
     descriptions.forEach(function(item, index) {
       var description = $(item).find('p').text();
       $(info).append('<button type="button" class="btn-copy" data-type="description" data-content="'+description+'">描述'+(index+1)+'</button>');
     });
+
     var stripe = document.querySelectorAll('.odd');
     var object = [];
     stripe.forEach(function(item, index) {
@@ -115,29 +155,10 @@ javascript:(function(){
       object[th] = td;
       $(info).append('<button type="button" class="btn-copy" data-type="stripe" data-content="'+td+'">'+th+'</button>');
     });
+
     $('.btn-copy').on('click', function (e) {
-      var type = $(this).data('type');
-      var copyMsg = '';
-      switch(type) {
-        default:
-          copyMsg = $(this).data('content');
-          break;
-      };
-      try {
-        navigator.clipboard.writeText(copyMsg)
-        .then(() => {
-          console.log("Text copied to clipboard...");
-          $tooptip.show('複製成功');
-          setTimeout(function () {
-            $tooptip.hide();
-          }, 1000);
-        })
-        .catch(err => {
-          console.log('Something went wrong', err);
-        });
-      } catch (error) {
-        console.log('Oops!, unable to copy');
-      }
+      var content = $(this).data('content');
+      $copyTextOfElement(content);
     });
   }
 })();
