@@ -124,7 +124,7 @@ javascript:(function(){
         $copyTextOfElement(document.querySelector(el).previousElementSibling.innerText);
       }
     } else if (key == 'content') {
-      var contents = document.querySelectorAll(e);
+      var contents = document.querySelectorAll(el);
       if (contents.length > 0) {
         [].forEach.call(contents, function(element) {
           element.addEventListener('click', function(event) {
