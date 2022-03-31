@@ -112,6 +112,7 @@ javascript:(function(){
       }
     };
   })();
+
   var id = location.href.split('?id=')[1];
   var elementList = {
     'author': '.sc-fujyAs',
@@ -160,6 +161,7 @@ javascript:(function(){
       console.log('Oops!, unable to download');
     };
   };
+
   $loader.show();
   if (document.querySelectorAll(elementList.page).length > 0) {
     var textList = [];
