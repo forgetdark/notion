@@ -107,21 +107,7 @@ javascript:(function(){
       navigator.clipboard.writeText(copyText).then(resolve, reject);
     }
   };
-
-  if (location.href.indexOf('series') < 0) {
-    var elementList = {
-      'cover': {
-        'link': '.sc-1u8nu73-18',
-        'img': '.sc-1u8nu73-19'
-      },
-      'series': '.sc-1u8nu73-15',
-      'title': '.sc-1u8nu73-3',
-      'chapter': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.previousElementSibling.classList[0],
-      'description': '.sc-eyxzap-1',
-      'content': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.classList[0],
-      'pages': '.sc-xhhh7v-1'
-    };
-    var $copyMultEl = function (e) {
+  var $copyMultEl = function (e) {
       var contents = document.querySelectorAll(e);
       if (contents.length > 0) {
         [].forEach.call(contents, function(element) {
@@ -137,6 +123,20 @@ javascript:(function(){
           $copyTextOfElement(this.innerText);
         });
       }
+    };
+
+  if (location.href.indexOf('series') < 0) {
+    var elementList = {
+      'cover': {
+        'link': '.sc-1u8nu73-18',
+        'img': '.sc-1u8nu73-19'
+      },
+      'series': '.sc-1u8nu73-15',
+      'title': '.sc-1u8nu73-3',
+      'chapter': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.previousElementSibling.classList[0],
+      'description': '.sc-eyxzap-1',
+      'content': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.classList[0],
+      'pages': '.sc-xhhh7v-1'
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'cover') {
