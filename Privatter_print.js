@@ -217,5 +217,5 @@ javascript:(function(){
       content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
       $printTxt(content);
     }
-  }, 500);
+  }, 100);
 })();
