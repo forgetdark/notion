@@ -14,8 +14,8 @@ javascript:(function(){
     if (!navigator.clipboard) {
       copyEl(copyText);
     } else {
-      let resolve = () => { 
-        console.log('Text copied to clipboard...'); 
+      let resolve = () => {
+        console.log('Text copied to clipboard...');
       };
       let reject = (err) => {
         copyEl(copyText);
@@ -183,37 +183,39 @@ javascript:(function(){
     return content;
   };
 
-  $loader.show();
-  if (document.querySelectorAll('.pagination').length > 0) {
-    var $saveText = function() {
-      return new Promise(function(resolve, reject) {
-        var textList = [];
-        var contents = document.querySelectorAll('.honbun');
-        [].forEach.call(contents, function(e, i) {
-          var nowPage = i + 1;
-          var content = $getContent(textList.length == 0);
-          content+= '<div style="text-align: center; margin-bottom: 1em;">'+nowPage+'</div>';
-          content+= e.innerHTML;
-          textList.push(content);
+  setTimeout(function () {
+    $loader.show();
+    if (document.querySelectorAll('.pagination').length > 0) {
+      var $saveText = function() {
+        return new Promise(function(resolve, reject) {
+          var textList = [];
+          var contents = document.querySelectorAll('.honbun');
+          [].forEach.call(contents, function(e, i) {
+            var nowPage = i + 1;
+            var content = $getContent(textList.length == 0);
+            content+= '<div style="text-align: center; margin-bottom: 1em;">'+nowPage+'</div>';
+            content+= e.innerHTML;
+            textList.push(content);
+          });
+          resolve(textList);
         });
-        resolve(textList);
+      };
+      $saveText().then(function (textList) {
+        var text = '';
+        textList.forEach(function (str, index) {
+          text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
+        });
+        var url = location.href;
+        text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
+        $printTxt(text);
       });
-    };
-    $saveText().then(function (textList) {
-      var text = '';
-      textList.forEach(function (str, index) {
-        text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
-      });
+    } else {
       var url = location.href;
-      text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
-      $printTxt(text);
-    });
-  } else {
-    var url = location.href;
-    var content = $getContent(true);
-    content+= '<div style="text-align: center; margin-bottom: 1em;">1</div>';
-    content+= document.querySelector('.honbun').innerHTML;
-    content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
-    $printTxt(content);
-  }
+      var content = $getContent(true);
+      content+= '<div style="text-align: center; margin-bottom: 1em;">1</div>';
+      content+= document.querySelector('.honbun').innerHTML;
+      content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
+      $printTxt(content);
+    }
+  }, 500);
 })();
