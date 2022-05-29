@@ -194,7 +194,7 @@ javascript:(function(){
               str.push(title.innerHTML);
             });
           }
-          $copySingleEl(str.join(''));
+          $copyTextOfElement(str.join(''));
         }
       } else {
         $copySingleEl(el);
