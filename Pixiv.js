@@ -127,10 +127,10 @@ javascript:(function(){
 
   if (location.href.indexOf('series') < 0) {
     var elementList = {
-      'cover': {
+      /*'cover': {
         'link': '.sc-1u8nu73-18',
         'img': '.sc-1u8nu73-19'
-      },
+      },*/
       'series': '.sc-1u8nu73-15',
       'title': '.sc-1u8nu73-3',
       'chapter': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.previousElementSibling.classList[0],
