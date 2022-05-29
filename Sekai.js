@@ -139,14 +139,16 @@ javascript:(function(){
     var imgs = $findEl('.css-1ekasd5', 'img');
     if (imgs.length > 0) {
       [].forEach.call(imgs, function(img) {
-        setTimeout(function () {
-          var el = document.createElement("a");
-          el.href = img.src;
-          el.target = '_blank';
-          document.body.appendChild(el);
-          el.click();
-          document.body.removeChild(el);
-        }, 1000);
+        img.addEventListener('click', function(event) {
+          setTimeout(function () {
+            var el = document.createElement("a");
+            el.href = img.src;
+            el.target = '_blank';
+            document.body.appendChild(el);
+            el.click();
+            document.body.removeChild(el);
+          }, 1000);
+        }
       });
     }
   } else {
