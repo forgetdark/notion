@@ -128,7 +128,7 @@ javascript:(function(){
   if (location.href.indexOf('users') > 0) {
     var author = document.querySelector('h1').innerText;
     var id = location.href.split('/');
-    $copyTextOfElement(author + ' (' + id[id.length - 1] + ')');
+    $copyTextOfElement(author + ' (' + id[4] + ')');
   } else if (location.href.indexOf('series') > 0) {
     var elementList = {
       'cover': '.sc-vmsckl-2',
