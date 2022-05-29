@@ -182,7 +182,12 @@ javascript:(function(){
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'cover') {
         document.querySelector(el).addEventListener('click', function(event) {
-          $copyTextOfElement(document.querySelector(el).getAttribute('src'));
+          var el = document.createElement("a");
+          el.href = this.src;
+          el.target = '_blank';
+          document.body.appendChild(el);
+          el.click();
+          document.body.removeChild(el);
         });
       } else {
         $copySingleEl(el);
