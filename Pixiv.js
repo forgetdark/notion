@@ -177,13 +177,25 @@ javascript:(function(){
     var elementList = {
       'series': '.sc-vk2fvc-3',
       'description': '.sc-eyxzap-1',
-      'cover': '.sc-vmsckl-2'
+      'cover': '.sc-vmsckl-2',
+      'title': '.sc-lfrhpy-3'
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'cover') {
         document.querySelector(el).addEventListener('click', function(event) {
           $copyTextOfElement(document.querySelector(el).getAttribute('src'));
         });
+      } else if (key == 'title') {
+        if (document.querySelectorAll(e).length > 0) {
+          var titles = document.querySelectorAll(el);
+          var str = [];
+          if (titles.length > 0) {
+            [].forEach.call(titles, function(title) {
+              str.push(title.innerHTML);
+            });
+          }
+          $copySingleEl(str.join(''));
+        }
       } else {
         $copySingleEl(el);
       }
