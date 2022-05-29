@@ -74,18 +74,6 @@ javascript:(function(){
     };
   })();
 
-  var $checkOS = function () {
-    var windows = (navigator.userAgent.indexOf('Windows',0) != -1)?1:0;
-    var mac = (navigator.userAgent.indexOf('mac',0) != -1)?1:0;
-    var linux = (navigator.userAgent.indexOf('Linux',0) != -1)?1:0;
-    var unix = (navigator.userAgent.indexOf('X11',0) != -1)?1:0;
-    if (windows) os_type = 'Windows';
-    else if (mac) os_type = 'Mac';
-    else if (linux) os_type = 'Lunix';
-    else if (unix) os_type = 'Unix';
-    else os_type = 'other';
-    return os_type;
-  };
   var $copyTextOfElement = function (copyText) {
     function copyEl(text) {
       var el = document.createElement("textarea");
