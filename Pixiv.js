@@ -108,24 +108,52 @@ javascript:(function(){
     }
   };
   var $copyMultEl = function (e) {
-      var contents = document.querySelectorAll(e);
-      if (contents.length > 0) {
-        [].forEach.call(contents, function(element) {
-          element.addEventListener('click', function(event) {
-            $copyTextOfElement(this.innerText);
-          });
-        });
-      }
-    };
-    var $copySingleEl = function (e) {
-      if (document.querySelectorAll(e).length > 0) {
-        document.querySelector(e).addEventListener('click', function(event) {
+    var contents = document.querySelectorAll(e);
+    if (contents.length > 0) {
+      [].forEach.call(contents, function(element) {
+        element.addEventListener('click', function(event) {
           $copyTextOfElement(this.innerText);
         });
-      }
-    };
+      });
+    }
+  };
+  var $copySingleEl = function (e) {
+    if (document.querySelectorAll(e).length > 0) {
+      document.querySelector(e).addEventListener('click', function(event) {
+        $copyTextOfElement(this.innerText);
+      });
+    }
+  };
 
-  if (location.href.indexOf('series') < 0) {
+  if (location.href.indexOf('users') > 0) {
+    var author = document.querySelector('h1').innerText;
+    var id = location.href.split('/');
+    $copyTextOfElement(author + ' (' + id[id.length - 1] + ')');
+  } else if (location.href.indexOf('series') > 0) {
+    var elementList = {
+      'cover': '.sc-vmsckl-2',
+      'series': '.sc-vk2fvc-3',
+      'description': '.sc-eyxzap-1'
+    };
+    for (const [key, el] of Object.entries(elementList)) {
+      if (key == 'cover') {
+        document.querySelector(el).addEventListener('click', function(event) {
+          var el = document.createElement("a");
+          el.href = this.src;
+          el.target = '_blank';
+          document.body.appendChild(el);
+          el.click();
+          document.body.removeChild(el);
+        });
+      } else {
+        $copySingleEl(el);
+      }
+    }
+    $tooptip.show('準備就緒');
+    setTimeout(function () {
+      $tooptip.hide();
+    }, 1000);
+  } else {
     var elementList = {
       /*'cover': {
         'link': '.sc-1u8nu73-18',
@@ -173,29 +201,5 @@ javascript:(function(){
         $copySingleEl(el);
       }
     }
-  } else {
-    var elementList = {
-      'cover': '.sc-vmsckl-2',
-      'series': '.sc-vk2fvc-3',
-      'description': '.sc-eyxzap-1'
-    };
-    for (const [key, el] of Object.entries(elementList)) {
-      if (key == 'cover') {
-        document.querySelector(el).addEventListener('click', function(event) {
-          var el = document.createElement("a");
-          el.href = this.src;
-          el.target = '_blank';
-          document.body.appendChild(el);
-          el.click();
-          document.body.removeChild(el);
-        });
-      } else {
-        $copySingleEl(el);
-      }
-    }
-    $tooptip.show('準備就緒');
-    setTimeout(function () {
-      $tooptip.hide();
-    }, 1000);
   }
 })();
