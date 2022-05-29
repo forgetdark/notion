@@ -74,6 +74,18 @@ javascript:(function(){
     };
   })();
 
+  var $checkOS = function () {
+    var windows = (navigator.userAgent.indexOf('Windows',0) != -1)?1:0;
+    var mac = (navigator.userAgent.indexOf('mac',0) != -1)?1:0;
+    var linux = (navigator.userAgent.indexOf('Linux',0) != -1)?1:0;
+    var unix = (navigator.userAgent.indexOf('X11',0) != -1)?1:0;
+    if (windows) os_type = 'Windows';
+    else if (mac) os_type = 'Mac';
+    else if (linux) os_type = 'Lunix';
+    else if (unix) os_type = 'Unix';
+    else os_type = 'other';
+    return os_type;
+  };
   var $copyTextOfElement = function (copyText) {
     function copyEl(text) {
       var el = document.createElement("textarea");
@@ -178,7 +190,7 @@ javascript:(function(){
       'series': '.sc-vk2fvc-3',
       'description': '.sc-eyxzap-1',
       'cover': '.sc-vmsckl-2',
-      'title': '.sc-lfrhpy-3'
+      'title': '.sc-d98f2c-0'
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'cover') {
@@ -194,7 +206,10 @@ javascript:(function(){
               str.push(title.innerHTML);
             });
           }
-          $copyTextOfElement(str.join(''));
+          var $newline = function () {
+            return $checkOS() == 'Windows' ? '\r\n\r\n\r\n\r\n' : '\n\n\n';
+          };
+          $copyTextOfElement(str.join($newline));
         }
       } else {
         $copySingleEl(el);
