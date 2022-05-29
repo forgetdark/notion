@@ -175,11 +175,18 @@ javascript:(function(){
     }
   } else {
     var elementList = {
-      'series': '.sc-vk2fvc-2',
-      'description': '.sc-eyxzap-1'
+      'series': '.sc-vk2fvc-3',
+      'description': '.sc-eyxzap-1',
+      'cover': '.sc-vmsckl-2'
     };
     for (const [key, el] of Object.entries(elementList)) {
-      $copySingleEl(el);
+      if (key == 'cover') {
+        document.querySelector(el).addEventListener('click', function(event) {
+          $copyTextOfElement(document.querySelector(el).getAttribute('src'));
+        });
+      } else {
+        $copySingleEl(el);
+      }
     }
     $tooptip.show('準備就緒');
     setTimeout(function () {
