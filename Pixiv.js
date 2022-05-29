@@ -186,7 +186,7 @@ javascript:(function(){
           $copyTextOfElement(document.querySelector(el).getAttribute('src'));
         });
       } else if (key == 'title') {
-        if (document.querySelectorAll(e).length > 0) {
+        if (document.querySelectorAll(el).length > 0) {
           var titles = document.querySelectorAll(el);
           var str = [];
           if (titles.length > 0) {
