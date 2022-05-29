@@ -190,7 +190,7 @@ javascript:(function(){
       'series': '.sc-vk2fvc-3',
       'description': '.sc-eyxzap-1',
       'cover': '.sc-vmsckl-2',
-      'title': '.sc-d98f2c-0'
+      'title': '.sc-lfrhpy-4'
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'cover') {
@@ -203,7 +203,7 @@ javascript:(function(){
           var str = [];
           if (titles.length > 0) {
             [].forEach.call(titles, function(title) {
-              str.push(title.innerHTML);
+              str.push(title.innerT);
             });
           }
           var $newline = function () {
