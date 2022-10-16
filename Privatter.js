@@ -152,14 +152,16 @@ javascript:(function(){
         a { text-decoration: none; color: rgb(61, 118, 153); }
         </style>
         <script>
-        if (document.querySelectorAll('.panel-copy').length > 0) {
-          var panel_copys = document.querySelectorAll('.panel-copy');
-          [].forEach.call(panel_copys, function(panel_copy) {
-              panel_copy.addEventListener('click', function(event) {
-                $copyTextOfElement(this.innerText);
-              });
-          });
-        }
+        document.addEventListener("DOMContentLoaded", function(event) { 
+          if (document.querySelectorAll('.panel-copy').length > 0) {
+            var panel_copys = document.querySelectorAll('.panel-copy');
+            [].forEach.call(panel_copys, function(panel_copy) {
+                panel_copy.addEventListener('click', function(event) {
+                  $copyTextOfElement(this.innerText);
+                });
+            });
+          }
+        });
         </script>
         </head>
         <body>`+text+`</body>
