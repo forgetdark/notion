@@ -137,7 +137,7 @@ javascript:(function(){
     var url = location.href;
     var content = '';
     if (isCover) {
-      content+= `<div><div class="panel-copy" style="text-align: right;">`+url+`</div>`+
+      content+= `<div><div class="panel-copy">`+url+`</div>`+
       `<h1 class="panel-copy">`+document.querySelector('.lead').innerText+`</h1>`+
       `<div class="panel-copy" style="float: left;">`+document.querySelector('[name="userprof"]').nextElementSibling.innerHTML+`</div>`+
       `<div class="panel-copy" style="float: right;">`+document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+`</div>`+
