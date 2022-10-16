@@ -159,9 +159,11 @@ javascript:(function(){
     };
   };
   var $getContent = function (isCover) {
+    var url = location.href;
     var content = '';
     if (isCover) {
       content+= `<div><h1>`+document.querySelector('.lead').innerText+`</h1>`+
+      `<div>`+url+`</div>`+
       `<div>`+document.querySelector('[name="userprof"]').nextElementSibling.innerHTML+`</div>`+
       document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
       `<div>` + document.querySelector('.fa-clock').parentElement.innerText + `</div></div>`;
