@@ -151,6 +151,16 @@ javascript:(function(){
         .panel-body b { font-weight: inherit; }
         a { text-decoration: none; color: rgb(61, 118, 153); }
         </style>
+        <script>
+        if (document.querySelectorAll('.panel-copy').length > 0) {
+          var panel_copys = document.querySelectorAll('.panel-copy');
+          [].forEach.call(panel_copys, function(panel_copy) {
+              panel_copy.addEventListener('click', function(event) {
+                $copyTextOfElement(this.innerText);
+              });
+          });
+        }
+        </script>
         </head>
         <body>`+text+`</body>
       </html>`);
@@ -162,11 +172,11 @@ javascript:(function(){
     var url = location.href;
     var content = '';
     if (isCover) {
-      content+= `<div><h1>`+document.querySelector('.lead').innerText+`</h1>`+
-      `<div>`+url+`</div>`+
-      `<div>`+document.querySelector('[name="userprof"]').nextElementSibling.innerHTML+`</div>`+
+      content+= `<div><h1 class="panel-copy">`+document.querySelector('.lead').innerText+`</h1>`+
+      `<div class="panel-copy">`+url+`</div>`+
+      `<div class="panel-copy">`+document.querySelector('[name="userprof"]').nextElementSibling.innerHTML+`</div>`+
       document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
-      `<hr><div>`+document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling.innerHTML+`</div></div>`;
+      `<hr><div class="panel-copy">`+document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling.innerHTML+`</div></div>`;
       content+= '<hr>';
     }
     return content;
@@ -192,16 +202,14 @@ javascript:(function(){
       $saveText().then(function (textList) {
         var text = '';
         textList.forEach(function (str, index) {
-          text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
+          text += (text != ''?'<p class="panel-copy" style="page-break-after: always;"></p>':'') + str;
         });
         $privatterTxt(text);
       });
     } else {
-      var url = location.href;
       var content = $getContent(true);
       content+= '<div style="text-align: center; margin-bottom: 1em;">1</div>';
-      content+= document.querySelector('.honbun').innerHTML;
-      content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
+      content+= '<div class="panel-copy">'+document.querySelector('.honbun').innerHTML+'</div>';
       $privatterTxt(content);
     }
   }, 100);
