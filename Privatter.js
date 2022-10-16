@@ -126,44 +126,8 @@ javascript:(function(){
         .panel-body b { font-weight: inherit; }
         a { text-decoration: none; color: rgb(61, 118, 153); }
         </style>
-        <script type="text/javascript">
-        var $copyTextOfElement = function (copyText) {
-          function copyEl(text) {
-            var el = document.createElement("textarea");
-            el.value = text;
-            document.body.appendChild(el);
-            el.focus();
-            el.select();
-            var copyStatus = document.execCommand('copy');
-            var msg = copyStatus ? 'copied' : 'failed';
-            document.body.removeChild(el);
-            console.log('Text ' + msg + ' to clipboard...');
-          };
-          if (!navigator.clipboard) {
-            copyEl(copyText);
-          } else {
-            let resolve = () => {
-              console.log('Text copied to clipboard...');
-            };
-            let reject = (err) => {
-              copyEl(copyText);
-            };
-            navigator.clipboard.writeText(copyText).then(resolve, reject);
-          }
-        };
-        function set_panel_copy() {
-          if (document.querySelectorAll('.panel-copy').length > 0) {
-            var panel_copys = document.querySelectorAll('.panel-copy');
-            [].forEach.call(panel_copys, function(panel_copy) {
-                panel_copy.addEventListener('click', function(event) {
-                  $copyTextOfElement(this.innerText);
-                });
-            });
-          }
-        }
-        </script>
         </head>
-        <body onload="set_panel_copy();">`+text+`</body>
+        <body>`+text+`</body>
       </html>`);
     } catch (error) {
       console.log('Oops!, unable to print');
