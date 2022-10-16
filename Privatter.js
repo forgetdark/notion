@@ -173,7 +173,7 @@ javascript:(function(){
       });
     } else {
       var content = $getContent(true);
-      content+= '<div style="text-align: center; margin-bottom: 1em;">1</div>';
+      content+= '<div style="text-align: center; margin-bottom: 1em; background-color: #EEE;">1</div>';
       content+= '<div class="panel-copy">'+document.querySelector('.honbun').innerHTML+'</div>';
       $privatterTxt(content);
     }
