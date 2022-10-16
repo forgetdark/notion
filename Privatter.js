@@ -166,7 +166,7 @@ javascript:(function(){
       `<div>`+url+`</div>`+
       `<div>`+document.querySelector('[name="userprof"]').nextElementSibling.innerHTML+`</div>`+
       document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
-      `<hr><div>` + document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling.innerText + `</div></div>`;
+      `<hr><div>`+document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling.innerHTML+`</div></div>`;
       content+= '<hr>';
     }
     return content;
