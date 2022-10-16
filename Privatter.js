@@ -23,13 +23,6 @@ javascript:(function(){
       navigator.clipboard.writeText(copyText).then(resolve, reject);
     }
   };
-  var $getFileName = function () {
-    var id = location.href.split('/p/')[1];
-    var author = document.querySelector('[name="userprof"]').nextElementSibling.childNodes[3].childNodes[3].innerText;
-    var title = document.querySelectorAll('.lead').length > 0 ? document.querySelector('.lead').innerText : '無題';
-    return author + ' - ' + title + ' (p' + id + ')';
-  };
-  $copyTextOfElement($getFileName());
 
   var $loader = (function () {
     var loaderStyle = document.createElement('style');
@@ -145,17 +138,17 @@ javascript:(function(){
     };
   })();
 
-  var $printTxt = function (text) {
+  var $privatterTxt = function (text) {
     try {
       $loader.hide();
-      var newWin = window.open('', 'print window');
+      var newWin = window.open('', 'privatter window');
       newWin.document.open();
       newWin.document.write(`<html>
         <head>
         <style>
         body { font-family: "YuGothic", "Hiragino Kaku Gothic Pro", "Meiryo", "Source Han Sans", "Source Han Sans JP", "Noto Sans CJK JP", "Avenir Next", Avenir, "Source Sans", "Noto Sans", "Roboto", "Verdana", "Pingfang TC", "Pingfang HK", "Hiragino Sans CNS", "Lantinghei TC", "Source Han Sans TW", "Source Han Sans HK", "Noto Sans CJK TC", "Microsoft JhengHei", "Pingfang SC", "Hiragino Sans GB", "Lantinghei SC", "Source Han Sans CN", "Noto Sans CJK SC", "Microsoft Yahei", "DengXian", "Apple SD Gothic Neo", "Source Han Sans K", "Source Han Sans KR", "Noto Sans CJK KR", "Malgun Gothic", sans-serif; }
         .panel-heading, .panel-body div { display: none; }
-    .panel-body b { font-weight: inherit; }
+        .panel-body b { font-weight: inherit; }
         a { text-decoration: none; color: rgb(61, 118, 153); }
         </style>
         </head>
@@ -168,13 +161,11 @@ javascript:(function(){
   var $getContent = function (isCover) {
     var content = '';
     if (isCover) {
-      content+= '<div style="float: right;">' + document.querySelector('[name="userprof"]').nextElementSibling.innerHTML + '</div>';
-      content+= `<div style="float: left;">
-      <h1>`+document.querySelector('.lead').innerText+`</h1>`+
+      content+= `<div><h1>`+document.querySelector('.lead').innerText+`</h1>`+
+      `<div>`+document.querySelector('[name="userprof"]').nextElementSibling.innerHTML+`</div>`+
       document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
-      `<div>` + document.querySelector('.fa-clock').parentElement.innerText + `</div>
-      </div>`;
-      content+= '<hr style="clear: both;">';
+      `<div>` + document.querySelector('.fa-clock').parentElement.innerText + `</div></div>`;
+      content+= '<hr>';
     }
     return content;
   };
@@ -203,7 +194,7 @@ javascript:(function(){
         });
         var url = location.href;
         text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
-        $printTxt(text);
+        $privatterTxt(text);
       });
     } else {
       var url = location.href;
@@ -211,7 +202,7 @@ javascript:(function(){
       content+= '<div style="text-align: center; margin-bottom: 1em;">1</div>';
       content+= document.querySelector('.honbun').innerHTML;
       content+= '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
-      $printTxt(content);
+      $privatterTxt(content);
     }
   }, 100);
 })();
