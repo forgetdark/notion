@@ -151,8 +151,8 @@ javascript:(function(){
         .panel-body b { font-weight: inherit; }
         a { text-decoration: none; color: rgb(61, 118, 153); }
         </style>
-        <script>
-        document.addEventListener("DOMContentLoaded", function(event) { 
+        <script type="text/javascript">
+        function set_panel_copy() {
           if (document.querySelectorAll('.panel-copy').length > 0) {
             var panel_copys = document.querySelectorAll('.panel-copy');
             [].forEach.call(panel_copys, function(panel_copy) {
@@ -161,10 +161,10 @@ javascript:(function(){
                 });
             });
           }
-        });
+        }
         </script>
         </head>
-        <body>`+text+`</body>
+        <body onload="set_panel_copy();">`+text+`</body>
       </html>`);
     } catch (error) {
       console.log('Oops!, unable to print');
