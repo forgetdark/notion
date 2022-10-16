@@ -180,7 +180,7 @@ javascript:(function(){
           [].forEach.call(contents, function(e, i) {
             var nowPage = i + 1;
             var content = $getContent(textList.length == 0);
-            content+= '<div style="text-align: center; margin-bottom: 1em;">'+nowPage+'</div>';
+            content+= '<div style="text-align: center; margin-bottom: 1em; background-color: #EEE;">'+nowPage+'</div>';
             content+= e.innerHTML;
             textList.push(content);
           });
@@ -192,8 +192,6 @@ javascript:(function(){
         textList.forEach(function (str, index) {
           text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
         });
-        var url = location.href;
-        text += '<hr><div style="text-align: center;"><a href="'+url+'" target="_blank" style="color: blue;">'+url+'</a></div>';
         $privatterTxt(text);
       });
     } else {
