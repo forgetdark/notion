@@ -214,43 +214,43 @@ javascript:(function(){
         content+=`
         <style>
         #tab {
-            background: #8888CC;
-            border: solid 1px #CCAA88;
+          background: #8888CC;
+          border: solid 1px #8888CC;
         }
         #tab > ul {
-            margin: 0;
-            padding: 10px 20px 0 20px;
+          margin: 0;
+          padding: 10px 20px 0 20px;
         }
 
         #tab > ul > li {
-            list-style-type: none;
+          list-style-type: none;
         }
 
         #tab > ul > li > a { 
-            text-decoration: none;
-            font-size: 15px;
-            color: #333;
-            float: left;
-            padding: 10px;
-            margin-left: 5px;
+          text-decoration: none;
+          font-size: 15px;
+          color: #333;
+          float: left;
+          padding: 10px;
+          margin-left: 5px;
         }
 
         #tab > div {
-            clear: both;
-            padding: 0 15px;
-            height: 0;
-            overflow: hidden;
-            visibility: hidden;
+          clear: both;
+          padding: 0 15px;
+          height: 0;
+          overflow: hidden;
+          visibility: hidden;
         }
 
         span:target ~ #tab > ul li:first-child a {
-            background: #CCAA88;
+          background: #8888CC;
         }
 
         span:target ~ #tab > div:first-of-type {
-            visibility: hidden;
-            height: 0;
-            padding: 0 15px;
+          visibility: hidden;
+          height: 0;
+          padding: 0 15px;
         }
 
         span ~ #tab > ul li:first-child a,
@@ -258,8 +258,8 @@ javascript:(function(){
         #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
         #tab-3:target ~ #tab > ul li a[href$="#tab-3"],
         #tab-4:target ~ #tab > ul li a[href$="#tab-4"] {
-            background: #fff;
-            border-radius: 5px 5px 0 0;
+          background: #fff;
+          border-radius: 5px 5px 0 0;
         }
 
         span ~ #tab > ul li:first-child a::before,
@@ -267,8 +267,8 @@ javascript:(function(){
         #tab-2:target ~ #tab > ul li a[href$="#tab-2"]::before,
         #tab-3:target ~ #tab > ul li a[href$="#tab-3"]::before,
         #tab-4:target ~ #tab > ul li a[href$="#tab-4"]::before {
-            background-color: white;
-            height: 100%;
+          background-color: white;
+          height: 100%;
         }
 
         span ~ #tab > div:first-of-type,
@@ -276,13 +276,13 @@ javascript:(function(){
         #tab-2:target ~ #tab > div.tab-content-2,
         #tab-3:target ~ #tab > div.tab-content-3,
         #tab-4:target ~ #tab > div.tab-content-4 {
-            visibility: visible;
-            height: auto;
-            background: #fff;
+          visibility: visible;
+          height: auto;
+          background: #fff;
         }
 
         span {
-            display: none;
+          display: none;
         }
         </style>
         `;
@@ -290,6 +290,7 @@ javascript:(function(){
       });
     } else {
       var content = $getContent(true);
+      content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
       content+= '<div class="panel-copy">'+document.querySelector('.honbun').innerHTML+'</div>';
       $privatterTxt(content);
     }
