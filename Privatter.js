@@ -127,7 +127,17 @@ javascript:(function(){
         a { text-decoration: none; color: rgb(61, 118, 153); }
         </style>
         </head>
-        <body>`+text+`</body>
+        <body>`+text+
+        `<script>
+          var panels = document.querySelectorAll('.panel-copy');
+          if (panels.length > 0) {
+            [].forEach.call(panels, function(panel) {
+              panel.addEventListener('click', function(event) {
+                alert('panel');
+              });
+            });
+          }
+        </script></body>
       </html>`);
     } catch (error) {
       console.log('Oops!, unable to print');
