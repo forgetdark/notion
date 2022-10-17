@@ -145,7 +145,7 @@ javascript:(function(){
               copyEl(copyText);
             } else {
               let resolve = () => {
-                console.log('Text copied to clipboard...');
+                alert('Text copied to clipboard...');
               };
               let reject = (err) => {
                 copyEl(copyText);
