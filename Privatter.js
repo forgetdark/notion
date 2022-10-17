@@ -192,7 +192,7 @@ javascript:(function(){
             var nowPage = i + 1;
             var content = $getContent(textList.length == 0);
             content+= '<div style="text-align: center; margin-bottom: 1em; background-color: #EEE;">'+nowPage+'</div>';
-            content+= e.innerHTML;
+            content+= '<div class="panel-copy">'+e.innerHTML+'</div>';
             textList.push(content);
           });
           resolve(textList);
@@ -201,7 +201,7 @@ javascript:(function(){
       $saveText().then(function (textList) {
         var text = '';
         textList.forEach(function (str, index) {
-          text += (text != ''?'<p class="panel-copy" style="page-break-after: always;"></p>':'') + str;
+          text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
         });
         $privatterTxt(text);
       });
