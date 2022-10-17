@@ -184,30 +184,112 @@ javascript:(function(){
   setTimeout(function () {
     $loader.show();
     if (document.querySelectorAll('.pagination').length > 0) {
-      var $saveText = function() {
+      var $getText = function () {
         return new Promise(function(resolve, reject) {
           var textList = [];
           var contents = document.querySelectorAll('.honbun');
           [].forEach.call(contents, function(e, i) {
-            var nowPage = i + 1;
-            var content = $getContent(textList.length == 0);
-            content+= '<div style="text-align: center; margin-bottom: 1em; background-color: #EEE;">'+nowPage+'</div>';
-            content+= '<div class="panel-copy">'+e.innerHTML+'</div>';
-            textList.push(content);
+            textList.push({
+              'page': i + 1,
+              'content': e.innerHTML
+            });
           });
           resolve(textList);
         });
       };
-      $saveText().then(function (textList) {
-        var text = '';
-        textList.forEach(function (str, index) {
-          text += (text != ''?'<p style="page-break-after: always;"></p>':'') + str;
+      $getText().then(function (textList) {
+        var content = $getContent(true);
+        [].forEach.call(textList, function(textArray, i) {
+          content+='<span id="tab-'+textArray.page+'">'+textArray.page+'</span>';
         });
-        $privatterTxt(text);
+        content+='<div id="tab"><ul>';
+        [].forEach.call(textList, function(textArray, i) {
+          content+='<li><a href="#tab-'+textArray.page+'">'+textArray.page+'</a></li>';
+        });
+        content+='</ul>';
+        [].forEach.call(textList, function(textArray, i) {
+          content+='<div class="panel-copy tab-content-'+textArray.page+'"><p>'+textArray.content+'</p></div>';
+        });
+        content+='</div>';
+        content+=`
+        <style>
+        #tab {
+            background: #1caa5d;
+            border: solid 1px #1caa5d;
+        }
+        #tab > ul {
+            margin: 0;
+            padding: 10px 20px 0 20px;
+        }
+
+        #tab > ul > li {
+            list-style-type: none;
+        }
+
+        #tab > ul > li > a { 
+            text-decoration: none;
+            font-size: 15px;
+            color: #333;
+            float: left;
+            padding: 10px;
+            margin-left: 5px;
+        }
+
+        #tab > div {
+            clear: both;
+            padding: 0 15px;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        span:target ~ #tab > ul li:first-child a {
+            background: #1caa5d;
+        }
+
+        span:target ~ #tab > div:first-of-type {
+            visibility: hidden;
+            height: 0;
+            padding: 0 15px;
+        }
+
+        span ~ #tab > ul li:first-child a,
+        #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
+        #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
+        #tab-3:target ~ #tab > ul li a[href$="#tab-3"],
+        #tab-4:target ~ #tab > ul li a[href$="#tab-4"] {
+            background: #fff;
+            border-radius: 5px 5px 0 0;
+        }
+
+        span ~ #tab > ul li:first-child a::before,
+        #tab-1:target ~ #tab > ul li a[href$="#tab-1"]::before,
+        #tab-2:target ~ #tab > ul li a[href$="#tab-2"]::before,
+        #tab-3:target ~ #tab > ul li a[href$="#tab-3"]::before,
+        #tab-4:target ~ #tab > ul li a[href$="#tab-4"]::before {
+            background-color: white;
+            height: 100%;
+        }
+
+        span ~ #tab > div:first-of-type,
+        #tab-1:target ~ #tab > div.tab-content-1,
+        #tab-2:target ~ #tab > div.tab-content-2,
+        #tab-3:target ~ #tab > div.tab-content-3,
+        #tab-4:target ~ #tab > div.tab-content-4 {
+            visibility: visible;
+            height: auto;
+            background: #fff;
+        }
+
+        span {
+            display: none;
+        }
+        </style>
+        `;
+        $privatterTxt(content);
       });
     } else {
       var content = $getContent(true);
-      content+= '<div style="text-align: center; margin-bottom: 1em; background-color: #EEE;">1</div>';
       content+= '<div class="panel-copy">'+document.querySelector('.honbun').innerHTML+'</div>';
       $privatterTxt(content);
     }
