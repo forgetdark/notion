@@ -214,8 +214,8 @@ javascript:(function(){
         content+=`
         <style>
         #tab {
-            background: #1caa5d;
-            border: solid 1px #1caa5d;
+            background: #8888CC;
+            border: solid 1px #CCAA88;
         }
         #tab > ul {
             margin: 0;
@@ -244,7 +244,7 @@ javascript:(function(){
         }
 
         span:target ~ #tab > ul li:first-child a {
-            background: #1caa5d;
+            background: #CCAA88;
         }
 
         span:target ~ #tab > div:first-of-type {
