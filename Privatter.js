@@ -129,11 +129,35 @@ javascript:(function(){
         </head>
         <body>`+text+
         `<script>
+          var $copyTextOfElement = function (copyText) {
+            function copyEl(text) {
+              var el = document.createElement("textarea");
+              el.value = text;
+              document.body.appendChild(el);
+              el.focus();
+              el.select();
+              var copyStatus = document.execCommand('copy');
+              var msg = copyStatus ? 'copied' : 'failed';
+              document.body.removeChild(el);
+              alert('Text ' + msg + ' to clipboard...');
+            };
+            if (!navigator.clipboard) {
+              copyEl(copyText);
+            } else {
+              let resolve = () => {
+                console.log('Text copied to clipboard...');
+              };
+              let reject = (err) => {
+                copyEl(copyText);
+              };
+              navigator.clipboard.writeText(copyText).then(resolve, reject);
+            }
+          };
           var panels = document.querySelectorAll('.panel-copy');
           if (panels.length > 0) {
             [].forEach.call(panels, function(panel) {
               panel.addEventListener('click', function(event) {
-                alert('panel');
+                $copyTextOfElement(this.innerText);
               });
             });
           }
