@@ -163,7 +163,7 @@ javascript:(function(){
       'title': '.sc-1u8nu73-3',
       'chapter': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.previousElementSibling.classList[0],
       'description': '.sc-eyxzap-1',
-      'content': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.classList[0],
+      'content': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').parentElement.classList[0],
       'pages': '.sc-xhhh7v-1'
     };
     for (const [key, el] of Object.entries(elementList)) {
