@@ -161,9 +161,9 @@ javascript:(function(){
       },*/
       'series': '.sc-1u8nu73-15',
       'title': '.sc-1u8nu73-3',
-      'chapter': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').previousElementSibling.previousElementSibling.classList[0],
+      'chapter': '.',
       'description': '.sc-eyxzap-1',
-      'content': '.'+document.querySelector('#gtm-novel-work-scroll-finish-reading').parentElement.classList[0],
+      'content': '.',
       'pages': '.sc-xhhh7v-1'
     };
     for (const [key, el] of Object.entries(elementList)) {
@@ -174,7 +174,20 @@ javascript:(function(){
           $copyTextOfElement(document.querySelector(el.img).getAttribute('src'));
         });
       } else if (key == 'chapter' || key == 'content') {
-        $copySingleEl(el);
+        document.querySelector('.sc-iXeHaJ').addEventListener('click', function(event) {
+          setTimeout(function () {
+            var contentModel = document.createElement('div');
+            contentModel.classList.add('content-model');
+            contentModel.innerHTML = '';
+            var contents = document.querySelectorAll('.sc-ljsmAU');
+            [].forEach.call(contents, function(content) {
+              contentModel.innerHTML += content.innerHTML + '<p></p>';
+            });
+            document.body.appendChild(contentModel);
+            $copyTextOfElement(contentModel.innerText);
+            document.querySelector('.content-model').remove();
+          }, 100);
+        });
       } else if (key == 'pages') {
         var pages = document.querySelectorAll(el);
         if (pages.length > 0) {
