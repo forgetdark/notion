@@ -94,7 +94,7 @@ javascript:(function(){
     if (!navigator.clipboard) {
       copyEl(copyText);
     } else {
-      let resolve = () => { 
+      let resolve = () => {
         console.log('Text copied to clipboard...');
         $tooptip.show('複製成功');
         setTimeout(function () {
@@ -161,7 +161,7 @@ javascript:(function(){
       },*/
       'series': '.sc-1u8nu73-15',
       'title': '.sc-1u8nu73-3',
-      'chapter': '.',
+      /*'chapter': '.sc-biJonm',*/
       'description': '.sc-eyxzap-1',
       'content': '.',
       'pages': '.sc-xhhh7v-1'
@@ -173,15 +173,17 @@ javascript:(function(){
         document.querySelector(el.link).addEventListener('click', function(event) {
           $copyTextOfElement(document.querySelector(el.img).getAttribute('src'));
         });
-      } else if (key == 'chapter' || key == 'content') {
+      } else if (key == 'content') {
         document.querySelector('.sc-iXeHaJ').addEventListener('click', function(event) {
           setTimeout(function () {
             var contentModel = document.createElement('div');
             contentModel.classList.add('content-model');
             contentModel.innerHTML = '';
-            var contents = document.querySelectorAll('.sc-ljsmAU');
+            var contents = document.querySelector('.sc-iXeHaJ').childNodes;
             [].forEach.call(contents, function(content) {
-              contentModel.innerHTML += content.innerHTML + '<p></p>';
+              if (content.className.indexOf('sc-ljsmAU') > -1 || content.className.indexOf('sc-biJonm') > -1) {
+                contentModel.innerHTML += content.innerHTML + '<p></p>';
+              }
             });
             document.body.appendChild(contentModel);
             $copyTextOfElement(contentModel.innerText);
@@ -191,15 +193,6 @@ javascript:(function(){
       } else if (key == 'pages') {
         var pages = document.querySelectorAll(el);
         if (pages.length > 0) {
-          [].forEach.call(pages, function(page) {
-            page.addEventListener('click', function(event) {
-              setTimeout(function () {
-                $copyMultEl(elementList.chapter);
-                $copyMultEl(elementList.content);
-              }, 100);
-            });
-          });
-
           $tooptip.show('有分頁');
           setTimeout(function () {
             $tooptip.hide();
