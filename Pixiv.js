@@ -174,14 +174,18 @@ javascript:(function(){
           $copyTextOfElement(document.querySelector(el.img).getAttribute('src'));
         });
       } else if (key == 'content') {
-        document.querySelector('.sc-iXeHaJ').addEventListener('click', function(event) {
+        var contentName = '.sc-iXeHaJ';
+        if (document.querySelectorAll(contentName).length == 0) {
+          contentName = '.sc-JsfZP';
+        }
+        document.querySelector(contentName).addEventListener('click', function(event) {
           setTimeout(function () {
             var contentModel = document.createElement('div');
             contentModel.classList.add('content-model');
             contentModel.innerHTML = '';
-            var contents = document.querySelector('.sc-iXeHaJ').childNodes;
+            var contents = document.querySelector(contentName).childNodes;
             [].forEach.call(contents, function(content) {
-              if (content.className.indexOf('sc-ljsmAU') > -1 || content.className.indexOf('sc-biJonm') > -1) {
+              if (content.className.indexOf('sc-ljsmAU') > -1 || content.className.indexOf('sc-biJonm') > -1 || content.className.indexOf('sc-fWWYYk') > -1) {
                 contentModel.innerHTML += content.innerHTML + '<p></p>';
               }
             });
