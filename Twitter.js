@@ -244,8 +244,8 @@ javascript:(function(){
     $copyTextOfElement(author);
   });
   
-  document.querySelector('.r-1blvdjr').addEventListener('click', function (event) {
-    var description = this.innerText.replace('\n', '');
+  document.querySelector('[data-testid="tweetText"]').addEventListener('click', function (event) {
+    var description = this.innerText;
     $copyTextOfElement(description);
   });
   
