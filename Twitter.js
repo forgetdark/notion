@@ -258,7 +258,7 @@ javascript:(function(){
         <head>
         <style></style>
         </head>
-        <body>`+text+`</body>
+        <body style="text-align: center;">`+text+`</body>
       </html>`);
     } catch (error) {
       console.log('Oops!, unable to print');
@@ -278,9 +278,10 @@ javascript:(function(){
       var img = photo.children[1].src;
       images.push($getOriginUrl(img));
     });
-    var content = '';
+    var content = '<div>共有 ' + images.length + ' 張</div><hr>';
     [].forEach.call(images, function(image, index) {
-        content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="30%" /><hr>';
+        content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
+        content += '<div>' + (index + 1) + '</div><hr>';
     });
     $showImage(content);
   }, 100);
