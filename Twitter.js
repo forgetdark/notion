@@ -239,7 +239,7 @@ javascript:(function(){
     }
   };
 
-  document.querySelector('.r-k4xj1c').addEventListener('click', function (event) {
+  document.querySelector('[data-testid="User-Names"]').addEventListener('click', function (event) {
     var author = this.innerText.replace('\n', '');
     $copyTextOfElement(author);
   });
@@ -273,24 +273,39 @@ javascript:(function(){
     };
   };
   
-  setTimeout(function () {
-    $loader.show();
-    var images = [];
-    var $getOriginUrl = function (img) {
-      var format = img.split('?format=')[1].split('&name=')[0];
-      var path = img.split('?format=')[0];
-      return path + '.' + format + ':orig';
-    };
-    var photos = document.querySelectorAll('[data-testid="tweetPhoto"]');
-    [].forEach.call(photos, function(photo) {
-      var img = photo.children[1].src;
-      images.push($getOriginUrl(img));
-    });
-    var content = '<div>共有 ' + images.length + ' 張</div><hr>';
-    [].forEach.call(images, function(image, index) {
-        content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
-        content += '<div>' + (index + 1) + '</div><hr>';
-    });
-    $showImage(content);
-  }, 100);
+  var imageButton = document.createElement('div');
+  imageButton.id = 'image-button';
+  imageButton.innerHTML = `<button class="image-button" style="
+    background-color: rgb(29, 155, 240);
+    color: #FFF;
+    border: none;
+    margin: 10px;
+    padding: 5px 10px;
+    width: calc(100% - 20px);
+    border-radius: 10px;
+    ">另開圖片</button>`;
+  document.querySelectorAll('[data-testid="tweetText"]')[0].parentElement.appendChild(imageButton);
+
+  document.querySelector('.image-button').addEventListener('click', function (event) {
+    setTimeout(function () {
+      $loader.show();
+      var images = [];
+      var $getOriginUrl = function (img) {
+        var format = img.split('?format=')[1].split('&name=')[0];
+        var path = img.split('?format=')[0];
+        return path + '.' + format + ':orig';
+      };
+      var photos = document.querySelectorAll('[data-testid="tweetPhoto"]');
+      [].forEach.call(photos, function(photo) {
+        var img = photo.children[1].src;
+        images.push($getOriginUrl(img));
+      });
+      var content = '<div>共有 ' + images.length + ' 張</div><hr>';
+      [].forEach.call(images, function(image, index) {
+          content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
+          content += '<div>' + (index + 1) + '</div><hr>';
+      });
+      $showImage(content);
+    }, 100);
+  });
 })();
