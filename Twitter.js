@@ -248,6 +248,14 @@ javascript:(function(){
     var description = this.innerText;
     $copyTextOfElement(description);
   });
+
+  var $copyImageName = function () {
+    var image = document.querySelector('[data-testid="tweetPhoto"]').children[1].src;
+    var format = image.split('?format=')[1].split('&name=')[0];
+    var name = image.split('?format=')[0].split('/media/')[1];
+    $copyTextOfElement(name + '.' + format + ':orig');
+  };
+  $copyImageName();
   
   var $showImage = function (text) {
     try {
