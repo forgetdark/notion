@@ -297,6 +297,7 @@ javascript:(function(){
       padding: 5px 10px;
       width: calc(100% - 20px);
       border-radius: 10px;
+      cursor: pointer;
       ">另開圖片</button>`;
     document.querySelectorAll('[data-testid="tweetText"]')[0].parentElement.appendChild(imageButton);
 
