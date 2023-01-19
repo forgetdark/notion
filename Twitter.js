@@ -238,74 +238,96 @@ javascript:(function(){
       });
     }
   };
-
-  document.querySelector('[data-testid="User-Names"]').addEventListener('click', function (event) {
-    var author = this.innerText.replace('\n', '');
-    $copyTextOfElement(author);
-  });
   
-  document.querySelector('[data-testid="tweetText"]').addEventListener('click', function (event) {
-    var description = this.innerText;
-    $copyTextOfElement(description);
-  });
-
-  var $copyImageName = function () {
-    var image = document.querySelector('[data-testid="tweetPhoto"]').children[1].src;
-    var format = image.split('?format=')[1].split('&name=')[0];
-    var name = image.split('?format=')[0].split('/media/')[1];
-    $copyTextOfElement(name + '.' + format + ':orig');
+  var $prompt = function (title, content = '') {
+    var prompt = window.prompt(title, content);
+    if (prompt == null || "") {
+      $tooptip.show('已取消輸入');
+      setTimeout(function () {
+        $tooptip.hide();
+      }, 1000);
+    } else {
+      return prompt;
+    }
   };
-  $copyImageName();
-  
-  var $showImage = function (text) {
-    try {
-      $loader.hide();
-      var newWin = window.open('', 'privatter window');
-      newWin.document.open();
-      newWin.document.write(`<html>
-        <head>
-        <style></style>
-        </head>
-        <body style="text-align: center;">`+text+`</body>
-      </html>`);
-    } catch (error) {
-      console.log('Oops!, unable to print');
+
+  var url = location.href;
+  if (url.indexOf('status') > 0) {
+    document.querySelector('[data-testid="User-Names"]').addEventListener('click', function (event) {
+      var author = this.innerText.replace('\n', '');
+      $copyTextOfElement(author);
+    });
+
+    document.querySelector('[data-testid="tweetText"]').addEventListener('click', function (event) {
+      var description = this.innerText;
+      $copyTextOfElement(description);
+    });
+
+    var $copyImageName = function () {
+      var image = document.querySelector('[data-testid="tweetPhoto"]').children[1].src;
+      var format = image.split('?format=')[1].split('&name=')[0];
+      var name = image.split('?format=')[0].split('/media/')[1];
+      $copyTextOfElement(name + '.' + format + ':orig');
     };
-  };
-  
-  var imageButton = document.createElement('div');
-  imageButton.id = 'image-button';
-  imageButton.innerHTML = `<button class="image-button" style="
-    background-color: rgb(29, 155, 240);
-    color: #FFF;
-    border: none;
-    margin: 10px;
-    padding: 5px 10px;
-    width: calc(100% - 20px);
-    border-radius: 10px;
-    ">另開圖片</button>`;
-  document.querySelectorAll('[data-testid="tweetText"]')[0].parentElement.appendChild(imageButton);
+    $copyImageName();
 
-  document.querySelector('.image-button').addEventListener('click', function (event) {
-    setTimeout(function () {
-      $loader.show();
-      var images = [];
-      var $getOriginUrl = function (img) {
-        var format = img.split('?format=')[1].split('&name=')[0];
-        var path = img.split('?format=')[0];
-        return path + '.' + format + ':orig';
+    var $showImage = function (text) {
+      try {
+        $loader.hide();
+        var newWin = window.open('', 'privatter window');
+        newWin.document.open();
+        newWin.document.write(`<html>
+          <head>
+          <style></style>
+          </head>
+          <body style="text-align: center;">`+text+`</body>
+        </html>`);
+      } catch (error) {
+        console.log('Oops!, unable to print');
       };
-      var photos = document.querySelectorAll('[data-testid="tweetPhoto"]');
-      [].forEach.call(photos, function(photo) {
-        var img = photo.children[1].src;
-        images.push($getOriginUrl(img));
-      });
-      var content = '<div>共有 ' + images.length + ' 張</div><hr>';
-      [].forEach.call(images, function(image, index) {
-          content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
-          content += '<div>' + (index + 1) + '</div><hr>';
-      });
-      $showImage(content);
-    }, 100);
-  });
+    };
+
+    var imageButton = document.createElement('div');
+    imageButton.id = 'image-button';
+    imageButton.innerHTML = `<button class="image-button" style="
+      background-color: rgb(29, 155, 240);
+      color: #FFF;
+      border: none;
+      margin: 10px;
+      padding: 5px 10px;
+      width: calc(100% - 20px);
+      border-radius: 10px;
+      ">另開圖片</button>`;
+    document.querySelectorAll('[data-testid="tweetText"]')[0].parentElement.appendChild(imageButton);
+
+    document.querySelector('.image-button').addEventListener('click', function (event) {
+      setTimeout(function () {
+        $loader.show();
+        var images = [];
+        var $getOriginUrl = function (img) {
+          var format = img.split('?format=')[1].split('&name=')[0];
+          var path = img.split('?format=')[0];
+          return path + '.' + format + ':orig';
+        };
+        var photos = document.querySelectorAll('[data-testid="tweetPhoto"]');
+        [].forEach.call(photos, function(photo) {
+          var img = photo.children[1].src;
+          images.push($getOriginUrl(img));
+        });
+        var content = '<div>共有 ' + images.length + ' 張</div><hr>';
+        [].forEach.call(images, function(image, index) {
+            content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
+            content += '<div>' + (index + 1) + '</div><hr>';
+        });
+        $showImage(content);
+      }, 100);
+    });
+  } else {
+    var account = $prompt('請輸入 twitter 帳號', 'nacht0210');
+    var start_date = $prompt('請輸入起始日期', '2023-01-01');
+    var end_date = $prompt('請輸入結束日期', '2023-03-01');
+    if (account != null && start_date != null && end_date != null) {
+      window.location.href = 'https://twitter.com/search?f=live&q=(from%3A' + account + ')%20until%3A' + end_date + '%20since%3A' + start_date + '&src=typed_query';
+    }
+  }
 })();
