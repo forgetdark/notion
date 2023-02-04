@@ -131,27 +131,30 @@ javascript:(function(){
   
   var url = location.href;
   if (url.indexOf('html') > 0) {
-    var image_button = document.querySelector('.IllustItemCommandInfo');
-    image_button.removeAttribute('href');
-    image_button.addEventListener('click', function (event) {
-      setTimeout(function () {
-        $loader.show();
-        var images = [];
-        var $getOriginUrl = function (img) {
-          return img.replace('_640.jpg', '');
-        };
-        var photos = document.querySelectorAll('.IllustItemThumbImg');
-        [].forEach.call(photos, function(photo) {
-          images.push($getOriginUrl(photo.src));
-        });
-        var content = '<div>共有 ' + images.length + ' 張</div><hr>';
-        [].forEach.call(images, function(image, index) {
-            content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
-            content += '<div>' + (index + 1) + '</div><hr>';
-        });
-        $showImage(content);
-      }, 100);
-    });
+    document.querySelector('.IllustItemExpandBtn').click();
+    setTimeout(function () {
+      var image_button = document.querySelector('.IllustItemCommandInfo');
+      image_button.removeAttribute('href');
+      image_button.addEventListener('click', function (event) {
+        setTimeout(function () {
+          $loader.show();
+          var images = [];
+          var $getOriginUrl = function (img) {
+            return img.replace('_640.jpg', '');
+          };
+          var photos = document.querySelectorAll('.IllustItemThumbImg');
+          [].forEach.call(photos, function(photo) {
+            images.push($getOriginUrl(photo.src));
+          });
+          var content = '<div>共有 ' + images.length + ' 張</div><hr>';
+          [].forEach.call(images, function(image, index) {
+              content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
+              content += '<div>' + (index + 1) + '</div><hr>';
+          });
+          $showImage(content);
+        }, 100);
+      });
+    }, 1000);
   } else {
     var links = document.querySelectorAll('.IllustItemCommandInfo');
     [].forEach.call(links, function(link, index) {
