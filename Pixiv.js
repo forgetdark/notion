@@ -85,7 +85,6 @@ javascript:(function(){
       var msg = copyStatus ? 'copied' : 'failed';
       var transMsg = copyStatus ? '複製成功' : '複製失敗';
       document.body.removeChild(el);
-      console.log(text);
       console.log('Text ' + msg + ' to clipboard...');
       $tooptip.show(transMsg);
       setTimeout(function () {
@@ -96,7 +95,6 @@ javascript:(function(){
       copyEl(copyText);
     } else {
       let resolve = () => {
-        console.log(copyText);
         console.log('Text copied to clipboard...');
         $tooptip.show('複製成功');
         setTimeout(function () {
