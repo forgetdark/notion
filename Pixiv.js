@@ -155,25 +155,15 @@ javascript:(function(){
     }, 1000);
   } else {
     var elementList = {
-      /*'cover': {
-        'link': '.sc-1u8nu73-18',
-        'img': '.sc-1u8nu73-19'
-      },*/
       'series': '.sc-1u8nu73-15',
       'title': '.sc-1u8nu73-3',
-      /*'chapter': '.sc-biJonm',*/
       'description': '.sc-eyxzap-1',
       'content': ['.sc-iXeHaJ', '.sc-JsfZP', '.sc-kmIPcE'],
+      'paragraph': ['.sc-ljsmAU', '.sc-biJonm', '.sc-fWWYYk', '.sc-fXgAZx'],
       'pages': '.sc-xhhh7v-1'
     };
     for (const [key, el] of Object.entries(elementList)) {
-      if (key == 'cover') {
-        document.querySelector(elementList.cover.link).setAttribute('href','javascript:void(0);');
-        document.querySelector(elementList.cover.link).removeAttribute('target');
-        document.querySelector(el.link).addEventListener('click', function(event) {
-          $copyTextOfElement(document.querySelector(el.img).getAttribute('src'));
-        });
-      } else if (key == 'content') {
+      if (key == 'content') {
         var contentName = '';
         elementList.content.forEach(function (content) {
           if (document.querySelectorAll(content).length > 0) {
@@ -181,7 +171,14 @@ javascript:(function(){
             return true;
           }
         });
-        if (contentName != '') {
+        var paragraphName = '';
+        elementList.paragraph.forEach(function (paragraph) {
+          if (document.querySelectorAll(paragraph).length > 0) {
+            paragraphName = paragraph.replace('.', '');
+            return true;
+          }
+        });
+        if (contentName != '' && paragraphName != '') {
           document.querySelector(contentName).addEventListener('click', function(event) {
             setTimeout(function () {
               var contentModel = document.createElement('div');
@@ -189,7 +186,7 @@ javascript:(function(){
               contentModel.innerHTML = '';
               var contents = document.querySelector(contentName).childNodes;
               [].forEach.call(contents, function(content) {
-                if (content.className.indexOf('sc-ljsmAU') > -1 || content.className.indexOf('sc-biJonm') > -1 || content.className.indexOf('sc-fWWYYk') > -1) {
+                if (content.className.indexOf(paragraphName) > -1) {
                   contentModel.innerHTML += content.innerHTML + '<p></p>';
                 }
               });
