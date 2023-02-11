@@ -132,11 +132,12 @@ javascript:(function(){
   } else if (location.href.indexOf('series') > 0) {
     var elementList = {
       'cover': '.sc-vmsckl-2',
-      'series': '.sc-vk2fvc-3',
+      'series': '.sc-vk2fvc-2',
       'description': '.sc-eyxzap-1'
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'cover') {
+        document.querySelector(el).style = 'cursor: pointer;';
         document.querySelector(el).addEventListener('click', function(event) {
           var el = document.createElement("a");
           el.href = this.src;
