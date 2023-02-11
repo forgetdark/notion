@@ -158,8 +158,8 @@ javascript:(function(){
       'series': '.sc-1u8nu73-15',
       'title': '.sc-1u8nu73-3',
       'description': '.sc-eyxzap-1',
-      'content': ['.sc-iXeHaJ', '.sc-JsfZP', '.sc-kmIPcE'],
-      'paragraph': ['.sc-ljsmAU', '.sc-biJonm', '.sc-fWWYYk', '.sc-fXgAZx'],
+      'content': ['.sc-iXeHaJ', '.sc-JsfZP', '.sc-kmIPcE', '.sc-bUQyIj'],
+      'paragraph': ['.sc-ljsmAU', '.sc-biJonm', '.sc-fWWYYk', '.sc-fXgAZx', '.sc-dTSzeu'],
       'pages': '.sc-xhhh7v-1'
     };
     for (const [key, el] of Object.entries(elementList)) {
