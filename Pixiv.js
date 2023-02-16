@@ -1,4 +1,4 @@
-javascript:(function(){ window.onload = function() {
+javascript:(function(){
   var $tooptip = (function() {
     var tooptipStyle = document.createElement('style');
     tooptipStyle.id = 'tooltip-style';
@@ -159,36 +159,28 @@ javascript:(function(){ window.onload = function() {
       'series': '.sc-1u8nu73-15',
       'title': '.sc-1u8nu73-3',
       'description': '.sc-eyxzap-1',
-      'content': ['.sc-iXeHaJ', '.sc-JsfZP', '.sc-kmIPcE', '.sc-bUQyIj'],
-      'paragraph': ['.sc-ljsmAU', '.sc-biJonm', '.sc-fWWYYk', '.sc-fXgAZx', '.sc-dTSzeu'],
+      'content': 'main',
       'pages': '.sc-xhhh7v-1'
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'content') {
         var contentName = '';
-        elementList.content.forEach(function (content) {
-          if (document.querySelectorAll(content).length > 0) {
-            contentName = content;
+        var mains = document.querySelectorAll(elementList.content);
+        [].forEach.call(mains, function(main, index) {
+          if (index > 0) {
+            contentName = '.' + main.children[0].classList[0];
             return true;
           }
         });
-        var paragraphName = '';
-        elementList.paragraph.forEach(function (paragraph) {
-          if (document.querySelectorAll(paragraph).length > 0) {
-            paragraphName = paragraph.replace('.', '');
-            return true;
-          }
-        });
-        if (contentName != '' && paragraphName != '') {
+        if (contentName != '') {
           document.querySelector(contentName).addEventListener('click', function(event) {
             setTimeout(function () {
               var contentModel = document.createElement('div');
               contentModel.classList.add('content-model');
               contentModel.innerHTML = '';
-              var contents = document.querySelector(contentName).childNodes;
-              [].forEach.call(contents, function(content) {
-                if (content.className.indexOf(paragraphName) > -1) {
-                  contentModel.innerHTML += content.innerHTML + '<p></p>';
+              [].forEach.call(document.querySelector(contentName).children, function(child) {
+                if (child.localName == 'p') {
+                  contentModel.innerHTML += child.innerHTML + '<p></p>';
                 }
               });
               document.body.appendChild(contentModel);
@@ -215,4 +207,4 @@ javascript:(function(){ window.onload = function() {
       }
     }
   }
-}; })();
+})();
