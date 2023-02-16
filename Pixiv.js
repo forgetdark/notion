@@ -1,4 +1,4 @@
-javascript:(function(){
+javascript:(function(){ window.onload = function() {
   var $tooptip = (function() {
     var tooptipStyle = document.createElement('style');
     tooptipStyle.id = 'tooltip-style';
@@ -215,4 +215,4 @@ javascript:(function(){
       }
     }
   }
-})();
+}; })();
