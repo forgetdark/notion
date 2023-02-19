@@ -294,19 +294,21 @@ javascript:(function(){
       };
     };
 
-    var imageButton = document.createElement('div');
-    imageButton.id = 'image-button';
-    imageButton.innerHTML = `<button class="image-button" style="
-      background-color: rgb(29, 155, 240);
-      color: #FFF;
-      border: none;
-      margin: 10px;
-      padding: 5px 10px;
-      width: calc(100% - 20px);
-      border-radius: 10px;
-      cursor: pointer;
-      ">另開圖片</button>`;
-    document.querySelectorAll('[data-testid="tweetText"]')[0].parentElement.appendChild(imageButton);
+    if (document.querySelectorAll('#image-button').length == 0) {
+      var imageButton = document.createElement('div');
+      imageButton.id = 'image-button';
+      imageButton.innerHTML = `<button class="image-button" style="
+        background-color: rgb(29, 155, 240);
+        color: #FFF;
+        border: none;
+        margin: 10px;
+        padding: 5px 10px;
+        width: calc(100% - 20px);
+        border-radius: 10px;
+        cursor: pointer;
+        ">另開圖片</button>`;
+      document.querySelectorAll('[data-testid="tweetText"]')[0].parentElement.appendChild(imageButton);
+    }
 
     document.querySelector('.image-button').addEventListener('click', function (event) {
       setTimeout(function () {
