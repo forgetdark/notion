@@ -259,7 +259,14 @@ javascript:(function(){
     });
 
     document.querySelector('[data-testid="tweetText"]').addEventListener('click', function (event) {
-      var description = this.innerText;
+      var description = '';
+      [].forEach.call(this.children, function(child) {
+          if (child.localName == 'img') {
+              description+=child.alt;
+              return true;
+          }
+          description+=child.innerText;
+      });
       $copyTextOfElement(description);
     });
 
