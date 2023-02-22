@@ -278,7 +278,7 @@ javascript:(function(){
     };
     $copyImageName();
 
-    var $showImage = function (text) {
+    var $showImage = function (text, style) {
       try {
         $loader.hide();
         var newWin = window.open('', 'privatter window');
@@ -287,7 +287,7 @@ javascript:(function(){
           <head>
           <style></style>
           </head>
-          <body style="text-align: center;">`+text+`</body>
+          <body style="text-align: center; `+style+`">`+text+`</body>
         </html>`);
       } catch (error) {
         console.log('Oops!, unable to print');
@@ -310,6 +310,10 @@ javascript:(function(){
       document.querySelectorAll('[data-testid="tweetText"]')[0].parentElement.appendChild(imageButton);
     }
 
+    var style = '';
+    if(document.querySelector('body').style.length > 0 && document.querySelector('body').style[0] == 'background-color') {
+      style = 'background-color:' + document.querySelector('body').style.backgroundColor + '; color: #FFF;';
+    }
     document.querySelector('.image-button').addEventListener('click', function (event) {
       setTimeout(function () {
         $loader.show();
@@ -329,7 +333,7 @@ javascript:(function(){
             content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
             content += '<div>' + (index + 1) + '</div><hr>';
         });
-        $showImage(content);
+        $showImage(content, style);
       }, 100);
     });
   } else {
