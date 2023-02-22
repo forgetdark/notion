@@ -257,6 +257,9 @@ javascript:(function(){
   
   var url = location.href;
   if (url.indexOf('html') > 0) {
+    var $getOriginUrl = function (img) {
+      return img.replace('_640.jpg', '');
+    };
     document.querySelector('.IllustItemExpandBtn').click();
     setTimeout(function () {
       var image_button = document.querySelector('.IllustItemCommandInfo');
@@ -265,9 +268,6 @@ javascript:(function(){
         setTimeout(function () {
           $loader.show();
           var images = [];
-          var $getOriginUrl = function (img) {
-            return img.replace('_640.jpg', '');
-          };
           var photos = document.querySelectorAll('.IllustItemThumbImg');
           [].forEach.call(photos, function(photo) {
             images.push($getOriginUrl(photo.src));
@@ -282,6 +282,12 @@ javascript:(function(){
       });
     }, 1000);
     $copySingleEl('.IllustItemDesc');
+    var $copyImageName = function () {
+      var image = document.querySelector('.IllustItemThumbImg').src;
+      var arr = $getOriginUrl(image).split('/');
+      $copyTextOfElement(arr[arr.length-1].split('.')[0]);
+    };
+    $copyImageName();
   } else {
     var links = document.querySelectorAll('.IllustItemCommandInfo');
     [].forEach.call(links, function(link, index) {
