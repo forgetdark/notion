@@ -329,8 +329,10 @@ javascript:(function(){
           var images = [];
           var photos = document.querySelectorAll('[data-testid="tweetPhoto"]');
           [].forEach.call(photos, function(photo) {
-            var img = photo.children[1].src;
-            images.push($getOriginUrl(img));
+            if (photo.children.length > 1 && photo.children[1].localName == 'img') {
+              var img = photo.children[1].src;
+              images.push($getOriginUrl(img));
+            }
           });
           var content = '<div>共有 ' + images.length + ' 張</div><hr>';
           [].forEach.call(images, function(image, index) {
