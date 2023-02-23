@@ -258,17 +258,19 @@ javascript:(function(){
       $copyTextOfElement(author);
     });
 
-    document.querySelector('[data-testid="tweetText"]').addEventListener('click', function (event) {
-      var description = '';
-      [].forEach.call(this.children, function(child) {
-          if (child.localName == 'img') {
-              description+=child.alt;
-              return true;
-          }
-          description+=child.innerText;
+    if (document.querySelectorAll('[data-testid="tweetText"]').length > 0) {
+      document.querySelector('[data-testid="tweetText"]').addEventListener('click', function (event) {
+        var description = '';
+        [].forEach.call(this.children, function(child) {
+            if (child.localName == 'img') {
+                description+=child.alt;
+                return true;
+            }
+            description+=child.innerText;
+        });
+        $copyTextOfElement(description);
       });
-      $copyTextOfElement(description);
-    });
+    }
 
     var $copyImageName = function () {
       var image = document.querySelector('[data-testid="tweetPhoto"]').children[1].src;
@@ -294,7 +296,7 @@ javascript:(function(){
       };
     };
 
-    if (document.querySelectorAll('#image-button').length == 0) {
+    if (document.querySelectorAll('#image-button').length == 0 && document.querySelectorAll('[data-testid="tweetText"]').length > 0) {
       var imageButton = document.createElement('div');
       imageButton.id = 'image-button';
       imageButton.innerHTML = `<button class="image-button" style="
@@ -311,31 +313,33 @@ javascript:(function(){
     }
 
     var style = '';
-    if(document.querySelector('body').style.length > 0 && document.querySelector('body').style[0] == 'background-color') {
+    if (document.querySelector('body').style.length > 0 && document.querySelector('body').style[0] == 'background-color') {
       style = 'background-color:' + document.querySelector('body').style.backgroundColor + '; color: #FFF;';
     }
-    document.querySelector('.image-button').addEventListener('click', function (event) {
-      setTimeout(function () {
-        $loader.show();
-        var images = [];
-        var $getOriginUrl = function (img) {
-          var format = img.split('?format=')[1].split('&name=')[0];
-          var path = img.split('?format=')[0];
-          return path + '.' + format + ':orig';
-        };
-        var photos = document.querySelectorAll('[data-testid="tweetPhoto"]');
-        [].forEach.call(photos, function(photo) {
-          var img = photo.children[1].src;
-          images.push($getOriginUrl(img));
-        });
-        var content = '<div>共有 ' + images.length + ' 張</div><hr>';
-        [].forEach.call(images, function(image, index) {
-            content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
-            content += '<div>' + (index + 1) + '</div><hr>';
-        });
-        $showImage(content, style);
-      }, 100);
-    });
+    if (document.querySelectorAll('.image-button').length > 0) {
+      document.querySelector('.image-button').addEventListener('click', function (event) {
+        setTimeout(function () {
+          $loader.show();
+          var images = [];
+          var $getOriginUrl = function (img) {
+            var format = img.split('?format=')[1].split('&name=')[0];
+            var path = img.split('?format=')[0];
+            return path + '.' + format + ':orig';
+          };
+          var photos = document.querySelectorAll('[data-testid="tweetPhoto"]');
+          [].forEach.call(photos, function(photo) {
+            var img = photo.children[1].src;
+            images.push($getOriginUrl(img));
+          });
+          var content = '<div>共有 ' + images.length + ' 張</div><hr>';
+          [].forEach.call(images, function(image, index) {
+              content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
+              content += '<div>' + (index + 1) + '</div><hr>';
+          });
+          $showImage(content, style);
+        }, 100);
+      });
+    }
   } else {
     var account = $prompt('請輸入 twitter 帳號', 'nacht0210');
     var start_date = $prompt('請輸入起始日期', '2023-01-01');
