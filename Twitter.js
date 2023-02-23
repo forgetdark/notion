@@ -296,7 +296,7 @@ javascript:(function(){
       };
     };
 
-    if (document.querySelectorAll('#image-button').length == 0 && document.querySelectorAll('[data-testid="tweetText"]').length > 0) {
+    if (document.querySelectorAll('#image-button').length == 0) {
       var imageButton = document.createElement('div');
       imageButton.id = 'image-button';
       imageButton.innerHTML = `<button class="image-button" style="
@@ -309,8 +309,14 @@ javascript:(function(){
         border-radius: 10px;
         cursor: pointer;
         ">另開圖片</button>`;
-      document.querySelectorAll('[data-testid="tweetText"]')[0].parentElement.appendChild(imageButton);
+      document.querySelectorAll('[data-testid="User-Names"]')[0].parentElement.parentElement.parentElement.parentElement.appendChild(imageButton);
     }
+    
+    var $getOriginUrl = function (img) {
+      var format = img.split('?format=')[1].split('&name=')[0];
+      var path = img.split('?format=')[0];
+      return path + '.' + format + ':orig';
+    };
 
     var style = '';
     if (document.querySelector('body').style.length > 0 && document.querySelector('body').style[0] == 'background-color') {
@@ -321,11 +327,6 @@ javascript:(function(){
         setTimeout(function () {
           $loader.show();
           var images = [];
-          var $getOriginUrl = function (img) {
-            var format = img.split('?format=')[1].split('&name=')[0];
-            var path = img.split('?format=')[0];
-            return path + '.' + format + ':orig';
-          };
           var photos = document.querySelectorAll('[data-testid="tweetPhoto"]');
           [].forEach.call(photos, function(photo) {
             var img = photo.children[1].src;
