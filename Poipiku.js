@@ -1,5 +1,5 @@
 javascript:(function(){
-    var $loader = (function () {
+  var $loader = (function () {
     var loaderStyle = document.createElement('style');
     loaderStyle.id = 'loader-style';
     loaderStyle.innerHTML = `.loader-overlay {
@@ -260,24 +260,28 @@ javascript:(function(){
     var $getOriginUrl = function (img) {
       return img.replace('_640.jpg', '');
     };
-    var $copyImageName = function () {
-      var image = document.querySelector('.IllustItemThumbImg').src;
-      var arr = $getOriginUrl(image).split('/');
-      $copyTextOfElement(arr[arr.length-1].split('.')[0]);
+    var $copyImageName = function (img) {
+      [].forEach.call(img, function(url, index) {
+        var arr = url.split('/');
+        var name = arr[arr.length-1].split('.')[0];
+        if (name != 'R-18' && name.indexOf('publish_t_') < 0 && index < 2) {
+          $copyTextOfElement(name);
+        }
+      });
     };
-    $copyImageName();
     document.querySelector('.IllustItemExpandBtn').click();
     setTimeout(function () {
+      var images = [];
+      var photos = document.querySelectorAll('.IllustItemThumbImg');
+      [].forEach.call(photos, function(photo) {
+        images.push($getOriginUrl(photo.src));
+      });
+      $copyImageName(images);
       var image_button = document.querySelector('.IllustItemCommandInfo');
       image_button.removeAttribute('href');
       image_button.addEventListener('click', function (event) {
         setTimeout(function () {
           $loader.show();
-          var images = [];
-          var photos = document.querySelectorAll('.IllustItemThumbImg');
-          [].forEach.call(photos, function(photo) {
-            images.push($getOriginUrl(photo.src));
-          });
           var content = '<div>共有 ' + images.length + ' 張</div><hr>';
           [].forEach.call(images, function(image, index) {
               content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
