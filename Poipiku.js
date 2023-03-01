@@ -276,7 +276,6 @@ javascript:(function(){
       [].forEach.call(photos, function(photo) {
         images.push($getOriginUrl(photo.src));
       });
-      $copyImageName(images);
       var image_button = document.querySelector('.IllustItemCommandInfo');
       image_button.removeAttribute('href');
       image_button.addEventListener('click', function (event) {
@@ -289,6 +288,7 @@ javascript:(function(){
           });
           $showImage(content);
         }, 100);
+        $copyImageName(images);
       });
     }, 1000);
     $copySingleEl('.IllustItemDesc');
