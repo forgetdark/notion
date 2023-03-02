@@ -264,12 +264,14 @@ javascript:(function(){
       [].forEach.call(img, function(url, index) {
         var arr = url.split('/');
         var name = arr[arr.length-1].split('.')[0];
-        if (name != 'R-18' && name != 'warning' && name.indexOf('publish_t_') < 0 && index < 2) {
+        if (name != 'R-18' && name != 'warning' && name.indexOf('publish_') < 0 && index < 2) {
           $copyTextOfElement(name);
         }
       });
     };
-    document.querySelector('.IllustItemExpandBtn').click();
+    if (document.querySelectorAll('.IllustItemExpandBtn').length > 0) {
+      document.querySelector('.IllustItemExpandBtn').click();
+    }
     setTimeout(function () {
       var images = [];
       var photos = document.querySelectorAll('.IllustItemThumbImg');
