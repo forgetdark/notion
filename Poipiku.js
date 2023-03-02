@@ -261,13 +261,19 @@ javascript:(function(){
       return img.replace('_640.jpg', '');
     };
     var $copyImageName = function (img) {
+      var img_name = '';
       [].forEach.call(img, function(url, index) {
         var arr = url.split('/');
         var name = arr[arr.length-1].split('.')[0];
-        if (name != 'R-18' && name != 'warning' && name.indexOf('publish_') < 0 && index < 2) {
-          $copyTextOfElement(name);
+        if (name != 'R-18' && name != 'warning' && name.indexOf('publish_') < 0) {
+          if (img_name == '') {
+            img_name = name;
+          }
         }
       });
+      if (img_name != '') {
+        $copyTextOfElement(img_name);
+      }
     };
     if (document.querySelectorAll('.IllustItemExpandBtn').length > 0) {
       document.querySelector('.IllustItemExpandBtn').click();
