@@ -253,7 +253,7 @@ javascript:(function(){
 
   var url = location.href;
   if (url.indexOf('status') > 0) {
-    document.querySelector('[data-testid="User-Names"]').addEventListener('click', function (event) {
+    document.querySelector('[data-testid="User-Name"]').addEventListener('click', function (event) {
       var author = this.innerText.replace('\n', '');
       $copyTextOfElement(author);
     });
@@ -309,7 +309,7 @@ javascript:(function(){
         border-radius: 10px;
         cursor: pointer;
         ">另開圖片</button>`;
-      document.querySelectorAll('[data-testid="User-Names"]')[0].parentElement.parentElement.parentElement.parentElement.appendChild(imageButton);
+      document.querySelectorAll('[data-testid="User-Name"]')[0].parentElement.parentElement.parentElement.parentElement.appendChild(imageButton);
     }
     
     var $getOriginUrl = function (img) {
