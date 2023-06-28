@@ -280,24 +280,43 @@ javascript:(function(){
     }
     setTimeout(function () {
       var images = [];
-      var photos = document.querySelectorAll('.IllustItemThumbImg');
-      [].forEach.call(photos, function(photo) {
-        images.push($getOriginUrl(photo.src));
-      });
-      var image_button = document.querySelector('.IllustItemCommandInfo');
-      image_button.removeAttribute('href');
-      image_button.addEventListener('click', function (event) {
-        setTimeout(function () {
-          $loader.show();
-          var content = '<div>共有 ' + images.length + ' 張</div><hr>';
-          [].forEach.call(images, function(image, index) {
-              content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
-              content += '<div>' + (index + 1) + '</div><hr>';
+      if (document.querySelectorAll('.IllustItemThumbImg').length > 0) {
+        var photos = document.querySelectorAll('.IllustItemThumbImg');
+        [].forEach.call(photos, function(photo) {
+          images.push($getOriginUrl(photo.src));
+        });
+        var image_button = document.querySelector('.IllustItemCommandInfo');
+        image_button.removeAttribute('href');
+        image_button.addEventListener('click', function (event) {
+          setTimeout(function () {
+            $loader.show();
+            var content = '<div>共有 ' + images.length + ' 張</div><hr>';
+            [].forEach.call(images, function(image, index) {
+                content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
+                content += '<div>' + (index + 1) + '</div><hr>';
+            });
+            $showImage(content);
+          }, 100);
+          $copyImageName(images);
+        });
+      }
+      if (document.querySelectorAll('.IllustItemText').length > 0) {
+        document.querySelector('.IllustItemText').style = "max-height: 100%;overflow: scroll;";
+        document.querySelector('.IllustItemText').href = "javascript:void(0);";
+        if (document.querySelectorAll('.NovelTitle').length > 0) {
+          var novelTitle = document.querySelectorAll('.NovelTitle');
+          [].forEach.call(novelTitle, function(t) {
+            t.appendChild(document.createElement('br'));
+            t.appendChild(document.createElement('br'));
+            t.appendChild(document.createElement('br'));
           });
-          $showImage(content);
-        }, 100);
-        $copyImageName(images);
-      });
+        }
+        $copySingleEl('.IllustItemText');
+        $tooptip.show('準備就緒');
+        setTimeout(function () {
+          $tooptip.hide();
+        }, 1000);
+      }
     }, 1000);
     $copySingleEl('.IllustItemDesc');
   } else {
