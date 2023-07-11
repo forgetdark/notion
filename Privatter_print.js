@@ -174,8 +174,9 @@ javascript:(function(){
     if (isCover) {
       content+= '<div style="float: right;">' + document.querySelector('[name="userprof"]').nextElementSibling.innerHTML + '</div>';
       content+= `<div style="float: left;">
-      <h1>`+document.querySelector('.lead').innerText+`</h1>`+
-      document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+
+      <h1>`+document.querySelector('.lead').innerText+`</h1>` +
+      `<div>` + document.querySelector('.nocopy').innerHTML + `</div><br />` +
+      document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML +
       `<div>` + document.querySelector('.fa-clock').parentElement.innerText + `</div>
       </div>`;
       content+= '<hr style="clear: both;">';
