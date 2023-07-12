@@ -251,31 +251,28 @@ javascript:(function(){
           visibility: hidden;
           height: 0;
           padding: 0 15px;
-        }
+        }`;
 
-        span ~ #tab > ul li:first-child a,
-        #tab-1:target ~ #tab > ul li a[href$="#tab-1"],
-        #tab-2:target ~ #tab > ul li a[href$="#tab-2"],
-        #tab-3:target ~ #tab > ul li a[href$="#tab-3"],
-        #tab-4:target ~ #tab > ul li a[href$="#tab-4"] {
+        [].forEach.call(textList, function(textArray, i) {
+          content+='#tab-'+textArray.page+':target ~ #tab > ul li a[href$="#tab-'+textArray.page+'"],';
+        });
+        content += `span ~ #tab > ul li:first-child a {
           background: #fff;
           border-radius: 5px 5px 0 0;
-        }
+        }`;
 
-        span ~ #tab > ul li:first-child a::before,
-        #tab-1:target ~ #tab > ul li a[href$="#tab-1"]::before,
-        #tab-2:target ~ #tab > ul li a[href$="#tab-2"]::before,
-        #tab-3:target ~ #tab > ul li a[href$="#tab-3"]::before,
-        #tab-4:target ~ #tab > ul li a[href$="#tab-4"]::before {
+        [].forEach.call(textList, function(textArray, i) {
+          content+='#tab-'+textArray.page+':target ~ #tab > ul li a[href$="#tab-'+textArray.page+'"]::before,';
+        });
+        content += `span ~ #tab > ul li:first-child a::before {
           background-color: white;
           height: 100%;
-        }
+        }`;
 
-        span ~ #tab > div:first-of-type,
-        #tab-1:target ~ #tab > div.tab-content-1,
-        #tab-2:target ~ #tab > div.tab-content-2,
-        #tab-3:target ~ #tab > div.tab-content-3,
-        #tab-4:target ~ #tab > div.tab-content-4 {
+        [].forEach.call(textList, function(textArray, i) {
+          content+='#tab-'+textArray.page+':target ~ #tab > div.tab-content-'+textArray.page+',';
+        });
+        content += `span ~ #tab > div:first-of-type {
           visibility: visible;
           height: auto;
           background: #fff;
