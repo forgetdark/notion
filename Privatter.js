@@ -175,8 +175,10 @@ javascript:(function(){
       `<h1 class="panel-copy">`+document.querySelector('.lead').innerText+`</h1>`+
       `<div class="panel-copy" style="float: left;">`+document.querySelector('[name="userprof"]').nextElementSibling.innerHTML+`</div>`+
       `<div class="panel-copy" style="float: right;">`+document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+`</div>`;
-      content+= `<hr style="clear: both;"><div class="panel-copy">`+document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling.innerHTML+`</div></div>`;
-      content+= '<hr>';
+      if (document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling != null) {
+        content+= `<hr style="clear: both;"><div class="panel-copy">`+document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling.innerHTML+`</div></div>`;
+      }
+      content+= '<hr style="clear: both;">';
     }
     return content;
   };
