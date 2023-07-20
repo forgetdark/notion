@@ -160,7 +160,8 @@ javascript:(function(){
       'title': '.sc-1u8nu73-3',
       'description': '.sc-eyxzap-1',
       'content': 'main',
-      'pages': '.sc-xhhh7v-1'
+      'pages': '.sc-xhhh7v-1',
+      'author': '.sc-cwiweh'
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'content') {
@@ -195,13 +196,18 @@ javascript:(function(){
           $tooptip.show('有分頁');
           setTimeout(function () {
             $tooptip.hide();
-          }, 1000);
+          }, 500);
         } else {
           $tooptip.show('無分頁');
           setTimeout(function () {
             $tooptip.hide();
-          }, 1000);
+          }, 500);
         }
+      } else if (key == 'author') {
+        setTimeout(function () {
+          var author = document.querySelector(el);
+          $copyTextOfElement(author.innerText + ' (' + author.getAttribute('data-gtm-value') + ')');
+        }, 1000);
       } else {
         $copySingleEl(el);
       }
