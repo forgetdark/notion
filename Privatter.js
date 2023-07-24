@@ -182,6 +182,21 @@ javascript:(function(){
     }
     return content;
   };
+  var $showImage = function (text, style) {
+    try {
+      $loader.hide();
+      var newWin = window.open('', 'privatter window');
+      newWin.document.open();
+      newWin.document.write(`<html>
+        <head>
+        <style></style>
+        </head>
+        <body style="text-align: center; `+style+`">`+text+`</body>
+      </html>`);
+    } catch (error) {
+      console.log('Oops!, unable to print');
+    };
+  };
 
   setTimeout(function () {
     $loader.show();
@@ -287,11 +302,31 @@ javascript:(function(){
         `;
         $privatterTxt(content);
       });
-    } else {
+    } else if (document.querySelectorAll('.honbun').length > 0) {
       var content = $getContent(true);
       content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
       content+= '<div class="panel-copy">'+document.querySelector('.honbun').innerHTML+'</div>';
       $privatterTxt(content);
+    } else {
+      var style = '';
+      if (document.querySelector('body').style.length > 0 && document.querySelector('body').style[0] == 'background-color') {
+        style = 'background-color:' + document.querySelector('body').style.backgroundColor + '; color: #FFF;';
+      }
+      $loader.show();
+      var images = [];
+      var photos = document.querySelectorAll('.image');
+      [].forEach.call(photos, function(photo) {
+        if (photo.children[0].children[0].localName == 'img') {
+          var img = photo.children[0].children[0].dataset.original;
+          images.push(img);
+        }
+      });
+      var content = '<div>共有 ' + images.length + ' 張</div><hr>';
+      [].forEach.call(images, function(image, index) {
+          content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
+          content += '<div>' + (index + 1) + '</div><hr>';
+      });
+      $showImage(content, style);
     }
   }, 100);
 })();
