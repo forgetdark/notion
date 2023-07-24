@@ -283,7 +283,7 @@ javascript:(function(){
     var $showImage = function (text, style) {
       try {
         $loader.hide();
-        var newWin = window.open('', 'privatter window');
+        var newWin = window.open('', 'twitter window');
         newWin.document.open();
         newWin.document.write(`<html>
           <head>
