@@ -298,6 +298,9 @@ javascript:(function(){
         span {
           display: none;
         }
+        span.santen {
+          display: inherit;
+        }
         </style>
         `;
         $privatterTxt(content);
