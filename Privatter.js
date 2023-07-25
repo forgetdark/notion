@@ -299,7 +299,7 @@ javascript:(function(){
           display: none;
         }
         span.santen {
-          display: inherit;
+          display: inline-block;
         }
         </style>
         `;
