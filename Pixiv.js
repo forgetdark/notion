@@ -182,6 +182,8 @@ javascript:(function(){
               [].forEach.call(document.querySelector(contentName).children, function(child) {
                 if (child.localName == 'p') {
                   contentModel.innerHTML += child.innerHTML + '<p></p>';
+                } else if (child.localName == 'h2') {
+                  contentModel.innerHTML += child.innerHTML + '<p></p><p></p><p></p>';
                 }
               });
               document.body.appendChild(contentModel);
