@@ -313,8 +313,9 @@ javascript:(function(){
     }
     
     var $getOriginUrl = function (img) {
-      var format = img.split('?format=')[1].split('&name=')[0];
       var path = img.split('?format=')[0];
+      return path + '.' + 'png';
+      var format = img.split('?format=')[1].split('&name=')[0];
       return path + '.' + format + ':orig';
     };
 
