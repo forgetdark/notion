@@ -349,7 +349,7 @@ javascript:(function(){
     var start_date = $prompt('請輸入起始日期', '2023-07-01');
     var end_date = $prompt('請輸入結束日期', '2023-07-31');
     if (account != null && start_date != null && end_date != null) {
-      window.location.href = 'https://twitter.com/search?f=live&q=(from%3A' + account + ')%20until%3A' + end_date + '%20since%3A' + start_date + '&src=typed_query';
+      window.location.href = 'https://twitter.com/search?f=live&q=(from:' + account + ') until:' + end_date + ' since:' + start_date + '&src=typed_query';
     }
   }
 })();
