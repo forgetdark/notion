@@ -74,7 +74,7 @@ javascript:(function(){
     };
   })();
 
-  var $copyTextOfElement = function (copyText) {
+  var $copyTextOfElement = function (copyText, isTooltip = true, callback = null) {
     function copyEl(text) {
       var el = document.createElement("textarea");
       el.value = text;
@@ -86,20 +86,30 @@ javascript:(function(){
       var transMsg = copyStatus ? '複製成功' : '複製失敗';
       document.body.removeChild(el);
       console.log('Text ' + msg + ' to clipboard...');
-      $tooptip.show(transMsg);
-      setTimeout(function () {
-        $tooptip.hide();
-      }, 1000);
+      if (isTooltip) {
+        $tooptip.show(transMsg);
+        setTimeout(function () {
+          $tooptip.hide();
+        }, 1000);
+      }
+      if ( typeof callback === 'function' ){
+        callback();
+      }
     };
     if (!navigator.clipboard) {
       copyEl(copyText);
     } else {
       let resolve = () => {
         console.log('Text copied to clipboard...');
-        $tooptip.show('複製成功');
-        setTimeout(function () {
-          $tooptip.hide();
-        }, 1000);
+        if (isTooltip) {
+          $tooptip.show('複製成功');
+          setTimeout(function () {
+            $tooptip.hide();
+          }, 1000);
+        }
+        if ( typeof callback === 'function' ){
+          callback();
+        }
       };
       let reject = (err) => {
         copyEl(copyText);
@@ -156,15 +166,24 @@ javascript:(function(){
     }, 1000);
   } else {
     var elementList = {
+      'author': '.sc-cwiweh',
       'series': '.sc-1u8nu73-15',
       'title': '.sc-1u8nu73-3',
       'description': '.sc-eyxzap-1',
       'content': 'main',
-      'pages': '.sc-xhhh7v-1',
-      'author': '.sc-cwiweh'
+      'pages': '.sc-xhhh7v-1'
     };
     for (const [key, el] of Object.entries(elementList)) {
-      if (key == 'content') {
+      if (key == 'author') {
+        setTimeout(function () {
+          var author = document.querySelector(el);
+          var author_id = author.getAttribute('data-gtm-value');
+          $copyTextOfElement(author.innerText + ' (' + author_id + ')', false, function () {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+          });
+        }, 1000);
+      } else if (key == 'content') {
         var contentName = '';
         var mains = document.querySelectorAll(elementList.content);
         [].forEach.call(mains, function(main, index) {
@@ -205,11 +224,6 @@ javascript:(function(){
             $tooptip.hide();
           }, 500);
         }
-      } else if (key == 'author') {
-        setTimeout(function () {
-          var author = document.querySelector(el);
-          $copyTextOfElement(author.innerText + ' (' + author.getAttribute('data-gtm-value') + ')');
-        }, 1000);
       } else {
         $copySingleEl(el);
       }
