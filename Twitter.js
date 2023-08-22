@@ -275,6 +275,9 @@ javascript:(function(){
     var $copyImageName = function () {
       var image = document.querySelector('[data-testid="tweetPhoto"]').children[1].src;
       var format = image.split('?format=')[1].split('&name=')[0];
+      if (format == "webp") {
+        format = "jpg";
+      }
       var name = image.split('?format=')[0].split('/media/')[1];
       $copyTextOfElement(name + '.' + format + ':orig');
     };
@@ -315,7 +318,7 @@ javascript:(function(){
     var $getOriginUrl = function (img) {
       var path = img.split('?format=')[0];
       var format = img.split('?format=')[1].split('&name=')[0];
-      return format != "webp" ? path + '.' + format + ':orig' : path + '.' + 'png';
+      return format != "webp" ? path + '.' + format + ':orig' : path + '.' + 'jpg';
     };
 
     var style = '';
