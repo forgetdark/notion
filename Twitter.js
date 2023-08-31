@@ -318,7 +318,7 @@ javascript:(function(){
     var $getOriginUrl = function (img) {
       var path = img.split('?format=')[0];
       var format = img.split('?format=')[1].split('&name=')[0];
-      return format != "webp" ? path + '.' + format + ':orig' : path + '.' + 'jpg';
+      return format != "webp" ? path + '.' + format + ':orig' : path + '.' + 'jpg:orig';
     };
 
     var style = '';
