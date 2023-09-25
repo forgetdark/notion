@@ -175,14 +175,16 @@ javascript:(function(){
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'author') {
-        setTimeout(function () {
-          var author = document.querySelectorAll('[data-gtm-value]')[1].innerText
-          var author_id = document.querySelectorAll('[data-gtm-value]')[1].getAttribute("data-gtm-value");
-          $copyTextOfElement(author.innerText + ' (' + author_id + ')', false, function () {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-          });
-        }, 1000);
+        if (document.querySelectorAll('[data-gtm-value]').length > 0) {
+          setTimeout(function () {
+            var author_name = document.querySelectorAll('[data-gtm-value]')[1].innerText;
+            var author_id = document.querySelectorAll('[data-gtm-value]')[1].getAttribute("data-gtm-value");
+            $copyTextOfElement(author_name + ' (' + author_id + ')', false, function () {
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+            });
+          }, 100);
+        }
       } else if (key == 'content') {
         var contentName = '';
         var mains = document.querySelectorAll(elementList.content);
