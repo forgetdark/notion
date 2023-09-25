@@ -166,7 +166,7 @@ javascript:(function(){
     }, 1000);
   } else {
     var elementList = {
-      'author': '.sc-cwiweh',
+      'author': '',
       'series': '.sc-1u8nu73-15',
       'title': '.sc-1u8nu73-3',
       'description': '.sc-eyxzap-1',
@@ -176,8 +176,8 @@ javascript:(function(){
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'author') {
         setTimeout(function () {
-          var author = document.querySelector(el);
-          var author_id = author.getAttribute('data-gtm-value');
+          var author = document.querySelectorAll('[data-gtm-value]')[1].innerText
+          var author_id = document.querySelectorAll('[data-gtm-value]')[1].getAttribute("data-gtm-value");
           $copyTextOfElement(author.innerText + ' (' + author_id + ')', false, function () {
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
