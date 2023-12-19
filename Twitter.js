@@ -281,7 +281,6 @@ javascript:(function(){
       var name = image.split('?format=')[0].split('/media/')[1];
       $copyTextOfElement(name + '.' + format + ':orig');
     };
-    $copyImageName();
 
     var $showImage = function (text, style) {
       try {
@@ -327,6 +326,7 @@ javascript:(function(){
     }
     if (document.querySelectorAll('.image-button').length > 0) {
       document.querySelector('.image-button').addEventListener('click', function (event) {
+        $copyImageName();
         setTimeout(function () {
           $loader.show();
           var images = [];
