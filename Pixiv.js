@@ -171,7 +171,8 @@ javascript:(function(){
       'title': '.sc-1u8nu73-3',
       'description': '.sc-eyxzap-1',
       'content': 'main',
-      'pages': '.sc-xhhh7v-1'
+      'pages': '.sc-xhhh7v-1',
+      'cover': '.sc-1u8nu73-17'
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'author') {
@@ -226,6 +227,14 @@ javascript:(function(){
             $tooptip.hide();
           }, 500);
         }
+      } else if (key == 'cover') {
+        document.querySelector(el).addEventListener('click', function(event) {
+          if (document.querySelectorAll('[data-gtm-value]').length > 0) {
+            var author_name = document.querySelectorAll('[data-gtm-value]')[1].innerText;
+            var author_id = document.querySelectorAll('[data-gtm-value]')[1].getAttribute("data-gtm-value");
+            $copyTextOfElement(author_name + ' (' + author_id + ')');
+          }
+        });
       } else {
         $copySingleEl(el);
       }
