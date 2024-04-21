@@ -173,7 +173,7 @@ javascript:(function(){
       'content': 'main',
       'pages': '.sc-xhhh7v-1',
       'cover': '.sc-1u8nu73-17',
-      'date': '.sc-5981ly-0'
+      'datetime': '.sc-5981ly-0'
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'author') {
@@ -235,6 +235,11 @@ javascript:(function(){
             var author_id = document.querySelectorAll('[data-gtm-value]')[1].getAttribute("data-gtm-value");
             $copyTextOfElement(author_name + ' (' + author_id + ')');
           }
+        });
+      } else if (key == 'datetime') {
+        document.querySelector(el).addEventListener('click', function(event) {
+          var datetime = document.querySelector(elementList.datetime).innerText;
+          $copyTextOfElement(datetime.replaceAll('年','/').replaceAll('月','/').replaceAll('日','').split(' ')[0]);
         });
       } else {
         $copySingleEl(el);
