@@ -174,7 +174,8 @@ javascript:(function(){
       content+= `<div><div class="panel-copy">`+url+`</div>`+
       `<h1 class="panel-copy">`+document.querySelector('.lead').innerText+`</h1>`+
       `<div class="panel-copy" style="float: left;">`+document.querySelector('[name="userprof"]').nextElementSibling.innerHTML+`</div>`+
-      `<div class="panel-copy" style="float: right;">`+document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+`</div>`;
+      `<div class="panel-copy" style="float: right;">`+document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+`</div>`+
+      `<div class="panel-copy" style="float: right; padding-right: 10px;">`+document.querySelector('.text-muted').innerText.replaceAll('-','/')+`</div>`;
       if (document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling != null) {
         content+= `<hr style="clear: both;"><div class="panel-copy">`+document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling.innerHTML+`</div></div>`;
       }
