@@ -172,7 +172,8 @@ javascript:(function(){
       'description': '.sc-eyxzap-1',
       'content': 'main',
       'pages': '.sc-xhhh7v-1',
-      'cover': '.sc-1u8nu73-17'
+      'cover': '.sc-1u8nu73-17',
+      'date': '.sc-5981ly-0'
     };
     for (const [key, el] of Object.entries(elementList)) {
       if (key == 'author') {
