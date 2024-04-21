@@ -169,13 +169,15 @@ javascript:(function(){
   };
   var $getContent = function (isCover) {
     var url = location.href;
+    var datetime = document.querySelector('.text-muted').innerText.replaceAll('-','/');
     var content = '';
     if (isCover) {
       content+= `<div><div class="panel-copy">`+url+`</div>`+
       `<h1 class="panel-copy">`+document.querySelector('.lead').innerText+`</h1>`+
       `<div class="panel-copy" style="float: left;">`+document.querySelector('[name="userprof"]').nextElementSibling.innerHTML+`</div>`+
       `<div class="panel-copy" style="float: right;">`+document.querySelector('.lead').nextElementSibling.nextElementSibling.innerHTML+`</div>`+
-      `<div class="panel-copy" style="float: right; padding-right: 10px;">`+document.querySelector('.text-muted').innerText.replaceAll('-','/')+`</div>`;
+      `<div class="panel-copy" style="float: right; padding-right: 15px;">`+datetime.split(' ')[1]+`</div>`+
+      `<div class="panel-copy" style="float: right; padding-right: 5px;">`+datetime.split(' ')[0]+`</div>`;
       if (document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling != null) {
         content+= `<hr style="clear: both;"><div class="panel-copy">`+document.querySelector('.fa-clock').parentElement.parentElement.nextElementSibling.innerHTML+`</div></div>`;
       }
