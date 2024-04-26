@@ -273,13 +273,22 @@ javascript:(function(){
     }
 
     var $copyImageName = function () {
-      var image = document.querySelector('[data-testid="tweetPhoto"]').children[1].src;
-      var format = image.split('?format=')[1].split('&name=')[0];
-      if (format == "webp") {
-        format = "jpg";
+      var name = "";
+      var photos = document.querySelectorAll('[data-testid="tweetPhoto"]');
+      [].forEach.call(photos, function(photo) {
+        if (photo.children.length > 1 && photo.children[1].localName == 'img' && name == "") {
+          var image = photo.children[1].src;
+          var format = image.split('?format=')[1].split('&name=')[0];
+          if (format == "webp") {
+            format = "jpg";
+          }
+          name = image.split('?format=')[0].split('/media/')[1];
+          name += '.' + format + ':orig';
+        }
+      });
+      if (name != "") {
+        $copyTextOfElement(name);
       }
-      var name = image.split('?format=')[0].split('/media/')[1];
-      $copyTextOfElement(name + '.' + format + ':orig');
     };
 
     var $showImage = function (text, style) {
