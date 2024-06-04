@@ -319,6 +319,7 @@ javascript:(function(){
         width: calc(100% - 20px);
         border-radius: 10px;
         cursor: pointer;
+        text-align: center;
         ">另開圖片</button>`;
       document.querySelectorAll('[data-testid="User-Name"]')[0].parentElement.parentElement.parentElement.parentElement.appendChild(imageButton);
     }
