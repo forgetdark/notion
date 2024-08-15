@@ -1,249 +1,235 @@
-javascript:(function(){
-  var $tooptip = (function() {
-    var tooptipStyle = document.createElement('style');
-    tooptipStyle.id = 'tooltip-style';
-    tooptipStyle.innerHTML = `.tooltip-model {
-      opacity: 0;
-      transition: opacity .5s;
-      visibility: hidden;
-      position: relative;
+javascript:(() => {
+  class Tooltip {
+    constructor() {
+      this.tooltipStyle = this.createTooltipStyle();
+      this.tooltipModel = this.createTooltipModel();
     }
-    .tooltip-model span {
-      width: 100px;
-      background-color: #555;
-      color: #fff;
-      text-align: center;
-      padding: 5px 0;
-      border-radius: 6px;
-      z-index: 99999999;
-      font-size: 13px;
-    }
-    .tooltip-model span:after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: #555 transparent transparent transparent;
-    }`;
 
-    var tooltipModel = document.createElement('div');
-    tooltipModel.classList.add('tooltip-model');
-
-    return {
-      show: function (text, targetName, position) {
-        document.body.appendChild(tooptipStyle);
-        if (typeof targetName === 'undefined') {
-          tooltipModel.innerHTML = '<span style="position: fixed; left: 1%; top: 1%;">' + text + '</span>';
-          document.body.appendChild(tooltipModel);
-        } else {
-          var target = targetName;
-          if (typeof targetName === 'string' || targetName instanceof String) {
-            target = document.getElementById(targetName.replace('#', ''));
-          }
-
-          position = typeof position !== 'undefined' ? position : [null, -30];
-          if (position[0] === null) {
-            position[0] = 'calc(' + (target.offsetWidth * 0.5) + 'px - 50px)';
-          } else {
-            position[0] += 'px';
-          }
-          tooltipModel.innerHTML = '<span style="position: absolute; left:' + position[0] + '; top:' + position[1] + 'px;">' + text + '</span>';
-
-          if (target.firstChild !== null) {
-            target.insertBefore(tooltipModel, target.firstChild);
-          } else {
-            target.appendChild(tooltipModel);
-          }
+    createTooltipStyle() {
+      const style = document.createElement('style');
+      style.id = 'tooltip-style';
+      style.innerHTML = `
+        .tooltip-model {
+          opacity: 0;
+          transition: opacity .5s;
+          visibility: hidden;
+          position: relative;
         }
-        setTimeout(function () {
-          document.querySelector('.tooltip-model').style.visibility = 'visible';
-          document.querySelector('.tooltip-model').style.opacity = 1;
-        }, 1);
-      },
-      hide: function () {
-        document.querySelector('.tooltip-model').style.opacity = 0;
-        setTimeout(function () {
-          document.querySelector('.tooltip-model').style.visibility = 'hidden';
-          document.getElementById('tooltip-style').remove();
-          document.querySelector('.tooltip-model').remove();
-        }, 500);
-      }
-    };
-  })();
+        .tooltip-model span {
+          width: 100px;
+          background-color: #555;
+          color: #fff;
+          text-align: center;
+          padding: 5px 0;
+          border-radius: 6px;
+          z-index: 99999999;
+          font-size: 13px;
+        }
+        .tooltip-model span:after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #555 transparent transparent transparent;
+        }`;
+      return style;
+    }
 
-  var $copyTextOfElement = function (copyText, isTooltip = true, callback = null) {
-    function copyEl(text) {
-      var el = document.createElement("textarea");
+    createTooltipModel() {
+      const model = document.createElement('div');
+      model.classList.add('tooltip-model');
+      return model;
+    }
+
+    show(text, targetName, position = [null, -30]) {
+      document.body.appendChild(this.tooltipStyle);
+      if (targetName) {
+        const target = typeof targetName === 'string' ? document.getElementById(targetName.replace('#', '')) : targetName;
+        position[0] = position[0] ?? `calc(${(target.offsetWidth * 0.5)}px - 50px)`;
+        this.tooltipModel.innerHTML = `<span style="position: absolute; left: ${position[0]}; top: ${position[1]}px;">${text}</span>`;
+        target.insertAdjacentElement('afterbegin', this.tooltipModel);
+      } else {
+        this.tooltipModel.innerHTML = `<span style="position: fixed; left: 1%; top: 1%;">${text}</span>`;
+        document.body.appendChild(this.tooltipModel);
+      }
+      setTimeout(() => {
+        this.tooltipModel.style.visibility = 'visible';
+        this.tooltipModel.style.opacity = 1;
+      }, 1);
+    }
+
+    hide() {
+      this.tooltipModel.style.opacity = 0;
+      setTimeout(() => {
+        this.tooltipModel.style.visibility = 'hidden';
+        this.tooltipStyle.remove();
+        this.tooltipModel.remove();
+      }, 500);
+    }
+  }
+
+  const tooltip = new Tooltip();
+
+  const copyText = async (copyText, isTooltip = true, callback = null) => {
+    const copyToClipboard = (text) => {
+      const el = document.createElement("textarea");
       el.value = text;
       document.body.appendChild(el);
-      el.focus();
       el.select();
-      var copyStatus = document.execCommand('copy');
-      var msg = copyStatus ? 'copied' : 'failed';
-      var transMsg = copyStatus ? '複製成功' : '複製失敗';
+      const success = document.execCommand('copy');
       document.body.removeChild(el);
-      console.log('Text ' + msg + ' to clipboard...');
-      if (isTooltip) {
-        $tooptip.show(transMsg);
-        setTimeout(function () {
-          $tooptip.hide();
-        }, 1000);
-      }
-      if ( typeof callback === 'function' ){
-        callback();
-      }
+      return success;
     };
-    if (!navigator.clipboard) {
-      copyEl(copyText);
-    } else {
-      let resolve = () => {
-        console.log('Text copied to clipboard...');
+
+    if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(copyText);
         if (isTooltip) {
-          $tooptip.show('複製成功');
-          setTimeout(function () {
-            $tooptip.hide();
-          }, 1000);
+          tooltip.show('複製成功');
+          setTimeout(() => tooltip.hide(), 1000);
         }
-        if ( typeof callback === 'function' ){
-          callback();
+        if (typeof callback === 'function') callback();
+      } catch (err) {
+        if (copyToClipboard(copyText) && isTooltip) {
+          tooltip.show('複製成功');
+          setTimeout(() => tooltip.hide(), 1000);
+        } else if (isTooltip) {
+          tooltip.show('複製失敗');
+          setTimeout(() => tooltip.hide(), 1000);
         }
-      };
-      let reject = (err) => {
-        copyEl(copyText);
-      };
-      navigator.clipboard.writeText(copyText).then(resolve, reject);
     }
-  };
-  var $copyMultEl = function (e) {
-    var contents = document.querySelectorAll(e);
-    if (contents.length > 0) {
-      [].forEach.call(contents, function(element) {
-        element.addEventListener('click', function(event) {
-          $copyTextOfElement(this.innerText);
-        });
-      });
-    }
-  };
-  var $copySingleEl = function (e) {
-    if (document.querySelectorAll(e).length > 0) {
-      document.querySelector(e).addEventListener('click', function(event) {
-        $copyTextOfElement(this.innerText);
-      });
+    } else {
+      const success = copyToClipboard(copyText);
+      if (isTooltip) {
+        tooltip.show(success ? '複製成功' : '複製失敗');
+        setTimeout(() => tooltip.hide(), 1000);
+      }
+      if (typeof callback === 'function') callback();
     }
   };
 
-  if (location.href.indexOf('users') > 0) {
-    var author = document.querySelector('h1').innerText;
-    var id = location.href.split('/');
-    $copyTextOfElement(author + ' (' + id[4] + ')');
-  } else if (location.href.indexOf('series') > 0) {
-    var elementList = {
-      'cover': '.sc-vmsckl-2',
-      'series': '.sc-vk2fvc-2',
-      'description': '.sc-eyxzap-1'
+  const addClickListener = (selector, handler) => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(element => element.addEventListener('click', handler));
+  };
+
+  const handleUserPage = () => {
+    const author = document.querySelector('h1').innerText;
+    const id = location.href.split('/');
+    copyText(`${author} (${id[4]})`);
+  };
+
+  const handleSeriesPage = () => {
+    const elementList = {
+      cover: '.sc-vmsckl-2',
+      series: '.sc-vk2fvc-2',
+      description: '.sc-eyxzap-1'
     };
     for (const [key, el] of Object.entries(elementList)) {
-      if (key == 'cover') {
-        document.querySelector(el).style = 'cursor: pointer;';
-        document.querySelector(el).addEventListener('click', function(event) {
-          var el = document.createElement("a");
-          el.href = this.src;
-          el.target = '_blank';
-          document.body.appendChild(el);
-          el.click();
-          document.body.removeChild(el);
+      if (key === 'cover') {
+        const coverElement = document.querySelector(el);
+        coverElement.style.cursor = 'pointer';
+        coverElement.addEventListener('click', () => {
+          const a = document.createElement("a");
+          a.href = coverElement.src;
+          a.target = '_blank';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
         });
       } else {
-        $copySingleEl(el);
+        addClickListener(el, function () {
+          copyText(this.innerText);
+        });
       }
     }
-    $tooptip.show('準備就緒');
-    setTimeout(function () {
-      $tooptip.hide();
-    }, 1000);
-  } else {
-    var elementList = {
-      'author': '',
-      'series': '.sc-1u8nu73-15',
-      'title': '.sc-1u8nu73-3',
-      'description': '.sc-eyxzap-1',
-      'content': 'main',
-      'pages': '.sc-xhhh7v-1',
-      'cover': '.sc-1u8nu73-17',
-      'datetime': '.sc-5981ly-0'
+    tooltip.show('準備就緒');
+    setTimeout(() => tooltip.hide(), 1000);
+  };
+
+  const handleDefaultPage = () => {
+    const elementList = {
+      author: '',
+      series: '.sc-1u8nu73-15',
+      title: '.sc-1u8nu73-3',
+      description: '.sc-eyxzap-1',
+      content: 'main',
+      pages: '.sc-xhhh7v-1',
+      cover: '.sc-1u8nu73-17',
+      datetime: '.sc-5981ly-0'
     };
+
     for (const [key, el] of Object.entries(elementList)) {
-      if (key == 'author') {
-        if (document.querySelectorAll('[data-gtm-value]').length > 0) {
-          setTimeout(function () {
-            var author_name = document.querySelectorAll('[data-gtm-value]')[1].innerText;
-            var author_id = document.querySelectorAll('[data-gtm-value]')[1].getAttribute("data-gtm-value");
-            $copyTextOfElement(author_name + ' (' + author_id + ')', false, function () {
-              document.body.scrollTop = 0;
-              document.documentElement.scrollTop = 0;
-            });
-          }, 100);
-        }
-      } else if (key == 'content') {
-        var contentName = '';
-        var mains = document.querySelectorAll(elementList.content);
-        [].forEach.call(mains, function(main, index) {
-          if (index > 0) {
-            contentName = '.' + main.children[0].classList[0];
-            return true;
-          }
-        });
-        if (contentName != '') {
-          document.querySelector(contentName).addEventListener('click', function(event) {
-            setTimeout(function () {
-              var contentModel = document.createElement('div');
-              contentModel.classList.add('content-model');
-              contentModel.innerHTML = '';
-              [].forEach.call(document.querySelector(contentName).children, function(child) {
-                if (child.localName == 'p') {
-                  contentModel.innerHTML += child.innerHTML + '<p></p>';
-                } else if (child.localName == 'h2') {
-                  contentModel.innerHTML += child.innerHTML + '<p></p><br/>';
-                }
-              });
-              document.body.appendChild(contentModel);
-              $copyTextOfElement(contentModel.innerText);
-              document.querySelector('.content-model').remove();
-            }, 100);
-          });
-        }
-      } else if (key == 'pages') {
-        var pages = document.querySelectorAll(el);
-        if (pages.length > 0) {
-          $tooptip.show('有分頁');
-          setTimeout(function () {
-            $tooptip.hide();
-          }, 500);
-        } else {
-          $tooptip.show('無分頁');
-          setTimeout(function () {
-            $tooptip.hide();
-          }, 500);
-        }
-      } else if (key == 'cover') {
-        document.querySelector(el).addEventListener('click', function(event) {
+      switch (key) {
+        case 'author':
           if (document.querySelectorAll('[data-gtm-value]').length > 0) {
-            var author_name = document.querySelectorAll('[data-gtm-value]')[1].innerText;
-            var author_id = document.querySelectorAll('[data-gtm-value]')[1].getAttribute("data-gtm-value");
-            $copyTextOfElement(author_name + ' (' + author_id + ')');
+            setTimeout(() => {
+              const author_name = document.querySelectorAll('[data-gtm-value]')[1].innerText;
+              const author_id = document.querySelectorAll('[data-gtm-value]')[1].getAttribute("data-gtm-value");
+              copyText(`${author_name} (${author_id})`, false, () => {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+              });
+            }, 100);
           }
-        });
-      } else if (key == 'datetime') {
-        document.querySelector(el).addEventListener('click', function(event) {
-          var datetime = document.querySelector(elementList.datetime).innerText;
-          $copyTextOfElement(datetime.replaceAll('年','/').replaceAll('月','/').replaceAll('日','').split(' ')[0]);
-        });
-      } else {
-        $copySingleEl(el);
+          break;
+        case 'content':
+          const mains = document.querySelectorAll(el);
+          mains.forEach((main, index) => {
+            if (index > 0) {
+              const contentName = `.${main.children[0].classList[0]}`;
+              document.querySelector(contentName).addEventListener('click', () => {
+                setTimeout(() => {
+                  const contentModel = document.createElement('div');
+                  contentModel.classList.add('content-model');
+                  contentModel.innerHTML = Array.from(document.querySelector(contentName).children)
+                    .map(child => (child.localName === 'p' ? child.innerHTML + '<p></p>' : child.localName === 'h2' ? child.innerHTML + '<p></p><br/>' : ''))
+                    .join('');
+                  document.body.appendChild(contentModel);
+                  copyText(contentModel.innerText);
+                  contentModel.remove();
+                }, 100);
+              });
+            }
+          });
+          break;
+        case 'pages':
+          const pages = document.querySelectorAll(el);
+          tooltip.show(pages.length > 0 ? '有分頁' : '無分頁');
+          setTimeout(() => tooltip.hide(), 500);
+          break;
+        case 'cover':
+          const coverElement = document.querySelector(el);
+          coverElement.addEventListener('click', () => {
+            if (document.querySelectorAll('[data-gtm-value]').length > 0) {
+              const author_name = document.querySelectorAll('[data-gtm-value]')[1].innerText;
+              const author_id = document.querySelectorAll('[data-gtm-value]')[1].getAttribute("data-gtm-value");
+              copyText(`${author_name} (${author_id})`);
+            }
+          });
+          break;
+        case 'datetime':
+          document.querySelector(el).addEventListener('click', () => {
+            const datetime = document.querySelector(el).innerText;
+            copyText(datetime.replaceAll('年', '/').replaceAll('月', '/').replaceAll('日', '').split(' ')[0]);
+          });
+          break;
+        default:
+          addClickListener(el, function () {
+            copyText(this.innerText);
+          });
       }
     }
+  };
+
+  if (location.href.includes('users')) {
+    handleUserPage();
+  } else if (location.href.includes('series')) {
+    handleSeriesPage();
+  } else {
+    handleDefaultPage();
   }
 })();
