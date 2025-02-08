@@ -209,6 +209,12 @@ javascript:(function(){
       content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
       content+= '<div class="panel-copy">'+main+'</div>';
       $lofterTxt(content);
+    } else if (document.querySelectorAll('.txtcont').length > 0) {
+      var content = $getContent(true);
+      var main = document.querySelector('.txtcont').innerHTML;
+      content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
+      content+= '<div class="panel-copy">'+main+'</div>';
+      $lofterTxt(content);
     } else {
       var style = '';
       if (document.querySelector('body').style.length > 0 && document.querySelector('body').style[0] == 'background-color') {
