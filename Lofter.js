@@ -173,8 +173,8 @@ javascript:(function(){
     if (isCover) {
       content+= `<div><div class="panel-copy">`+url+`</div>`+
       `<h1 class="panel-copy">`+document.querySelector('h2').innerText+`</h1>`+
-      `<div class="panel-copy" style="float: left;">`+document.querySelector('h1').innerText+`</div>`+
-      `<div class="panel-copy" style="float: right;">`+url.split('.lofter.com')[0].replace('https://', '')+`</div>`+
+      `<div class="panel-copy" style="float: left;">`+document.querySelector('h1').innerText+' ('+url.split('.lofter.com')[0].replace('https://', '')+')'+`</div>`+
+      `<div class="panel-copy" style="float: right;">`+''+`</div>`+
       `<hr style="clear: both;">`;
     }
     return content;
