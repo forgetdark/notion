@@ -197,7 +197,27 @@ javascript:(function(){
 
   setTimeout(function () {
     $loader.show();
-    if (document.querySelectorAll('.main').length > 0) {
+    if (document.querySelectorAll('.imgclasstag').length > 0) {
+      var style = '';
+      if (document.querySelector('body').style.length > 0 && document.querySelector('body').style[0] == 'background-color') {
+        style = 'background-color:' + document.querySelector('body').style.backgroundColor + '; color: #FFF;';
+      }
+      $loader.show();
+      var images = [];
+      var photos = document.querySelectorAll('.img');
+      [].forEach.call(photos, function(photo) {
+        if (photo.children[0].children[0].localName == 'img') {
+          var img = photo.children[0].children[0].src;
+          images.push(img);
+        }
+      });
+      var content = '<div>共有 ' + images.length + ' 張</div><hr>';
+      [].forEach.call(images, function(image, index) {
+          content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
+          content += '<div>' + (index + 1) + '</div><hr>';
+      });
+      $showImage(content, style);
+    } else if (document.querySelectorAll('.main').length > 0) {
       var content = $getContent(true);
       var main = document.querySelector('.main').children[0].innerHTML;
       content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
@@ -215,26 +235,6 @@ javascript:(function(){
       content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
       content+= '<div class="panel-copy">'+main+'</div>';
       $lofterTxt(content);
-    } else {
-      var style = '';
-      if (document.querySelector('body').style.length > 0 && document.querySelector('body').style[0] == 'background-color') {
-        style = 'background-color:' + document.querySelector('body').style.backgroundColor + '; color: #FFF;';
-      }
-      $loader.show();
-      var images = [];
-      var photos = document.querySelectorAll('.image');
-      [].forEach.call(photos, function(photo) {
-        if (photo.children[0].children[0].localName == 'img') {
-          var img = photo.children[0].children[0].dataset.original;
-          images.push(img);
-        }
-      });
-      var content = '<div>共有 ' + images.length + ' 張</div><hr>';
-      [].forEach.call(images, function(image, index) {
-          content += '<image src="' + image + '" title="image ' + (index + 1) + '" width="20%" />';
-          content += '<div>' + (index + 1) + '</div><hr>';
-      });
-      $showImage(content, style);
     }
   }, 100);
 })();
