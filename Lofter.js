@@ -197,114 +197,15 @@ javascript:(function(){
 
   setTimeout(function () {
     $loader.show();
-    if (document.querySelectorAll('.pagination').length > 0) {
-      var $getText = function () {
-        return new Promise(function(resolve, reject) {
-          var textList = [];
-          var contents = document.querySelectorAll('.main');
-          [].forEach.call(contents, function(e, i) {
-            textList.push({
-              'page': i + 1,
-              'content': e.innerHTML
-            });
-          });
-          resolve(textList);
-        });
-      };
-      $getText().then(function (textList) {
-        var content = $getContent(true);
-        [].forEach.call(textList, function(textArray, i) {
-          content+='<span id="tab-'+textArray.page+'">'+textArray.page+'</span>';
-        });
-        content+='<div id="tab"><ul>';
-        [].forEach.call(textList, function(textArray, i) {
-          content+='<li><a href="#tab-'+textArray.page+'">'+textArray.page+'</a></li>';
-        });
-        content+='</ul>';
-        [].forEach.call(textList, function(textArray, i) {
-          content+='<div class="panel-copy tab-content-'+textArray.page+'"><p>'+textArray.content+'</p></div>';
-        });
-        content+='</div>';
-        content+=`
-        <style>
-        #tab {
-          background: #8888CC;
-          border: solid 1px #8888CC;
-        }
-        #tab > ul {
-          margin: 0;
-          padding: 10px 20px 0 20px;
-        }
-
-        #tab > ul > li {
-          list-style-type: none;
-        }
-
-        #tab > ul > li > a { 
-          text-decoration: none;
-          font-size: 15px;
-          color: #333;
-          float: left;
-          padding: 10px;
-          margin-left: 5px;
-        }
-
-        #tab > div {
-          clear: both;
-          padding: 0 15px;
-          height: 0;
-          overflow: hidden;
-          visibility: hidden;
-        }
-
-        span:target ~ #tab > ul li:first-child a {
-          background: #8888CC;
-        }
-
-        span:target ~ #tab > div:first-of-type {
-          visibility: hidden;
-          height: 0;
-          padding: 0 15px;
-        }`;
-
-        [].forEach.call(textList, function(textArray, i) {
-          content+='#tab-'+textArray.page+':target ~ #tab > ul li a[href$="#tab-'+textArray.page+'"],';
-        });
-        content += `span ~ #tab > ul li:first-child a {
-          background: #fff;
-          border-radius: 5px 5px 0 0;
-        }`;
-
-        [].forEach.call(textList, function(textArray, i) {
-          content+='#tab-'+textArray.page+':target ~ #tab > ul li a[href$="#tab-'+textArray.page+'"]::before,';
-        });
-        content += `span ~ #tab > ul li:first-child a::before {
-          background-color: white;
-          height: 100%;
-        }`;
-
-        [].forEach.call(textList, function(textArray, i) {
-          content+='#tab-'+textArray.page+':target ~ #tab > div.tab-content-'+textArray.page+',';
-        });
-        content += `span ~ #tab > div:first-of-type {
-          visibility: visible;
-          height: auto;
-          background: #fff;
-        }
-
-        span {
-          display: none;
-        }
-        span.santen {
-          display: inline-block;
-        }
-        </style>
-        `;
-        $lofterTxt(content);
-      });
-    } else if (document.querySelectorAll('.main').length > 0) {
+    if (document.querySelectorAll('.main').length > 0) {
       var content = $getContent(true);
       var main = document.querySelector('.main').children[0].innerHTML;
+      content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
+      content+= '<div class="panel-copy">'+main+'</div>';
+      $lofterTxt(content);
+    } else if (document.querySelectorAll('.cont').length > 0) {
+      var content = $getContent(true);
+      var main = document.querySelector('.cont').children[0].innerHTML;
       content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
       content+= '<div class="panel-copy">'+main+'</div>';
       $lofterTxt(content);
