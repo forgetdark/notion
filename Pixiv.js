@@ -154,8 +154,8 @@ javascript:(() => {
     const elementList = {
       author: '',
       series: '.sc-1u8nu73-15',
-      title: '.sc-a2ee6855-3',
-      description: '.sc-45d4878c-1',
+      title: '.iLOtJW',
+      description: '.gaIENr',
       content: 'main',
       pages: '.sc-xhhh7v-1',
       cover: '.sc-1u8nu73-17',
