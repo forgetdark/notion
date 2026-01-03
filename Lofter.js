@@ -218,7 +218,6 @@ javascript:(function(){
       });
       $showImage(content, style);
     } else {
-      // 依序檢查的 selector
       var selectors = ['.main', '.cont', '.txtcont'];
     
       var selector = selectors.find(function(sel) {
@@ -229,7 +228,6 @@ javascript:(function(){
         var content = $getContent(true);
         var el = document.querySelector(selector);
     
-        // .main / .cont 取 children[0]，.txtcont 直接取本身
         var main =
           selector === '.txtcont'
             ? el.innerHTML
