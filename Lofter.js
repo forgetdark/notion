@@ -206,9 +206,9 @@ javascript:(function(){
       var images = [];
       var photos = document.querySelectorAll('.img');
       [].forEach.call(photos, function(photo) {
-        if (photo.children[0].children[0].localName == 'img') {
-          var img = photo.children[0].children[0].src;
-          images.push(img);
+        var imgEl = photo.querySelector('img');
+        if (imgEl) {
+          images.push(imgEl.src);
         }
       });
       var content = '<div>共有 ' + images.length + ' 張</div><hr>';
@@ -217,24 +217,30 @@ javascript:(function(){
           content += '<div>' + (index + 1) + '</div><hr>';
       });
       $showImage(content, style);
-    } else if (document.querySelectorAll('.main').length > 0) {
-      var content = $getContent(true);
-      var main = document.querySelector('.main').children[0].innerHTML;
-      content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
-      content+= '<div class="panel-copy">'+main+'</div>';
-      $lofterTxt(content);
-    } else if (document.querySelectorAll('.cont').length > 0) {
-      var content = $getContent(true);
-      var main = document.querySelector('.cont').children[0].innerHTML;
-      content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
-      content+= '<div class="panel-copy">'+main+'</div>';
-      $lofterTxt(content);
-    } else if (document.querySelectorAll('.txtcont').length > 0) {
-      var content = $getContent(true);
-      var main = document.querySelector('.txtcont').innerHTML;
-      content+= '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
-      content+= '<div class="panel-copy">'+main+'</div>';
-      $lofterTxt(content);
+    } else {
+      // 依序檢查的 selector
+      var selectors = ['.main', '.cont', '.txtcont'];
+    
+      var selector = selectors.find(function(sel) {
+        return document.querySelector(sel);
+      });
+    
+      if (selector) {
+        var content = $getContent(true);
+        var el = document.querySelector(selector);
+    
+        // .main / .cont 取 children[0]，.txtcont 直接取本身
+        var main =
+          selector === '.txtcont'
+            ? el.innerHTML
+            : el.children[0].innerHTML;
+    
+        content +=
+          '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
+        content += '<div class="panel-copy">' + main + '</div>';
+    
+        $lofterTxt(content);
+      }
     }
   }, 100);
 })();
