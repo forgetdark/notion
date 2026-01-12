@@ -207,7 +207,12 @@ javascript:(function(){
       var photos = document.querySelectorAll('.img');
       [].forEach.call(photos, function(photo) {
         var imgEl = photo.querySelector('img');
-        if (imgEl) {
+        if (!imgEl) return;
+      
+        var linkEl = imgEl.closest('a');
+        if (linkEl && linkEl.getAttribute('bigimgsrc')) {
+          images.push(linkEl.getAttribute('bigimgsrc'));
+        } else {
           images.push(imgEl.src);
         }
       });
