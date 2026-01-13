@@ -197,10 +197,7 @@ javascript:(function(){
       var content = $getContent(true);
       var el = document.querySelector(selector);
   
-      var main =
-        selector === '.userstuff'
-          ? el.innerHTML
-          : el.children[1].innerHTML;
+      var main = el.innerHTML;
   
       content +=
         '<div style="text-align: center; margin-bottom: 1em; padding: 10px; background: #CCAA88; font-size: 15px; color: #333;">1</div>';
