@@ -180,6 +180,9 @@ javascript:(function(){
       } else if (document.querySelectorAll('.notes').length > 0) {
         content+= `<hr style="clear: both;"><div class="panel-copy">`+document.querySelector('.notes').children[1].innerHTML+`</div></div>`;
       }
+      if (document.querySelectorAll('.end').length > 0) {
+        content+= `<hr style="clear: both;"><div class="panel-copy">`+document.querySelector('.end').children[1].innerHTML+`</div></div>`;
+      }
       content+= '<hr style="clear: both;">';
     }
     return content;
