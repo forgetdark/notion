@@ -175,8 +175,10 @@ javascript:(function(){
       `<h1 class="panel-copy">`+document.querySelector('h2').innerText+`</h1>`+
       `<div class="panel-copy" style="float: left;">`+document.querySelector('[rel="author"]').innerHTML+`</div>`+
       `<div class="panel-copy" style="float: right;">`+`</div>`;
-      if (document.querySelector('.summary').children.length > 0) {
+      if (document.querySelectorAll('.summary').length > 0) {
         content+= `<hr style="clear: both;"><div class="panel-copy">`+document.querySelector('.summary').children[1].innerHTML+`</div></div>`;
+      } else if (document.querySelectorAll('.notes').length > 0) {
+        content+= `<hr style="clear: both;"><div class="panel-copy">`+document.querySelector('.notes').children[1].innerHTML+`</div></div>`;
       }
       content+= '<hr style="clear: both;">';
     }
